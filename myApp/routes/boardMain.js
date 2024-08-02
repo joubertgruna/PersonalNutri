@@ -421,14 +421,14 @@ router.post('/edit-paciente/:id', (req, res) => {
 router.post('/delete-paciente', (req, res) => {
     var id = req.body.id
 
-    knex('alimentos').where({ id: id }).del()
+    knex('pacientes').where({ id: id }).del()
         .then(() => {
-            console.log('Alimento deletado com sucesso!', id);
-            res.redirect('/admin/list-alimentos');
+            console.log('Paciente deletado com sucesso!', id);
+            res.redirect('/admin/list-paciente');
         })
         .catch((error) => {
-            console.error('Erro ao deletar o alimento:', error);
-            res.status(500).send('Erro ao deletar o alimento');
+            console.error('Erro ao deletar o paciente:', error);
+            res.status(500).send('Erro ao deletar o paciente');
         })
 
     console.log('DELETED::: ', id)
