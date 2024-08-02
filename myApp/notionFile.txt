@@ -1,0 +1,28 @@
+A base para os relacionamentos é basicamente essa
+
+Tenho 12 tabelas ao todo
+Nutricionistas
+Pascientes
+Treinadores 
+Alunos
+Treinos 
+Exercicicios 
+GPmuscular
+Protocolo
+Dieta
+Alimentos
+Suplementos
+Ergogenicos
+
+Cada relacionamento deve funcionar da seguinte forma
+
+1: Treinador pode ter M: alunos, onde M: alunos pertencerem a 1: Treinador,
+1: Nutricionista pode ter M: Pascientes, onde M: Pascientes pertencem a 1: Nutricionista,
+1: Dieta pode ter M: Alimentos, M: Suplementos, M: Ergogenicos, onde M: Alimentos, M: Suplementos, M: Ergogenicos pertencem a 1: Dieta,
+1: Treino pode ter M: Exercicicios e M: GPmuscular, onde M: Exercicicios, M: GPmuscular pertencem a 1: treino, 
+1: Protocolo pode ter 1: Dieta, 1: aluno, 1: treino, onde 1: Dieta, 1: aluno, 1: treino pertencem a 1: protocolo, 
+
+
+Eu preciso criar esses relacionamentos gostaria primeiramente como eu faria esses relacionamentos em uma base de dados 
+MySQL
+

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Basic Page Info -->
+	<meta charset="utf-8">
+	<title><%=title%></title>
+
+	<!-- Site favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="../../boardMain/vendors/images/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../boardMain/vendors/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../../boardMain/vendors/images/favicon-16x16.png">
+
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+		rel="stylesheet">
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/core.css">
+	<link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/icon-font.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="../../boardMain/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="../../boardMain/src/plugins/datatables/css/responsive.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/style.css">
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-119386393-1');
+	</script>
+</head>
+
+<body>
+	<%-include('./partials/preloader')%>
+
+   <%-include('./partials/header')%>
+
+    
+   <%-include('./partials/left-sidebar')%>
+	<div class="mobile-menu-overlay"></div>
+
+	<div class="main-container">
+		<div class="pd-ltr-20 xs-pd-20-10">
+			<div class="min-height-200px">
+				<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>Tabela de dados</h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="/">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Pacientes</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<!-- Simple Datatable start -->
+				<div class="card-box mb-30">
+					<div class="pd-20">
+						<h4 class="text-blue h4">Pacientes</h4>
+					</div>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">ID</th>
+									<th class="table-plus datatable-nosort">Nome</th>
+									<th>E-mail</th>
+									<th>Celular</th>
+									<th>Senha</th>
+									<!-- <th>Start Date</th> -->
+									<th class="datatable-nosort">Edicao</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% paciente.forEach((paciente)=>{ %>
+									<tr>
+										<td class="table-plus">
+											<%=paciente.id%>
+										</td>
+										<td class="table-plus">
+											<%=paciente.nome%>
+										</td>
+										<td>
+											<%=paciente.email%>
+										</td>
+										<td>
+											<%=paciente.cellphone%>
+										</td>
+										<td>
+											<%=paciente.password%>
+										</td>
+										<!-- <td>29-03-2018</td> -->
+										<td>
+											<div class="dropdown">
+												<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+													href="#" role="button" data-toggle="dropdown">
+													<i class="dw dw-more"></i>
+												</a>
+												<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+													<!-- <a class="dropdown-item" href="/admin/edit-paciente"><i class="dw dw-eye"></i> View</a> -->
+													<a class="dropdown-item"
+														href="/admin/edit-paciente/<%=paciente.id%>"><i
+															class="dw dw-edit2"></i>
+														Editar</a>
+
+													<a class="dropdown-item">
+														<form action="/admin/delete-paciente" method="POST"
+															onsubmit="verifica(event, this)">
+															<input type="hidden" name="id" value="<%=paciente.id%>">
+															<button class="btn btn-sm btn-transparent" type="submit">
+																Deletar<i class="dw dw-delete-3"></i>
+															</button>
+														</form>
+														
+													</a>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<%})%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+			</div>
+			<%-include('./partials/footer')%>
+		</div>
+	</div>
+	<!-- js -->
+	<script src="../../boardMain/vendors/scripts/core.js"></script>
+	<script src="../../boardMain/vendors/scripts/script.min.js"></script>
+	<script src="../../boardMain/vendors/scripts/process.js"></script>
+	<script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+	<!-- buttons for Export datatable -->
+	<script src="../../boardMain/src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/buttons.print.min.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/buttons.html5.min.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/buttons.flash.min.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/pdfmake.min.js"></script>
+	<script src="../../boardMain/src/plugins/datatables/js/vfs_fonts.js"></script>
+	<!-- Datatable Setting js -->
+	<script src="../../boardMain/vendors/scripts/datatable-setting.js"></script>
+</body>
+
+</html>
