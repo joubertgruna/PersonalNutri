@@ -399,28 +399,22 @@ router.get('/edit-paciente/:id', (req, res) => {
 router.post('/edit-paciente/:id', (req, res) => {
     const id = req.params.id;
     const nome = req.body.name;
-    const quantidade = req.body.quantidade;
-    const categoria = req.body.categoria;
-    const carboidratos = req.body.carboidratos // nutrientes que se destacam por fornecer energia para o corpo;
-    const lipidios = req.body.lipidios// nutrientes que servem de reserva de energia, ajudam a absorver algumas vitaminas, além de proteger contra choques mecânicos e o frio;
-    const proteinas = req.body.proteinas//: nutrientes fundamentais para o crescimento e manutenção dos tecidos do corpo.
-    const vitaminas = req.body.vitaminas//: nutrientes relacionados com as mais diversas funções do organismo, como fortalecimento do sistema imunológico, manutenção de tecidos e a realização dos processos metabólicos.
-    const saisMinerais = req.body.saisMinerais//: nutrientes que atuam nas mais variadas funções do organismo, como a constituição de ossos e dentes, regulação de líquidos corporais e composição de hormônios."
-    const alimentoId = req.body.alimentoId;
+    const email = req.body.email;
+    // const user = "null";
+    // const userId = req.body.userId;
+    const cellphone = req.body.cellphone;
+    const password = req.body.password;
 
-    const validate = {
-        nome, quantidade, categoria, carboidratos, lipidios,
-        proteinas, vitaminas, saisMinerais, alimentoId
-    };
+    const validate = { nome, email, password, cellphone, password };
 
-    knex('alimentos').where({ id: id }).update(validate)
+    knex('pacientes').where({ id: id }).update(validate)
         .then(() => {
-            console.log('Alimento atualizado com sucesso!', [validate]);
-            res.redirect(`/admin/edit-alimento/${id}`);
+            console.log('Paciente atualizado com sucesso!', [validate]);
+            res.redirect(`/admin/edit-paciente/${id}`);
         })
         .catch((error) => {
-            console.error('Erro ao atualizar o alimento:', error);
-            res.status(500).send('Erro ao atualizar o alimento');
+            console.error('Erro ao atualizar o paciente:', error);
+            res.status(500).send('Erro ao atualizar o paciente');
         });
 })
 // Deletar paciente 
