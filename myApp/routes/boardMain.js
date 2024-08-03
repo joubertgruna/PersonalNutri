@@ -765,6 +765,7 @@ router.post('/delete-ergogenico', (req, res) => {
     console.log('DELETED::: ', id)
 })
 
+
 // Criar Protocolo
 router.get('/create-protocolo', (req, res) => {
     res.render('./boardMain/createProtocolo', { title: 'Criar Protocolo' })
@@ -1204,11 +1205,6 @@ router.post('/delete-dieta', (req, res) => {
 
     console.log('DELETED::: ', id)
 })
-
-
-//Pascientes
-
-
 
 //Criar protocolo
 
