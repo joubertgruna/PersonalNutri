@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8">
+    <title>
+        <%=title%>
+    </title>
+
+
+    <!-- Site favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../boardMain/vendors/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../boardMain/vendors/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../boardMain/vendors/images/favicon-16x16.png">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/core.css">
+    <link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/style.css">
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-119386393-1');
+    </script>
+</head>
+
+<body>
+    <%-include('./partials/preloader')%>
+
+        <%-include('./partials/header')%>
+
+
+            <%-include('./partials/left-sidebar')%>
+                <div class="mobile-menu-overlay"></div>
+
+                <div class="main-container">
+                    <div class="min-height-200px">
+                        <div class="page-header">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="title">
+                                        <h4>Perfil do aluno</h4>
+                                    </div>
+                                    <nav aria-label="breadcrumb" role="navigation">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Aluno</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- horizontal Basic Forms Start -->
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
+                                <div class="pd-20 card-box height-100-p">
+                                    <div class="profile-photo">
+                                        <a href="modal" data-toggle="modal" data-target="#modal" class="edit-avatar"><i
+                                                class="fa fa-pencil"></i></a>
+                                        <img src="../../boardMain/vendors/images/photo5.jpg" alt=""
+                                            class="avatar-photo">
+                                        <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                                            aria-labelledby="modalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-body pd-5">
+                                                        <div class="img-container">
+                                                            <img id="image"
+                                                                src="../../boardMain/vendors/images/photo2.jpg"
+                                                                alt="Picture">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="submit" value="Update" class="btn btn-primary">
+                                                        <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5 class="text-center h5 mb-0">
+                                        <%=alunos.nome%>
+                                    </h5>
+                                    <p class="text-center text-muted font-14">Tipo: Atleta</p>
+                                    <div class="faq-wrap">
+                                        <div id="accordion">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <button class="btn btn-block" data-toggle="collapse"
+                                                        data-target="#faq1">
+                                                        Informações Pessoais
+                                                    </button>
+                                                </div>
+                                                <div id="faq1" class="collapse show" data-parent="#accordion">
+
+                                                    <div class="pd-20 card-box mb-30 profile-info">
+                                                        <ul>
+                                                            <li>
+                                                                <span>Email:</span>
+                                                                <%=alunos.email%>
+                                                            </li>
+                                                            <li>
+                                                                <span>Celular:</span>
+                                                                <%=alunos.cellphone%>
+                                                            </li>
+                                                            <li>
+                                                                <span>Senha:</span>
+                                                                <%=alunos.password%>
+                                                            </li>
+                                                            
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                        data-target="#faq2">
+                                                        Informações físicas
+                                                    </button>
+                                                </div>
+                                                <div id="faq2" class="collapse" data-parent="#accordion">
+                                                    <div class="pd-20 card-box mb-30 profile-info">
+                                                        <ul>
+                                                            <li>
+                                                                <span>Peso: </span>
+                                                                65kg
+                                                            </li>
+                                                            <li>
+                                                                <span>Percent de gordura:</span>
+                                                                12%
+                                                            </li>
+                                                            <li>
+                                                                <span>abdômen(cintura):</span>
+                                                                80cm
+                                                            </li>
+                                                            <li>
+                                                                <span>braço:</span>
+                                                                37cm
+                                                            </li>
+                                                            <li>
+                                                                <span>peitoral:</span>
+                                                                137cm
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                        data-target="#faq3">
+                                                        Objetivos do aluno
+                                                    </button>
+                                                </div>
+                                                <div id="faq3" class="collapse" data-parent="#accordion">
+                                                    <div class="card-body profile-skills">
+                                                        <h6 class="mb-5 font-14">Hipertrofia</h6>
+                                                        <div class="progress mb-20" style="height: 6px;">
+                                                            <div class="progress-bar" role="progressbar"
+                                                                style="width: 90%" aria-valuenow="0" aria-valuemin="0"
+                                                                aria-valuemax="100"></div>
+                                                        </div>
+                                                        <h6 class="mb-5 font-14">Força</h6>
+                                                        <div class="progress mb-20" style="height: 6px;">
+                                                            <div class="progress-bar" role="progressbar"
+                                                                style="width: 70%" aria-valuenow="0" aria-valuemin="0"
+                                                                aria-valuemax="100"></div>
+                                                        </div>
+                                                        <h6 class="mb-5 font-14">Resistência</h6>
+                                                        <div class="progress mb-20" style="height: 6px;">
+                                                            <div class="progress-bar" role="progressbar"
+                                                                style="width: 60%" aria-valuenow="0" aria-valuemin="0"
+                                                                aria-valuemax="100"></div>
+                                                        </div>
+                                                        <h6 class="mb-5 font-14">Explosão</h6>
+                                                        <div class="progress mb-20" style="height: 6px;">
+                                                            <div class="progress-bar" role="progressbar"
+                                                                style="width: 80%" aria-valuenow="0" aria-valuemin="0"
+                                                                aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mb-30">
+                                <div class="card-box height-100-p overflow-hidden">
+                                    <div class="profile-tab height-100-p">
+                                        <div class="tab height-100-p">
+                                            <ul class="nav nav-tabs customtab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link  active" data-toggle="tab" href="#perfil"
+                                                        role="tab">Perfil</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link " data-toggle="tab" href="#dieta"
+                                                        role="tab">Dieta</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#treino"
+                                                        role="tab">Treino</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#suplemento"
+                                                        role="tab">Suplementação</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#ergogenicos"
+                                                        role="tab">Ergogênicos</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#timeline"
+                                                        role="tab">Atualizações</a>
+                                                </li>
+
+                                            </ul>
+                                            <div class="tab-content">
+                                                <!-- Tasks Tab start -->
+                                                <div class="tab-pane fade show active" id="perfil" role="tabpanel">
+                                                    <div class="faq-wrap">
+                                                        <div id="accordion">
+                                                            <div class="card">
+                                                                <div class="card-header">
+                                                                    <button class="btn btn-block" data-toggle="collapse"
+                                                                        data-target="#faq4">
+                                                                        Editar aluno
+                                                                    </button>
+                                                                </div>
+                                                                <div id="faq4" class="collapse show" data-parent="#accordion">
+
+                                                                    <div class="pd-20 card-box mb-30">
+                                                                      
+                                                                        <form id="createAlunoForm" method="post"
+                                                                            action="/admin/edit-cliente/<%=alunos.id%>">
+                                                                            <div class="pull-left">
+                                                                                <h4 class="text-blue h6">Informações Pessoais</h4>
+                                                                            </div><br><hr>
+                                                                            <div class="form-group">
+                                                                                <label>Nome</label>
+                                                                                <input class="form-control" type="text"
+                                                                                    name="name"
+                                                                                    value="<%=alunos.nome%>">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Email</label>
+                                                                                <input class="form-control" type="email"
+                                                                                    name="email"
+                                                                                    value="<%=alunos.email%>">
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label>Celular</label>
+                                                                                <input class="form-control" type="tel"
+                                                                                    name="cellphone"
+                                                                                    value="<%=alunos.cellphone%>">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Senha</label>
+                                                                                <input class="form-control"
+                                                                                    type="password" name="password"
+                                                                                    value="<%=alunos.password%>">
+                                                                            </div>
+                                                                            <hr>
+                                                                            <div class="pull-left">
+                                                                                <h4 class="text-blue h6">Informações Físicas </h4>
+                                                                            </div><br>
+                                                                            <hr>
+                                                                            <div class="form-group">
+                                                                                <label>Peso</label>
+                                                                                <input class="form-control" type="text"
+                                                                                    name="peso"
+                                                                                    value="<%=alunos.nome%>">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>% de gordura</label>
+                                                                                <input class="form-control" type="text"
+                                                                                    name="gordura"
+                                                                                    value="<%=alunos.email%>">
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label>abdômen(cintura) - cm</label>
+                                                                                <input class="form-control" type="text"
+                                                                                    name="abdomen"
+                                                                                    value="<%=alunos.cellphone%>">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Braço - cm</label>
+                                                                                <input class="form-control"
+                                                                                    type="text" name="braco"
+                                                                                    value="<%=alunos.password%>">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Peitoral - cm</label>
+                                                                                <input class="form-control"
+                                                                                    type="text" name="peitoral"
+                                                                                    value="<%=alunos.password%>">
+                                                                            </div>
+                                                                            
+                                                                            <button class="btn btn-success"
+                                                                                type="submit">Editar</button>
+                                                                        </form>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="card">
+                                                                <div class="card-header">
+                                                                    <button class="btn btn-block collapsed"
+                                                                        data-toggle="collapse" data-target="#faq5">
+                                                                        Informações físicas
+                                                                    </button>
+                                                                </div>
+                                                                <div id="faq5" class="collapse"
+                                                                    data-parent="#accordion">
+                                                                    <div class="pd-20 card-box mb-30">
+                                                                        <div class="clearfix">
+                                                                            <div class="pull-left">
+                                                                                <h4 class="text-blue h6">Editar
+                                                                                    informações</h4>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <form id="createAlunoForm" method="post"
+                                                                            action="/admin/edit-aluno/<%=alunos.id%>">
+                                                                            <div class="form-group">
+                                                                                <label>Nome</label>
+                                                                                <input class="form-control" type="text"
+                                                                                    name="name"
+                                                                                    value="<%=alunos.nome%>">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Email</label>
+                                                                                <input class="form-control" type="email"
+                                                                                    name="email"
+                                                                                    value="<%=alunos.email%>">
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label>Celular</label>
+                                                                                <input class="form-control" type="tel"
+                                                                                    name="cellphone"
+                                                                                    value="<%=alunos.cellphone%>">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Senha</label>
+                                                                                <input class="form-control"
+                                                                                    type="password" name="password"
+                                                                                    value="<%=alunos.password%>">
+                                                                            </div>
+
+                                                                            <button class="btn btn-success"
+                                                                                type="submit">Editar</button>
+                                                                        </form>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <!-- Tasks Tab End -->
+                                                <!-- Tasks Tab start -->
+                                                <div class="tab-pane fade" id="dieta" role="tabpanel">
+                                                    <div class="pd-20 profile-task-wrap">
+                                                        <div class="container pd-0">
+                                                            <div class="pd-20 card-box mb-30">
+                                                                <div class="clearfix">
+                                                                    <div class="pull-left">
+                                                                        <h4 class="text-blue h4">Editar Dieta</h4>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="faq-wrap">
+                                                                    <div id="accordion">
+                                                                        <div class="card">
+                                                                            <div class="card-header">
+                                                                                <button class="btn btn-block" data-toggle="collapse" data-target="#faq8">
+                                                                                    Editar a dieta
+                                                                                </button>
+                                                                            </div>
+                                                                            <div id="faq8" class="collapse hidden" data-parent="#accordion">
+                                                                                <div class="card-body">
+                                                                                    <form id="form-dieta" method="POST" action="/admin/criar-dieta">
+                                                                                        <div class="form-group">
+                                                                                          <label for="nome_da_dieta">Nome da Dieta</label>
+                                                                                          <input type="text" class="form-control" id="nome_da_dieta" name="nome_da_dieta" required>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                          <label for="descricao_da_dieta">Descrição</label>
+                                                                                          <textarea class="form-control" id="descricao_da_dieta" name="descricao_da_dieta" required></textarea>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                          <label for="objetivo_da_dieta">Objetivo da Dieta</label>
+                                                                                          <input type="text" class="form-control" id="objetivo_da_dieta" name="objetivo_da_dieta" required>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                          <label for="duracao_estimada">Duração Estimada</label>
+                                                                                          <input type="text" class="form-control" id="duracao_estimada" name="duracao_estimada" required>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                          <label for="nivel_de_dificuldade">Nível de Dificuldade</label>
+                                                                                          <select class="form-control" id="nivel_de_dificuldade" name="nivel_de_dificuldade" required>
+                                                                                            <option value="Iniciante">Iniciante</option>
+                                                                                            <option value="Intermediário">Intermediário</option>
+                                                                                            <option value="Avançado">Avançado</option>
+                                                                                          </select>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                          <label for="calorias_diarias">Calorias Diárias</label>
+                                                                                          <input type="number" class="form-control" id="calorias_diarias" name="calorias_diarias" required>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                          <label for="proteinas">Proteínas (g)</label>
+                                                                                          <input type="number" class="form-control" id="proteinas" name="proteinas" required>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                          <label for="carboidratos">Carboidratos (g)</label>
+                                                                                          <input type="number" class="form-control" id="carboidratos" name="carboidratos" required>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                          <label for="gorduras">Gorduras (g)</label>
+                                                                                          <input type="number" class="form-control" id="gorduras" name="gorduras" required>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                          <label for="alimentos">Alimentos</label>
+                                                                                          <select multiple class="form-control" id="alimentos" name="alimentos[]">
+                                                                                            <!-- Alimentos serão carregados aqui dinamicamente -->
+                                                                                          </select>
+                                                                                        </div>
+                                                                                        <button type="submit" class="btn btn-primary">Criar Dieta</button>
+                                                                                      </form>
+                                                                                      
+                                                                                      
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="card">
+                                                                            <div class="card-header">
+                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                                                    data-target="#faq9">
+                                                                                    Alimentos
+                                                                                </button>
+                                                                            </div>
+                                                                            <div id="faq9" class="collapse" data-parent="#accordion">
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- <div class="card">
+                                                                            <div class="card-header">
+                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                                                    data-target="#faq3">
+                                                                                    Collapsible Group Item #3
+                                                                                </button>
+                                                                            </div>
+                                                                            <div id="faq3" class="collapse" data-parent="#accordion">
+                                                                                <div class="card-body">
+                                                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                                                                        terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                                                                                        skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                                                        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                                                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim
+                                                                                        keffiyeh
+                                                                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                                                                                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                                                                                        craft
+                                                                                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
+                                                                                        haven't heard of them accusamus labore sustainable VHS.</p>
+                                                                                    <p class="mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high
+                                                                                        life
+                                                                                        accusamus terry richardson ad squid. 3 wolf moon officia aute, non
+                                                                                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
+                                                                                        laborum
+                                                                                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it
+                                                                                        squid
+                                                                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim
+                                                                                        keffiyeh
+                                                                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                                                                                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                                                                                        craft
+                                                                                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
+                                                                                        haven't heard of them accusamus labore sustainable VHS.</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="card">
+                                                                            <div class="card-header">
+                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                                                    data-target="#faq4">
+                                                                                    Collapsible Group Item #4
+                                                                                </button>
+                                                                            </div>
+                                                                            <div id="faq4" class="collapse" data-parent="#accordion">
+                                                                                <div class="card-body">
+                                                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                                                                    terry
+                                                                                    richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                                                                    dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+                                                                                    moon
+                                                                                    tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                                                                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer
+                                                                                    labore
+                                                                                    wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                                                                                    butcher
+                                                                                    vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
+                                                                                    aesthetic
+                                                                                    synth nesciunt you probably haven't heard of them accusamus labore
+                                                                                    sustainable VHS.
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="card">
+                                                                            <div class="card-header">
+                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                                                    data-target="#faq5">
+                                                                                    Collapsible Group Item #5
+                                                                                </button>
+                                                                            </div>
+                                                                            <div id="faq5" class="collapse" data-parent="#accordion">
+                                                                                <div class="card-body">
+                                                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                                                                    terry
+                                                                                    richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                                                                    dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+                                                                                    moon
+                                                                                    tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                                                                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer
+                                                                                    labore
+                                                                                    wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                                                                                    butcher
+                                                                                    vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
+                                                                                    aesthetic
+                                                                                    synth nesciunt you probably haven't heard of them accusamus labore
+                                                                                    sustainable VHS.
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="card">
+                                                                            <div class="card-header">
+                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                                                    data-target="#faq6">
+                                                                                    Collapsible Group Item #6
+                                                                                </button>
+                                                                            </div>
+                                                                            <div id="faq6" class="collapse" data-parent="#accordion">
+                                                                                <div class="card-body">
+                                                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                                                                        terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                                                                                        skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                                                        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                                                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim
+                                                                                        keffiyeh
+                                                                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                                                                                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                                                                                        craft
+                                                                                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
+                                                                                        haven't heard of them accusamus labore sustainable VHS.</p>
+                                                                                    <p class="mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high
+                                                                                        life
+                                                                                        accusamus terry richardson ad squid. 3 wolf moon officia aute, non
+                                                                                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
+                                                                                        laborum
+                                                                                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it
+                                                                                        squid
+                                                                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim
+                                                                                        keffiyeh
+                                                                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                                                                                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                                                                                        craft
+                                                                                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
+                                                                                        haven't heard of them accusamus labore sustainable VHS.</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div> -->
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Tasks Tab End -->
+                                                <!-- Setting Tab start -->
+                                                <div class="tab-pane fade height-100-p" id="treino" role="tabpanel">
+                                                    <div class="profile-setting">
+                                                        <div class="faq-wrap">
+                                                            <div id="accordion">
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <button class="btn btn-block" data-toggle="collapse"
+                                                                            data-target="#faq6">
+                                                                            Treino A
+                                                                        </button>
+                                                                    </div>
+                                                                    <div id="faq6" class="collapse show" data-parent="#accordion">
+                    
+                                                                        <div class="pd-20 card-box mb-30 profile-info">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <span>Email:</span>
+                                                                                    <%=alunos.email%>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span>Celular:</span>
+                                                                                    <%=alunos.cellphone%>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span>Senha:</span>
+                                                                                    <%=alunos.password%>
+                                                                                </li>
+                                                                                
+                                                                            </ul>
+                    
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                                            data-target="#faq7">
+                                                                            Treino B
+                                                                        </button>
+                                                                    </div>
+                                                                    <div id="faq7" class="collapse" data-parent="#accordion">
+                                                                        <div class="pd-20 card-box mb-30 profile-info">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <span>Peso: </span>
+                                                                                    65kg
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span>Percent de gordura:</span>
+                                                                                    12%
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span>abdômen(cintura):</span>
+                                                                                    80cm
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span>braço:</span>
+                                                                                    37cm
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span>peitoral:</span>
+                                                                                    137cm
+                                                                                </li>
+                    
+                                                                            </ul>
+                    
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                                            data-target="#faq8">
+                                                                            Treino C
+                                                                        </button>
+                                                                    </div>
+                                                                    <div id="faq8" class="collapse" data-parent="#accordion">
+                                                                        <div class="card-body profile-skills">
+                                                                            <h6 class="mb-5 font-14">Hipertrofia</h6>
+                                                                            <div class="progress mb-20" style="height: 6px;">
+                                                                                <div class="progress-bar" role="progressbar"
+                                                                                    style="width: 90%" aria-valuenow="0" aria-valuemin="0"
+                                                                                    aria-valuemax="100"></div>
+                                                                            </div>
+                                                                            <h6 class="mb-5 font-14">Força</h6>
+                                                                            <div class="progress mb-20" style="height: 6px;">
+                                                                                <div class="progress-bar" role="progressbar"
+                                                                                    style="width: 70%" aria-valuenow="0" aria-valuemin="0"
+                                                                                    aria-valuemax="100"></div>
+                                                                            </div>
+                                                                            <h6 class="mb-5 font-14">Resistência</h6>
+                                                                            <div class="progress mb-20" style="height: 6px;">
+                                                                                <div class="progress-bar" role="progressbar"
+                                                                                    style="width: 60%" aria-valuenow="0" aria-valuemin="0"
+                                                                                    aria-valuemax="100"></div>
+                                                                            </div>
+                                                                            <h6 class="mb-5 font-14">Explosão</h6>
+                                                                            <div class="progress mb-20" style="height: 6px;">
+                                                                                <div class="progress-bar" role="progressbar"
+                                                                                    style="width: 80%" aria-valuenow="0" aria-valuemin="0"
+                                                                                    aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Setting Tab End -->
+                                                <!-- Setting Tab start -->
+                                                <div class="tab-pane fade height-100-p" id="suplemento" role="tabpanel">
+                                                    <div class="profile-setting">
+                                                        <form>
+                                                            <ul class="profile-edit-list row">
+                                                                <li class="weight-500 col-md-6">
+                                                                    <h4 class="text-blue h5 mb-20">Edit Your Personal
+                                                                        Setting</h4>
+                                                                    <div class="form-group">
+                                                                        <label>Full Name</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Title</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Email</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="email">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Date of birth</label>
+                                                                        <input
+                                                                            class="form-control form-control-lg date-picker"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Gender</label>
+                                                                        <div class="d-flex">
+                                                                            <div
+                                                                                class="custom-control custom-radio mb-5 mr-20">
+                                                                                <input type="radio" id="customRadio4"
+                                                                                    name="customRadio"
+                                                                                    class="custom-control-input">
+                                                                                <label
+                                                                                    class="custom-control-label weight-400"
+                                                                                    for="customRadio4">Male</label>
+                                                                            </div>
+                                                                            <div
+                                                                                class="custom-control custom-radio mb-5">
+                                                                                <input type="radio" id="customRadio5"
+                                                                                    name="customRadio"
+                                                                                    class="custom-control-input">
+                                                                                <label
+                                                                                    class="custom-control-label weight-400"
+                                                                                    for="customRadio5">Female</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Country</label>
+                                                                        <select
+                                                                            class="selectpicker form-control form-control-lg"
+                                                                            data-style="btn-outline-secondary btn-lg"
+                                                                            title="Not Chosen">
+                                                                            <option>United States</option>
+                                                                            <option>India</option>
+                                                                            <option>United Kingdom</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>State/Province/Region</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Postal Code</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Phone Number</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Address</label>
+                                                                        <textarea class="form-control"></textarea>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Visa Card Number</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Paypal ID</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div
+                                                                            class="custom-control custom-checkbox mb-5">
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input"
+                                                                                id="customCheck1-1">
+                                                                            <label
+                                                                                class="custom-control-label weight-400"
+                                                                                for="customCheck1-1">I agree to receive
+                                                                                notification emails</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group mb-0">
+                                                                        <input type="submit" class="btn btn-primary"
+                                                                            value="Update Information">
+                                                                    </div>
+                                                                </li>
+                                                                <li class="weight-500 col-md-6">
+                                                                    <h4 class="text-blue h5 mb-20">Edit Social Media
+                                                                        links</h4>
+                                                                    <div class="form-group">
+                                                                        <label>Facebook URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Twitter URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Linkedin URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Instagram URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Dribbble URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Dropbox URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Google-plus URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Pinterest URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Skype URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Vine URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group mb-0">
+                                                                        <input type="submit" class="btn btn-primary"
+                                                                            value="Save & Update">
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- Setting Tab End -->
+                                                <!-- Setting Tab start -->
+                                                <div class="tab-pane fade height-100-p" id="ergogenico" role="tabpanel">
+                                                    <div class="profile-setting">
+                                                        <form>
+                                                            <ul class="profile-edit-list row">
+                                                                <li class="weight-500 col-md-6">
+                                                                    <h4 class="text-blue h5 mb-20">Edit Your Personal
+                                                                        Setting</h4>
+                                                                    <div class="form-group">
+                                                                        <label>Full Name</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Title</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Email</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="email">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Date of birth</label>
+                                                                        <input
+                                                                            class="form-control form-control-lg date-picker"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Gender</label>
+                                                                        <div class="d-flex">
+                                                                            <div
+                                                                                class="custom-control custom-radio mb-5 mr-20">
+                                                                                <input type="radio" id="customRadio4"
+                                                                                    name="customRadio"
+                                                                                    class="custom-control-input">
+                                                                                <label
+                                                                                    class="custom-control-label weight-400"
+                                                                                    for="customRadio4">Male</label>
+                                                                            </div>
+                                                                            <div
+                                                                                class="custom-control custom-radio mb-5">
+                                                                                <input type="radio" id="customRadio5"
+                                                                                    name="customRadio"
+                                                                                    class="custom-control-input">
+                                                                                <label
+                                                                                    class="custom-control-label weight-400"
+                                                                                    for="customRadio5">Female</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Country</label>
+                                                                        <select
+                                                                            class="selectpicker form-control form-control-lg"
+                                                                            data-style="btn-outline-secondary btn-lg"
+                                                                            title="Not Chosen">
+                                                                            <option>United States</option>
+                                                                            <option>India</option>
+                                                                            <option>United Kingdom</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>State/Province/Region</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Postal Code</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Phone Number</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Address</label>
+                                                                        <textarea class="form-control"></textarea>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Visa Card Number</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Paypal ID</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div
+                                                                            class="custom-control custom-checkbox mb-5">
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input"
+                                                                                id="customCheck1-1">
+                                                                            <label
+                                                                                class="custom-control-label weight-400"
+                                                                                for="customCheck1-1">I agree to receive
+                                                                                notification emails</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group mb-0">
+                                                                        <input type="submit" class="btn btn-primary"
+                                                                            value="Update Information">
+                                                                    </div>
+                                                                </li>
+                                                                <li class="weight-500 col-md-6">
+                                                                    <h4 class="text-blue h5 mb-20">Edit Social Media
+                                                                        links</h4>
+                                                                    <div class="form-group">
+                                                                        <label>Facebook URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Twitter URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Linkedin URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Instagram URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Dribbble URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Dropbox URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Google-plus URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Pinterest URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Skype URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Vine URL:</label>
+                                                                        <input class="form-control form-control-lg"
+                                                                            type="text"
+                                                                            placeholder="Paste your link here">
+                                                                    </div>
+                                                                    <div class="form-group mb-0">
+                                                                        <input type="submit" class="btn btn-primary"
+                                                                            value="Save & Update">
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- Setting Tab End -->
+                                                <!-- Timeline Tab start -->
+                                                <div class="tab-pane fade " id="timeline" role="tabpanel">
+                                                    <div class="pd-20">
+                                                        <div class="profile-timeline">
+                                                            <div class="timeline-month">
+                                                                <h5>Agosto, 2024</h5>
+                                                            </div>
+                                                            <div class="profile-timeline-list">
+                                                                <ul>
+                                                                    <li>
+                                                                        <div class="date">03 Ago</div>
+                                                                        <div class="task-name"><i
+                                                                                class="ion-android-alarm-clock"></i>
+                                                                            Protocolo atualizado</div>
+                                                                        <p>peso atualizado</p>
+                                                                        <div class="task-time">09:30</div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="date">03 Ago</div>
+                                                                        <div class="task-name"><i
+                                                                                class="ion-ios-chatboxes"></i> Info. Pessoal</div>
+                                                                        <p>senha atualizada</p>
+                                                                        <div class="task-time">10:30</div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="date">10 Ago</div>
+                                                                        <div class="task-name"><i
+                                                                                class="ion-ios-clock"></i> Info. Pessoal
+                                                                        </div>
+                                                                        <p>Vencimento da mensalida em 10 dias</p>
+                                                                        <div class="task-time">00:30</div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="date">10 Aug</div>
+                                                                        <div class="task-name"><i
+                                                                                class="ion-ios-clock"></i> Info. Suplemento
+                                                                        </div>
+                                                                        <p>Novo suplemento adicionado</p>
+                                                                        <div class="task-time">10:34</div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="timeline-month">
+                                                                <h5>Julho, 2024</h5>
+                                                            </div>
+                                                            <div class="profile-timeline-list">
+                                                                <!-- <ul>
+                                                                    <li>
+                                                                        <div class="date">12 July</div>
+                                                                        <div class="task-name"><i
+                                                                                class="ion-android-alarm-clock"></i>
+                                                                            Task Added</div>
+                                                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                                                            adipisicing elit.</p>
+                                                                        <div class="task-time">09:30 am</div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="date">10 July</div>
+                                                                        <div class="task-name"><i
+                                                                                class="ion-ios-chatboxes"></i> Task
+                                                                            Added</div>
+                                                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                                                            adipisicing elit.</p>
+                                                                        <div class="task-time">09:30 am</div>
+                                                                    </li>
+                                                                </ul> -->
+                                                            </div>
+                                                            <div class="timeline-month">
+                                                                <h5>Junho, 2024</h5>
+                                                            </div>
+                                                            <div class="profile-timeline-list">
+                                                                <!-- <ul>
+                                                                    <li>
+                                                                        <div class="date">12 June</div>
+                                                                        <div class="task-name"><i
+                                                                                class="ion-android-alarm-clock"></i>
+                                                                            Task Added</div>
+                                                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                                                            adipisicing elit.</p>
+                                                                        <div class="task-time">09:30 am</div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="date">10 June</div>
+                                                                        <div class="task-name"><i
+                                                                                class="ion-ios-chatboxes"></i> Task
+                                                                            Added</div>
+                                                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                                                            adipisicing elit.</p>
+                                                                        <div class="task-time">09:30 am</div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="date">10 June</div>
+                                                                        <div class="task-name"><i
+                                                                                class="ion-ios-clock"></i> Event Added
+                                                                        </div>
+                                                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                                                            adipisicing elit.</p>
+                                                                        <div class="task-time">09:30 am</div>
+                                                                    </li>
+                                                                </ul> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Timeline Tab End -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  -->
+                        <!-- horizontal Basic Forms End -->
+                        <%-include('./partials/footer')%>
+                    </div>
+                    <!-- js -->
+                     <script>
+                        fetch('/alimentos')
+    .then(response => response.json())
+    .then(data => {
+        const selectAlimentos = document.getElementById('alimentos');
+        data.forEach(alimento => {
+            const option = document.createElement('option');
+            option.value = alimento.id;
+            option.text = alimento.nome;
+            selectAlimentos.appendChild(option);
+        });
+    });
+
+                     </script>
+
+                    <script src="../../boardMain/vendors/scripts/core.js"></script>
+                    <script src="../../boardMain/vendors/scripts/script.min.js"></script>
+                    <script src="../../boardMain/vendors/scripts/process.js"></script>
+                    <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
+
+</body>
+
+</html>

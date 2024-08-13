@@ -118,10 +118,10 @@ router.post('/delete-personal', (req, res) => {
 
 
 //Criar alunos
-router.get('/create-aluno', (req, res) => {
-    res.render('./boardMain/createAluno', { title: 'Criar Aluno' })
+router.get('/create-cliente', (req, res) => {
+    res.render('./boardMain/createCliente', { title: 'Cliente' })
 })
-router.post('/create-aluno', (req, res) => {
+router.post('/create-cliente', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const user = "null";
@@ -132,32 +132,33 @@ router.post('/create-aluno', (req, res) => {
     const validate = { name, email, cellphone, password };
 
     // Insere os dados do personais no banco de dados
-    knex('alunos').insert({
+    knex('clientes').insert({
         nome: name,
         email: email,
         // user: user,
         cellphone: cellphone,
         password: password,
     })
-        .then((alunos) => {
-            res.redirect('/admin/list-alunos'); // Move a chamada para dentro deste callback
+        .then((clientes) => {
+            res.redirect('/admin/list-clientes'); // Move a chamada para dentro deste callback
+            console.log('Cliente: ', clientes)
         })
         .catch((error) => {
-            console.error('Erro ao inserir o aluno:', error);
-            res.status(500).send(`Erro ao inserir o aluno: ${error.message}`);
+            console.error('Erro ao inserir o cliente:', error);
+            res.status(500).send(`Erro ao inserir o cliente: ${error.message}`);
         });
 
     console.log("RTN >>", validate)
 
 })
 //Listagem dos alunos
-router.get('/list-alunos', (req, res) => {
+router.get('/list-clientes', (req, res) => {
     // Função para listar todos os alunos do banco de dados
     try {
-        const alunos = knex.select('*').from('alunos');
+        const alunos = knex.select('*').from('clientes');
         alunos.then((alunos) => {
             console.log('alunos:', alunos);
-            res.render('./boardMain/listAlunos', { title: 'Listar Aluno', aluno: alunos })
+            res.render('./boardMain/listClientes', { title: 'Listar Aluno', aluno: alunos })
         })
 
     } catch (error) {
@@ -166,24 +167,24 @@ router.get('/list-alunos', (req, res) => {
 
 })
 // Editação dos alunos 
-router.get('/edit-aluno/:id', (req, res) => {
+router.get('/edit-cliente/:id', (req, res) => {
     var id = req.params.id;
     try {
-        const alunos = knex.select('*').from('alunos').where({ id: id }).first();
+        const alunos = knex.select('*').from('clientes').where({ id: id }).first();
         alunos.then((alunos) => {
             if (alunos) {
                 // console.log('alunos encontrado:', alunos);
             } else {
                 console.log('Nenhum post encontrado com o ID fornecido.');
             }
-            res.render('./boardMain/editAluno', { title: 'Editar Aluno', id: id, alunos: alunos })
+            res.render('./boardMain/editCliente', { title: 'Editar Aluno', id: id, alunos: alunos })
         })
     } catch (error) {
         console.error('Erro ao selecionar o aluno:', error);
     }
     console.log("RTN >>", id)
 })
-router.post('/edit-aluno/:id', (req, res) => {
+router.post('/edit-cliente/:id', (req, res) => {
     const id = req.params.id;
     const nome = req.body.name;
     const email = req.body.email;
@@ -194,7 +195,7 @@ router.post('/edit-aluno/:id', (req, res) => {
 
     const validate = { nome, email, password, cellphone, password };
 
-    knex('alunos').where({ id: id }).update(validate)
+    knex('clientes').where({ id: id }).update(validate)
         .then(() => {
             console.log('Aluno atualizado com sucesso!', [validate]);
             res.redirect(`/admin/edit-aluno/${id}`);
@@ -205,7 +206,7 @@ router.post('/edit-aluno/:id', (req, res) => {
         });
 })
 // Deletar aluno
-router.post('/delete-aluno', (req, res) => {
+router.post('/delete-cliente', (req, res) => {
     var id = req.body.id
 
     knex('alunos').where({ id: id }).del()
@@ -1086,6 +1087,63 @@ router.post('/delete-treino', (req, res) => {
 
     console.log('DELETED::: ', id)
 })
+
+
+router.post('/criar-dieta', async (req, res) => {
+    const {
+        nome_da_dieta,
+        descricao_da_dieta,
+        objetivo_da_dieta,
+        duracao_estimada,
+        nivel_de_dificuldade,
+        calorias_diarias,
+        proteinas,
+        carboidratos,
+        gorduras,
+        alimentos
+    } = req.body;
+
+    try {
+        // Inserindo a dieta
+        const [dieta_id] = await knex('dietas').insert({
+            nome_da_dieta,
+            descricao_da_dieta,
+            objetivo_da_dieta,
+            duracao_estimada,
+            nivel_de_dificuldade,
+            calorias_diarias,
+            proteinas,
+            carboidratos,
+            gorduras,
+            clienteId: 7,
+            alimentoId: 11,
+            // suplementoId: 3,
+            // ergogenicoId: 1 // Assumindo que você tem autenticação e o ID do usuário logado está disponível
+        });
+
+        // Inserindo os alimentos na dieta
+        // for (const alimento_id of alimentos) {
+        //     await knex('dietas').insert({
+        //         dieta_id,
+        //         alimento_id
+        //     });
+        // }
+
+        res.redirect(`/admin/list-dietas`); // Redirecionar para o perfil do cliente ou outro caminho desejado
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erro ao criar dieta');
+    }
+});
+router.get('/alimentos', async (req, res) => {
+    try {
+        const alimentos = await knex('alimentos').select('id', 'nome');
+        res.json(alimentos);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erro ao buscar alimentos');
+    }
+});
 
 
 // Criar Dieta 

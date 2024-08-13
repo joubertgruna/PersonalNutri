@@ -110,12 +110,12 @@
 												<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 													<!-- <a class="dropdown-item" href="/admin/edit-aluno"><i class="dw dw-eye"></i> View</a> -->
 													<a class="dropdown-item"
-														href="/admin/edit-aluno/<%=aluno.id%>"><i
+														href="/admin/edit-cliente/<%=aluno.id%>"><i
 															class="dw dw-edit2"></i>
 														Editar</a>
 
 													<a class="dropdown-item">
-														<form action="/admin/delete-aluno" method="POST"
+														<form action="/admin/delete-cliente" method="POST"
 															onsubmit="verifica(event, this)">
 															<input type="hidden" name="id" value="<%=aluno.id%>">
 															<button class="btn btn-sm btn-transparent" type="submit">
