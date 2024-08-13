@@ -1203,7 +1203,7 @@ router.get('/list-dietas', (req, res) => {
     // Função para listar todos os alimentos do banco de dados
     try {
         const alimentosEDietas = knex('alimentos')
-            .distinct().table('alimentos').innerJoin('dietas', 'alimentos.alimentoId', 'dietas.id');
+            .distinct().table('alimentos').innerJoin('dietas', 'alimentos.dietaId', 'dietas.id');
 
         alimentosEDietas.then((resultados) => {
             console.log('alimentos e dietas:', resultados);
@@ -1223,15 +1223,19 @@ router.get('/list-dietas', (req, res) => {
 // Editar Dieta 
 router.get('/edit-dieta/:id', (req, res) => {
     var id = req.params.id;
+
     try {
-        const dietas = knex.select('*').from('dietas').where({ id: id }).first();
-        dietas.then((dietas) => {
-            if (dietas) {
-                // console.log('personais encontrado:', personais);
+        const dietas = knex('dietas')
+            .where('dietas.id', id)
+            .join('alimentos', 'dietas.id', '=', 'alimentos.dietaId')
+            .select('dietas.*', 'alimentos.*')
+        dietas.then((dietaComAlimentos) => {
+            if (dietaComAlimentos) {
+                console.log('dietas&Alimentos:', dietaComAlimentos);
             } else {
                 console.log('Nenhuma dieta encontrado com o ID fornecido.');
             }
-            res.render('./boardMain/editDieta', { title: 'Editar Dieta', id: id, dieta: dietas })
+            res.render('./boardMain/editDieta', { title: 'Editar Dieta', id: id, dieta: dietaComAlimentos[0] })
         })
     } catch (error) {
         console.error('Erro ao selecionar o exercicio:', error);
@@ -1279,6 +1283,22 @@ router.post('/delete-dieta', (req, res) => {
         })
 
     console.log('DELETED::: ', id)
+})
+
+router.get('/register', (req, res, next) => {
+    res.render('./boardMain/register', {
+        title: 'Registrar Profissional'
+    })
+})
+router.get('/login', (req, res, next) => {
+    res.render('./boardMain/login', {
+        title: 'Logar Profissional'
+    })
+})
+router.get('/forgotpass', (req, res, next) => {
+    res.render('./boardMain/forgotPass', {
+        title: 'Recuperar senha'
+    })
 })
 
 //Criar protocolo
