@@ -169,20 +169,37 @@ router.get('/list-clientes', (req, res) => {
 // Editação dos alunos 
 router.get('/edit-cliente/:id', (req, res) => {
     var id = req.params.id;
+
     try {
-        const alunos = knex.select('*').from('clientes').where({ id: id }).first();
-        alunos.then((alunos) => {
-            if (alunos) {
-                // console.log('alunos encontrado:', alunos);
+        // Fazendo a consulta ao banco de dados
+        const clientes = knex('clientes')
+            .where('clientes.id', id)
+            .join('dietas', 'clientes.id', '=', 'dietas.clienteId')
+            .select('clientes.*', 'dietas.*');
+
+        // Espera a Promise ser resolvida antes de continuar
+        clientes.then(clienteComDieta => {
+            if (clienteComDieta.length > 0) {
+                console.log('Cliente e dieta encontrados:', clienteComDieta);
+                // Renderizando a página com os dados do cliente e da dieta
+                res.render('./boardMain/editCliente', { title: 'Editar Aluno', id: id, cliente: clienteComDieta[0] });
             } else {
-                console.log('Nenhum post encontrado com o ID fornecido.');
+                console.log('Nenhum cliente encontrado com o ID fornecido.');
+                res.render('./boardMain/editCliente', { title: 'Editar Aluno', id: id, cliente: null });
             }
-            res.render('./boardMain/editCliente', { title: 'Editar Aluno', id: id, alunos: alunos })
-        })
+        }).catch(error => {
+            // Lidando com erros na consulta
+            console.error('Erro ao selecionar o aluno:', error);
+            res.status(500).send('Erro ao buscar dados do cliente');
+        });
+
     } catch (error) {
         console.error('Erro ao selecionar o aluno:', error);
+        res.status(500).send('Erro no servidor');
     }
-    console.log("RTN >>", id)
+
+    console.log("RTN >>", id);
+
 })
 router.post('/edit-cliente/:id', (req, res) => {
     const id = req.params.id;
@@ -209,10 +226,10 @@ router.post('/edit-cliente/:id', (req, res) => {
 router.post('/delete-cliente', (req, res) => {
     var id = req.body.id
 
-    knex('alunos').where({ id: id }).del()
+    knex('clientes').where({ id: id }).del()
         .then(() => {
             console.log('Aluno deletado com sucesso!', id);
-            res.redirect('/admin/list-alunos');
+            res.redirect('/admin/list-clientes');
         })
         .catch((error) => {
             console.error('Erro ao deletar o aluno:', error);

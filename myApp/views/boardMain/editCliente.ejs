@@ -93,7 +93,7 @@
                                         </div>
                                     </div>
                                     <h5 class="text-center h5 mb-0">
-                                        <%=alunos.nome%>
+                                        <%=cliente.nome%>
                                     </h5>
                                     <p class="text-center text-muted font-14">Tipo: Atleta</p>
                                     <div class="faq-wrap">
@@ -111,15 +111,15 @@
                                                         <ul>
                                                             <li>
                                                                 <span>Email:</span>
-                                                                <%=alunos.email%>
+                                                                <%=cliente.email%>
                                                             </li>
                                                             <li>
                                                                 <span>Celular:</span>
-                                                                <%=alunos.cellphone%>
+                                                                <%=cliente.cellphone%>
                                                             </li>
                                                             <li>
                                                                 <span>Senha:</span>
-                                                                <%=alunos.password%>
+                                                                <%=cliente.password%>
                                                             </li>
                                                             
                                                         </ul>
@@ -255,7 +255,7 @@
                                                                     <div class="pd-20 card-box mb-30">
                                                                       
                                                                         <form id="createAlunoForm" method="post"
-                                                                            action="/admin/edit-cliente/<%=alunos.id%>">
+                                                                            action="/admin/edit-cliente/<%=cliente.id%>">
                                                                             <div class="pull-left">
                                                                                 <h4 class="text-blue h6">Informações Pessoais</h4>
                                                                             </div><br><hr>
@@ -263,26 +263,26 @@
                                                                                 <label>Nome</label>
                                                                                 <input class="form-control" type="text"
                                                                                     name="name"
-                                                                                    value="<%=alunos.nome%>">
+                                                                                    value="<%=cliente.nome%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Email</label>
                                                                                 <input class="form-control" type="email"
                                                                                     name="email"
-                                                                                    value="<%=alunos.email%>">
+                                                                                    value="<%=cliente.email%>">
                                                                             </div>
 
                                                                             <div class="form-group">
                                                                                 <label>Celular</label>
                                                                                 <input class="form-control" type="tel"
                                                                                     name="cellphone"
-                                                                                    value="<%=alunos.cellphone%>">
+                                                                                    value="<%=cliente.cellphone%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Senha</label>
                                                                                 <input class="form-control"
                                                                                     type="password" name="password"
-                                                                                    value="<%=alunos.password%>">
+                                                                                    value="<%=cliente.password%>">
                                                                             </div>
                                                                             <hr>
                                                                             <div class="pull-left">
@@ -293,32 +293,32 @@
                                                                                 <label>Peso</label>
                                                                                 <input class="form-control" type="text"
                                                                                     name="peso"
-                                                                                    value="<%=alunos.nome%>">
+                                                                                    value="<%=cliente.proteinas%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>% de gordura</label>
                                                                                 <input class="form-control" type="text"
                                                                                     name="gordura"
-                                                                                    value="<%=alunos.email%>">
+                                                                                    value="<%=cliente.calorias_diarias%>">
                                                                             </div>
 
                                                                             <div class="form-group">
                                                                                 <label>abdômen(cintura) - cm</label>
                                                                                 <input class="form-control" type="text"
                                                                                     name="abdomen"
-                                                                                    value="<%=alunos.cellphone%>">
+                                                                                    value="<%=cliente.cellphone%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Braço - cm</label>
                                                                                 <input class="form-control"
                                                                                     type="text" name="braco"
-                                                                                    value="<%=alunos.password%>">
+                                                                                    value="<%=cliente.password%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Peitoral - cm</label>
                                                                                 <input class="form-control"
                                                                                     type="text" name="peitoral"
-                                                                                    value="<%=alunos.password%>">
+                                                                                    value="<%=cliente.password%>">
                                                                             </div>
                                                                             
                                                                             <button class="btn btn-success"
@@ -347,31 +347,31 @@
 
                                                                         </div>
                                                                         <form id="createAlunoForm" method="post"
-                                                                            action="/admin/edit-aluno/<%=alunos.id%>">
+                                                                            action="/admin/edit-aluno/<%=cliente.id%>">
                                                                             <div class="form-group">
                                                                                 <label>Nome</label>
                                                                                 <input class="form-control" type="text"
                                                                                     name="name"
-                                                                                    value="<%=alunos.nome%>">
+                                                                                    value="<%=cliente.nome%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Email</label>
                                                                                 <input class="form-control" type="email"
                                                                                     name="email"
-                                                                                    value="<%=alunos.email%>">
+                                                                                    value="<%=cliente.email%>">
                                                                             </div>
 
                                                                             <div class="form-group">
                                                                                 <label>Celular</label>
                                                                                 <input class="form-control" type="tel"
                                                                                     name="cellphone"
-                                                                                    value="<%=alunos.cellphone%>">
+                                                                                    value="<%=cliente.cellphone%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Senha</label>
                                                                                 <input class="form-control"
                                                                                     type="password" name="password"
-                                                                                    value="<%=alunos.password%>">
+                                                                                    value="<%=cliente.password%>">
                                                                             </div>
 
                                                                             <button class="btn btn-success"
@@ -628,15 +628,15 @@
                                                                             <ul>
                                                                                 <li>
                                                                                     <span>Email:</span>
-                                                                                    <%=alunos.email%>
+                                                                                    <%=cliente.email%>
                                                                                 </li>
                                                                                 <li>
                                                                                     <span>Celular:</span>
-                                                                                    <%=alunos.cellphone%>
+                                                                                    <%=cliente.cellphone%>
                                                                                 </li>
                                                                                 <li>
                                                                                     <span>Senha:</span>
-                                                                                    <%=alunos.password%>
+                                                                                    <%=cliente.password%>
                                                                                 </li>
                                                                                 
                                                                             </ul>
