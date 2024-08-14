@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+const session = require('express-session');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -13,6 +14,12 @@ var boardPersonal = require('./routes/boardPersonal');
 
 var app = express();
 
+app.use(session({
+  secret: 'seuSegredoDeSessao', // Use uma chave secreta forte
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Se estiver em produção, defina secure: true e use HTTPS
+}));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

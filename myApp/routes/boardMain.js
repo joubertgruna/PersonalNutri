@@ -1,12 +1,54 @@
 const express = require('express');
 const router = express.Router();
 const knex = require('../db/conn');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+// const authenticateToken = require('./middleware/authenticateToken')
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => {
-    res.render('./boardMain/index', { title: 'Personal Nutri' })
+function authenticateToken(req, res, next) {
+    const token = req.session.token;
+
+    if (!token) return res.status(401).send('Acesso negado: Token não fornecido');
+
+    jwt.verify(token, 'seuSegredoJWT', (err, user) => {
+        if (err) return res.status(403).send('Acesso negado: Token inválido');
+        req.user = user;
+        next();
+    });
+}
+
+
+function authorizeProfessional(req, res, next) {
+    if (req.user.tipo !== 'profissional') {
+        return res.status(403).send('Acesso negado');
+    }
+    next();
+}
+
+function authorizeClient(req, res, next) {
+    const clientId = req.params.id; // ID do cliente da rota, por exemplo, /clientes/:id/dietas
+
+    if (req.user.tipo !== 'cliente' || req.user.id != clientId) {
+        return res.status(403).send('Acesso negado');
+    }
+    next();
+}
+
+
+router.get('/', authenticateToken, authorizeProfessional, (req, res) => {
+    if (req.user.tipo === 'profissional') {
+        // Renderiza a visão para profissionais
+        res.render('./boardMain/index', { title: 'Personal Nutri - Profissional' });
+    } else if (req.user.tipo === 'cliente') {
+        // Renderiza a visão para clientes
+        res.render('./boardMain/index', { title: 'Personal Nutri - Cliente' });
+    } else {
+        return res.status(403).send('Acesso negado');
+    }
+    // res.render('./boardMain/index', { title: 'Personal Nutri' })
 })
 
 
@@ -152,7 +194,7 @@ router.post('/create-cliente', (req, res) => {
 
 })
 //Listagem dos alunos
-router.get('/list-clientes', (req, res) => {
+router.get('/list-clientes', authenticateToken, authorizeProfessional, (req, res) => {
     // Função para listar todos os alunos do banco de dados
     try {
         const alunos = knex.select('*').from('clientes');
@@ -1223,7 +1265,6 @@ router.get('/list-dietas', (req, res) => {
 // Editar Dieta 
 router.get('/edit-dieta/:id', (req, res) => {
     var id = req.params.id;
-
     try {
         const dietas = knex('dietas')
             .where('dietas.id', id)
@@ -1285,16 +1326,64 @@ router.post('/delete-dieta', (req, res) => {
     console.log('DELETED::: ', id)
 })
 
+//Register
 router.get('/register', (req, res, next) => {
     res.render('./boardMain/register', {
         title: 'Registrar Profissional'
     })
 })
+router.post('/register', async (req, res) => {
+    const { nome, email, senha, tipo } = req.body; // tipo: 'profissional' ou 'cliente'
+
+    try {
+        const hashedPassword = await bcrypt.hash(senha, 10);
+
+        knex('usuarios').insert({
+            nome,
+            email,
+            senha: hashedPassword,
+            tipo: tipo
+        })
+            .then((rtn) => {
+                console.log(rtn)
+                res.redirect('/admin/login')
+            })
+
+        // res.status(201).send('Usuário registrado com sucesso');
+    } catch (error) {
+        res.status(500).send('Erro ao registrar usuário');
+    }
+});
+
+//Login
 router.get('/login', (req, res, next) => {
     res.render('./boardMain/login', {
         title: 'Logar Profissional'
     })
 })
+router.post('/login', async (req, res) => {
+    const { email, senha, tipo } = req.body;
+
+    try {
+        const user = await knex('usuarios').where({ email }).first();
+
+        if (user && await bcrypt.compare(senha, user.senha)) {
+            // Suponha que você já autenticou o usuário e gerou um token JWT
+            const token = jwt.sign({ id: user.id, tipo: user.tipo }, 'seuSegredoJWT', { expiresIn: '1h' });
+
+            // Salva o token na sessão do usuário
+            req.session.token = token;
+            console.log({token})
+
+            res.redirect('/admin'); // Redireciona para a página inicial ou outra rota
+        } else {
+            res.status(401).send('Credenciais inválidas');
+        }
+    } catch (error) {
+        res.status(500).send('Erro ao realizar login');
+    }
+});
+
 router.get('/forgotpass', (req, res, next) => {
     res.render('./boardMain/forgotPass', {
         title: 'Recuperar senha'
