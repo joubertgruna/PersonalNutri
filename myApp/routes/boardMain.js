@@ -11,8 +11,8 @@ router.use(bodyParser.json());
 function authenticateToken(req, res, next) {
     const token = req.session.token;
 
-    if (!token) return res.status(401).send('Acesso negado: Token não fornecido');
-
+    if (!token) return res.redirect('/admin/login')
+        //status(401).send('Acesso negado: Token não fornecido'); 
     jwt.verify(token, 'seuSegredoJWT', (err, user) => {
         if (err) return res.status(403).send('Acesso negado: Token inválido');
         req.user = user;
@@ -163,6 +163,30 @@ router.post('/delete-personal', (req, res) => {
 router.get('/create-cliente', (req, res) => {
     res.render('./boardMain/createCliente', { title: 'Cliente' })
 })
+router.post('/clientes', authenticateToken, authorizeProfessional, async (req, res) => {
+    try {
+        const { name, email, cellphone, password } = req.body;
+        const profissionalId = req.user.id;
+        console.log('ID Usuário >>',profissionalId)
+
+        knex('clientes').insert({
+            nome: name,
+            email: email,
+            // user: user,
+            cellphone: cellphone,
+            password: password,
+            profissionalId: profissionalId
+        }).then((retorno)=>{
+            console.log(retorno)
+        })
+
+        // res.status(201).send('Cliente adicionado com sucesso!');
+        res.redirect('/admin/list-clientes')
+    } catch (error) {
+        res.status(500).send('Erro ao adicionar cliente');
+    }
+});
+
 router.post('/create-cliente', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;

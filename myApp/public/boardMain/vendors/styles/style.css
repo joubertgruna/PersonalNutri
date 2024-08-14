@@ -1174,7 +1174,7 @@ table.dataTable>tbody>tr.child ul.dtr-details .dtr-title {
     font-size: 15px;
     font-weight: 400;
     padding: .55rem 1rem;
-    color: #667f87;
+    color: #572020;
     font-family: 'Inter', sans-serif;
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out
@@ -1268,7 +1268,7 @@ table.dataTable.stripe tbody tr.odd {
 table.dataTable tbody tr.selected,
 table.dataTable.display tbody tr:hover.selected,
 table.dataTable.hover tbody tr:hover.selected {
-    background-color: #181f48 !important;
+    background-color: #300808 !important;
     color: #fff
 }
 
@@ -2078,11 +2078,11 @@ table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
 .sidebar-light .sidebar-menu .submenu li a.active,
 .sidebar-light .sidebar-menu .submenu li a:hover {
     color: #fff;
-    background-color: #0b132b
+    background-color: #4d1414 
 }
 
 .sidebar-light .menu-block .mCS-dark-2.mCSB_scrollTools .mCSB_draggerRail {
-    background-color: #0e132b
+    background-color: #4d1414
 }
 
 .sidebar-menu .dropdown-divider {
