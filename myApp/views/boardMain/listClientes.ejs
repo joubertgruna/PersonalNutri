@@ -58,7 +58,7 @@
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="/">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Alunos</li>
+									<li class="breadcrumb-item active" aria-current="page">Clientes</li>
 								</ol>
 							</nav>
 						</div>
@@ -67,7 +67,7 @@
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="h4">Alunos</h4>
+						<h4 class="h4">Clientes</h4>
 					</div>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap">
@@ -83,22 +83,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% aluno.forEach((aluno)=>{ %>
+								<% cliente.forEach((cliente)=>{ %>
 									<tr>
 										<td class="table-plus">
-											<%=aluno.id%>
+											<%=cliente.id%>
 										</td>
 										<td class="table-plus">
-											<%=aluno.nome%>
+											<%=cliente.nome%>
 										</td>
 										<td>
-											<%=aluno.email%>
+											<%=cliente.email%>
 										</td>
 										<td>
-											<%=aluno.cellphone%>
+											<%=cliente.cellphone%>
 										</td>
 										<td>
-											<%=aluno.password%>
+											<%=cliente.password%>
 										</td>
 										<!-- <td>29-03-2018</td> -->
 										<td>
@@ -108,16 +108,16 @@
 													<i  class="dw dw-more"></i>
 												</a>
 												<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-													<!-- <a class="dropdown-item" href="/admin/edit-aluno"><i class="dw dw-eye"></i> View</a> -->
+													<!-- <a class="dropdown-item" href="/admin/edit-cliente"><i class="dw dw-eye"></i> View</a> -->
 													<a  class="dropdown-item"
-														href="/admin/edit-cliente/<%=aluno.id%>"><i
+														href="/admin/edit-cliente/<%=cliente.id%>"><i
 															class="dw dw-edit2"></i>
 														Editar</a>
 
 													<a class="dropdown-item">
 														<form action="/admin/delete-cliente" method="POST"
 															onsubmit="verifica(event, this)">
-															<input type="hidden" name="id" value="<%=aluno.id%>">
+															<input type="hidden" name="id" value="<%=cliente.id%>">
 															<button class="btn btn-sm btn-transparent" type="submit">
 																Deletar<i class="dw dw-delete-3"></i>
 															</button>

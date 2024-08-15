@@ -12,9 +12,9 @@ function authenticateToken(req, res, next) {
     const token = req.session.token;
 
     if (!token) return res.redirect('/admin/login')
-        //status(401).send('Acesso negado: Token não fornecido'); 
+        // res.status(401).redirect('/admin/login');
     jwt.verify(token, 'seuSegredoJWT', (err, user) => {
-        if (err) return res.status(403).send('Acesso negado: Token inválido');
+        if (err) return res.status(403).redirect('/admin/login');
         req.user = user;
         next();
     });
@@ -167,7 +167,7 @@ router.post('/clientes', authenticateToken, authorizeProfessional, async (req, r
     try {
         const { name, email, cellphone, password } = req.body;
         const profissionalId = req.user.id;
-        console.log('ID Usuário >>',profissionalId)
+        console.log('ID Profissional >>',profissionalId)
 
         knex('clientes').insert({
             nome: name,
@@ -176,7 +176,7 @@ router.post('/clientes', authenticateToken, authorizeProfessional, async (req, r
             cellphone: cellphone,
             password: password,
             profissionalId: profissionalId
-        }).then((retorno)=>{
+        }).then(retorno =>{
             console.log(retorno)
         })
 
@@ -219,19 +219,25 @@ router.post('/create-cliente', (req, res) => {
 })
 //Listagem dos alunos
 router.get('/list-clientes', authenticateToken, authorizeProfessional, (req, res) => {
-    // Função para listar todos os alunos do banco de dados
+    const profissionalId = req.user.id;  // Obtém o ID do profissional da sessão autenticada
+
     try {
-        const alunos = knex.select('*').from('clientes');
-        alunos.then((alunos) => {
-            console.log('alunos:', alunos);
-            res.render('./boardMain/listClientes', { title: 'Listar Aluno', aluno: alunos })
-        })
+        // Consulta no banco de dados, filtrando os clientes pelo profissionalId
+        const clientes = knex('clientes')
+            .where('profissionalId', profissionalId)
+            .select('*');
+
+        // Processa a consulta e envia os dados para o template
+        clientes.then((clientes) => {
+            console.log('Clientes relacionados ao profissional:', clientes);
+            res.render('./boardMain/listClientes', { title: 'Listar Clientes', cliente: clientes });
+        });
 
     } catch (error) {
-        console.error('Erro ao listar os posts:', error);
+        console.error('Erro ao listar os clientes:', error);
+        res.status(500).send('Erro ao listar os clientes');
     }
-
-})
+});
 // Editação dos alunos 
 router.get('/edit-cliente/:id', (req, res) => {
     var id = req.params.id;
@@ -239,20 +245,27 @@ router.get('/edit-cliente/:id', (req, res) => {
     try {
         // Fazendo a consulta ao banco de dados
         const clientes = knex('clientes')
-            .where('clientes.id', id)
-            .join('dietas', 'clientes.id', '=', 'dietas.clienteId')
-            .select('clientes.*', 'dietas.*');
+            .where('id', id)
+            .select('*');
+
+        const dieta = knex('dietas')
+        .where('clienteId', id)
+        .select('*')
 
         // Espera a Promise ser resolvida antes de continuar
         clientes.then(clienteComDieta => {
-            if (clienteComDieta.length > 0) {
-                console.log('Cliente e dieta encontrados:', clienteComDieta);
-                // Renderizando a página com os dados do cliente e da dieta
-                res.render('./boardMain/editCliente', { title: 'Editar Aluno', id: id, cliente: clienteComDieta[0] });
-            } else {
-                console.log('Nenhum cliente encontrado com o ID fornecido.');
-                res.render('./boardMain/editCliente', { title: 'Editar Aluno', id: id, cliente: null });
-            }
+            dieta.then(dietas => {
+                if (clienteComDieta.length > 0) {
+                    console.log('Cliente e dieta encontrados:', clienteComDieta);
+                    console.log('Dieta vinculada: ', dietas)
+                    // Renderizando a página com os dados do cliente e da dieta
+                    res.render('./boardMain/editCliente', { title: 'Editar Aluno', id: id, cliente: clienteComDieta[0], dieta: dietas[0] });
+                } else {
+                    console.log('Nenhum cliente encontrado com o ID fornecido.');
+                    res.render('./boardMain/editCliente', { title: 'Editar Aluno', id: id, cliente: null });
+                }
+            })
+            
         }).catch(error => {
             // Lidando com erros na consulta
             console.error('Erro ao selecionar o aluno:', error);
@@ -281,7 +294,7 @@ router.post('/edit-cliente/:id', (req, res) => {
     knex('clientes').where({ id: id }).update(validate)
         .then(() => {
             console.log('Aluno atualizado com sucesso!', [validate]);
-            res.redirect(`/admin/edit-aluno/${id}`);
+            res.redirect(`/admin/edit-cliente/${id}`);
         })
         .catch((error) => {
             console.error('Erro ao atualizar o aluno:', error);
@@ -1243,6 +1256,7 @@ router.post('/create-dieta', (req, res) => {
     const proteinas = req.body.proteinas;
     const carboidratos = req.body.carboidratos;
     const gorduras = req.body.gorduras;
+    const clienteId = req.body.clienteId
     // Insere os dados do personais no banco de dados
 
     knex('dietas').insert({
@@ -1254,7 +1268,11 @@ router.post('/create-dieta', (req, res) => {
         calorias_diarias: calorias_diarias,
         proteinas: proteinas,
         carboidratos: carboidratos,
-        gorduras: gorduras
+        gorduras: gorduras,
+        clienteId: clienteId,
+        alimentoId: 16,
+        suplementoId: 3,
+        ergogenicoId: 1
     })
         .then((dietas) => {
             res.redirect('/admin/list-dietas'); // Move a chamada para dentro deste callback
@@ -1382,7 +1400,8 @@ router.post('/register', async (req, res) => {
 //Login
 router.get('/login', (req, res, next) => {
     res.render('./boardMain/login', {
-        title: 'Logar Profissional'
+        title: 'Logar Profissional',
+        msg: ''
     })
 })
 router.post('/login', async (req, res) => {
@@ -1401,12 +1420,21 @@ router.post('/login', async (req, res) => {
 
             res.redirect('/admin'); // Redireciona para a página inicial ou outra rota
         } else {
-            res.status(401).send('Credenciais inválidas');
+            res.render('./boardMain/login', {
+                title: 'Logar Profissional',
+                msg: 'Credenciais inválidas'
+            })
         }
     } catch (error) {
         res.status(500).send('Erro ao realizar login');
     }
 });
+router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) return res.status(500).send('Erro ao fazer logout');
+        res.redirect('/admin/login');
+    });
+})
 
 router.get('/forgotpass', (req, res, next) => {
     res.render('./boardMain/forgotPass', {

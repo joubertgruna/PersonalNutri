@@ -93,7 +93,7 @@
                                         </div>
                                     </div>
                                     <h5 class="text-center h5 mb-0">
-                                      s
+                                        <%=cliente.nome%>
                                     </h5>
                                     <p class="text-center text-muted font-14">Tipo: Atleta</p>
                                     <div class="faq-wrap">
@@ -111,7 +111,7 @@
                                                         <ul>
                                                             <li>
                                                                 <span>Email:</span>
-                                                                <%=cliente.email%>
+                                                                <%=cliente.nome%>
                                                             </li>
                                                             <li>
                                                                 <span>Celular:</span>
@@ -293,32 +293,32 @@
                                                                                 <label>Peso</label>
                                                                                 <input class="form-control" type="text"
                                                                                     name="peso"
-                                                                                    value="<%=cliente.proteinas%>">
+                                                                                    value="<%=cliente.peso%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>% de gordura</label>
                                                                                 <input class="form-control" type="text"
                                                                                     name="gordura"
-                                                                                    value="<%=cliente.calorias_diarias%>">
+                                                                                    value="<%=cliente.gordura%>">
                                                                             </div>
 
                                                                             <div class="form-group">
                                                                                 <label>abdômen(cintura) - cm</label>
                                                                                 <input class="form-control" type="text"
                                                                                     name="abdomen"
-                                                                                    value="<%=cliente.cellphone%>">
+                                                                                    value="<%=cliente.cintura%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Braço - cm</label>
                                                                                 <input class="form-control"
                                                                                     type="text" name="braco"
-                                                                                    value="<%=cliente.password%>">
+                                                                                    value="<%=cliente.braco%>">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Peitoral - cm</label>
                                                                                 <input class="form-control"
                                                                                     type="text" name="peitoral"
-                                                                                    value="<%=cliente.password%>">
+                                                                                    value="<%=cliente.peitoral%>">
                                                                             </div>
                                                                             
                                                                             <button class="btn btn-success"
@@ -329,59 +329,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- <div class="card">
-                                                                <div class="card-header">
-                                                                    <button class="btn btn-block collapsed"
-                                                                        data-toggle="collapse" data-target="#faq5">
-                                                                        Informações físicas
-                                                                    </button>
-                                                                </div>
-                                                                <div id="faq5" class="collapse"
-                                                                    data-parent="#accordion">
-                                                                    <div class="pd-20 card-box mb-30">
-                                                                        <div class="clearfix">
-                                                                            <div class="pull-left">
-                                                                                <h4 class="text-blue h6">Editar
-                                                                                    informações</h4>
-                                                                            </div>
-
-                                                                        </div>
-                                                                        <form id="createAlunoForm" method="post"
-                                                                            action="/admin/edit-aluno/<%=cliente.id%>">
-                                                                            <div class="form-group">
-                                                                                <label>Nome</label>
-                                                                                <input class="form-control" type="text"
-                                                                                    name="name"
-                                                                                    value="<%=cliente.nome%>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Email</label>
-                                                                                <input class="form-control" type="email"
-                                                                                    name="email"
-                                                                                    value="<%=cliente.email%>">
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label>Celular</label>
-                                                                                <input class="form-control" type="tel"
-                                                                                    name="cellphone"
-                                                                                    value="<%=cliente.cellphone%>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Senha</label>
-                                                                                <input class="form-control"
-                                                                                    type="password" name="password"
-                                                                                    value="<%=cliente.password%>">
-                                                                            </div>
-
-                                                                            <button class="btn btn-success"
-                                                                                type="submit">Editar</button>
-                                                                        </form>
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
+                                                           
                                                             
                                                         </div>
                                                     </div>
@@ -404,12 +352,13 @@
                                                                         <div class="card">
                                                                             <div class="card-header">
                                                                                 <button class="btn btn-block" data-toggle="collapse" data-target="#faq8">
-                                                                                    Editar a dieta
+                                                                                    Criar dieta
                                                                                 </button>
                                                                             </div>
                                                                             <div id="faq8" class="collapse hidden" data-parent="#accordion">
                                                                                 <div class="card-body">
-                                                                                    <form id="form-dieta" method="POST" action="/admin/criar-dieta">
+                                                                                    <form id="form-dieta" method="POST" action="/admin/create-dieta">
+                                                                                        <input type="hidden" name="clienteId" value="<%=cliente.id%>">
                                                                                         <div class="form-group">
                                                                                           <label for="nome_da_dieta">Nome da Dieta</label>
                                                                                           <input type="text" class="form-control" id="nome_da_dieta" name="nome_da_dieta" required>
@@ -450,15 +399,8 @@
                                                                                           <label for="gorduras">Gorduras (g)</label>
                                                                                           <input type="number" class="form-control" id="gorduras" name="gorduras" required>
                                                                                         </div>
-                                                                                        <div class="form-group">
-                                                                                          <label for="alimentos">Alimentos</label>
-                                                                                          <select multiple class="form-control" id="alimentos" name="alimentos[]">
-                                                                                            <!-- Alimentos serão carregados aqui dinamicamente -->
-                                                                                          </select>
-                                                                                        </div>
                                                                                         <button type="submit" class="btn btn-primary">Criar Dieta</button>
                                                                                       </form>
-                                                                                      
                                                                                       
                                                                                 </div>
                                                                                 
@@ -468,139 +410,120 @@
                                                                             <div class="card-header">
                                                                                 <button class="btn btn-block collapsed" data-toggle="collapse"
                                                                                     data-target="#faq9">
-                                                                                    Alimentos
+                                                                                    Visualizar Dieta
                                                                                 </button>
                                                                             </div>
                                                                             <div id="faq9" class="collapse" data-parent="#accordion">
-                                                                                
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- <div class="card">
-                                                                            <div class="card-header">
-                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
-                                                                                    data-target="#faq3">
-                                                                                    Collapsible Group Item #3
-                                                                                </button>
-                                                                            </div>
-                                                                            <div id="faq3" class="collapse" data-parent="#accordion">
-                                                                                <div class="card-body">
-                                                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                                                        terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                                                                        skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                                                                                        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                                                                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim
-                                                                                        keffiyeh
-                                                                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                                                                                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-                                                                                        craft
-                                                                                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
-                                                                                        haven't heard of them accusamus labore sustainable VHS.</p>
-                                                                                    <p class="mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high
-                                                                                        life
-                                                                                        accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                                                                                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                                                                                        laborum
-                                                                                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it
-                                                                                        squid
-                                                                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim
-                                                                                        keffiyeh
-                                                                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                                                                                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-                                                                                        craft
-                                                                                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
-                                                                                        haven't heard of them accusamus labore sustainable VHS.</p>
+                                                                                <div class="pd-20 card-box">
+                                                                                    <!-- <h5 class="h4 text-blue mb-20">Custom vertical Tab</h5> -->
+                                                                                    <div class="tab">
+                                                                                        <div class="row clearfix">
+                                                                                            <div class="col-md-3 col-sm-12">
+                                                                                                <ul class="nav flex-column vtabs nav-pills customtab" role="tablist">
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link active" data-toggle="tab" href="#home4" role="tab" aria-selected="true">Geral</a>
+                                                                                                    </li>
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link" data-toggle="tab" href="#profile4" role="tab" aria-selected="false">Alimentos</a>
+                                                                                                    </li>
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link" data-toggle="tab" href="#contact4" role="tab" aria-selected="false">Rotina</a>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                            <div class="col-md-9 col-sm-12">
+                                                                                                <div class="tab-content">
+                                                                                                    <div class="tab-pane fade show active" id="home4" role="tabpanel">
+                                                                                                        <div class="pd-20">
+                                                                                                            Nome: <%=dieta.nome_da_dieta%><br>
+                                                                                                            Descrição: <%=dieta.descricao_da_dieta%><br>
+                                                                                                            Objetivo: <%=dieta.objetivo_da_dieta%><br>
+                                                                                                            Duração: <%=dieta.duracao_estimada%><br>
+                                                                                                            Nível: <%=dieta.nivel_de_dificuldade%><br>
+                                                                                                            Cal/Dia: <%=dieta.calorias_diarias%><br>
+                                                                                                            Proteina/Dia: <%=dieta.proteinas%><br>
+                                                                                                            Carbo/Dia: <%=dieta.carboidratos%><br>
+                                                                                                            Gordura/Dia: <%=dieta.gorduras%>
+                                                                                                           
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="tab-pane fade" id="profile4" role="tabpanel">
+                                                                                                        <div class="pd-20">
+                                                                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="tab-pane fade" id="contact4" role="tabpanel">
+                                                                                                        <div class="pd-20">
+                                                                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="card">
-                                                                            <div class="card-header">
-                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
-                                                                                    data-target="#faq4">
-                                                                                    Collapsible Group Item #4
-                                                                                </button>
-                                                                            </div>
-                                                                            <div id="faq4" class="collapse" data-parent="#accordion">
-                                                                                <div class="card-body">
-                                                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                                                    terry
-                                                                                    richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                                                                    dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                                                                    moon
-                                                                                    tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                                                                                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer
-                                                                                    labore
-                                                                                    wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-                                                                                    butcher
-                                                                                    vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
-                                                                                    aesthetic
-                                                                                    synth nesciunt you probably haven't heard of them accusamus labore
-                                                                                    sustainable VHS.
-                                                                                </div>
+                                                                                    
                                                                             </div>
                                                                         </div>
                                                                         <div class="card">
                                                                             <div class="card-header">
                                                                                 <button class="btn btn-block collapsed" data-toggle="collapse"
-                                                                                    data-target="#faq5">
-                                                                                    Collapsible Group Item #5
+                                                                                    data-target="#faq15">
+                                                                                    Gerenciar Dieta
                                                                                 </button>
                                                                             </div>
-                                                                            <div id="faq5" class="collapse" data-parent="#accordion">
-                                                                                <div class="card-body">
-                                                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                                                    terry
-                                                                                    richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                                                                    dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                                                                    moon
-                                                                                    tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                                                                                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer
-                                                                                    labore
-                                                                                    wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-                                                                                    butcher
-                                                                                    vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
-                                                                                    aesthetic
-                                                                                    synth nesciunt you probably haven't heard of them accusamus labore
-                                                                                    sustainable VHS.
+                                                                            <div id="faq15" class="collapse" data-parent="#accordion">
+                                                                                <div class="pd-20 card-box">
+                                                                                    <!-- <h5 class="h4 text-blue mb-20">Custom vertical Tab</h5> -->
+                                                                                    <div class="tab">
+                                                                                        <div class="row clearfix">
+                                                                                            <div class="col-md-3 col-sm-12">
+                                                                                                <ul class="nav flex-column vtabs nav-pills customtab" role="tablist">
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link active" data-toggle="tab" href="#home4" role="tab" aria-selected="true">Geral</a>
+                                                                                                    </li>
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link" data-toggle="tab" href="#profile4" role="tab" aria-selected="false">Alimentos</a>
+                                                                                                    </li>
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link" data-toggle="tab" href="#contact4" role="tab" aria-selected="false">Rotina</a>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                            <div class="col-md-9 col-sm-12">
+                                                                                                <div class="tab-content">
+                                                                                                    <div class="tab-pane fade show active" id="home4" role="tabpanel">
+                                                                                                        <div class="pd-20">
+                                                                                                            Nome: <%=dieta.nome_da_dieta%><br>
+                                                                                                            Descrição: <%=dieta.descricao_da_dieta%><br>
+                                                                                                            Objetivo: <%=dieta.objetivo_da_dieta%><br>
+                                                                                                            Duração: <%=dieta.duracao_estimada%><br>
+                                                                                                            Nível: <%=dieta.nivel_de_dificuldade%><br>
+                                                                                                            Cal/Dia: <%=dieta.calorias_diarias%><br>
+                                                                                                            Proteina/Dia: <%=dieta.proteinas%><br>
+                                                                                                            Carbo/Dia: <%=dieta.carboidratos%><br>
+                                                                                                            Gordura/Dia: <%=dieta.gorduras%>
+                                                                                                           
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="tab-pane fade" id="profile4" role="tabpanel">
+                                                                                                        <div class="pd-20">
+                                                                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="tab-pane fade" id="contact4" role="tabpanel">
+                                                                                                        <div class="pd-20">
+                                                                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
+                                                                                    
                                                                             </div>
                                                                         </div>
-                                                                        <div class="card">
-                                                                            <div class="card-header">
-                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
-                                                                                    data-target="#faq6">
-                                                                                    Collapsible Group Item #6
-                                                                                </button>
-                                                                            </div>
-                                                                            <div id="faq6" class="collapse" data-parent="#accordion">
-                                                                                <div class="card-body">
-                                                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                                                        terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                                                                        skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                                                                                        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                                                                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim
-                                                                                        keffiyeh
-                                                                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                                                                                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-                                                                                        craft
-                                                                                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
-                                                                                        haven't heard of them accusamus labore sustainable VHS.</p>
-                                                                                    <p class="mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high
-                                                                                        life
-                                                                                        accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                                                                                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                                                                                        laborum
-                                                                                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it
-                                                                                        squid
-                                                                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim
-                                                                                        keffiyeh
-                                                                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                                                                                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-                                                                                        craft
-                                                                                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
-                                                                                        haven't heard of them accusamus labore sustainable VHS.</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div> -->
                                                                     </div>
                                                                 </div>
 
@@ -1202,20 +1125,6 @@
                         <%-include('./partials/footer')%>
                     </div>
                     <!-- js -->
-                     <script>
-                        fetch('/alimentos')
-    .then(response => response.json())
-    .then(data => {
-        const selectAlimentos = document.getElementById('alimentos');
-        data.forEach(alimento => {
-            const option = document.createElement('option');
-            option.value = alimento.id;
-            option.text = alimento.nome;
-            selectAlimentos.appendChild(option);
-        });
-    });
-
-                     </script>
 
                     <script src="../../boardMain/vendors/scripts/core.js"></script>
                     <script src="../../boardMain/vendors/scripts/script.min.js"></script>
