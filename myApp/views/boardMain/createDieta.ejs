@@ -37,94 +37,125 @@
 <body>
     <%-include('./partials/preloader')%>
 
-   <%-include('./partials/header')%>
+        <%-include('./partials/header')%>
 
-    
-   <%-include('./partials/left-sidebar')%>
-    <div class="mobile-menu-overlay"></div>
 
-    <div class="main-container">
-        <div class="min-height-200px">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="title">
-                            <h4>Form de Cadastro</h4>
+            <%-include('./partials/left-sidebar')%>
+                <div class="mobile-menu-overlay"></div>
+
+                <div class="main-container">
+                    <div class="min-height-200px">
+                        <div class="page-header">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="title">
+                                        <h4>Form de Cadastro</h4>
+                                    </div>
+                                    <nav aria-label="breadcrumb" role="navigation">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Dieta</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
                         </div>
-                        <nav aria-label="breadcrumb" role="navigation">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Dieta</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        <!-- horizontal Basic Forms Start -->
-        <div class="pd-20 card-box mb-30">
-            <div class="clearfix">
-                <div class="pull-left">
-                    <h4 class="text-blue h4">Cadastro do Dieta</h4>
-                </div>
-  
+                        <!-- horizontal Basic Forms Start -->
+                        <div class="pd-20 card-box mb-30">
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <h4 class="text-blue h4">Cadastro da Dieta</h4>
+                                </div>
 
-<!-- VALUES ('Dieta de Hipertrofia', 'Dieta focada em ganho de massa muscular', 
+
+                                <!-- VALUES ('Dieta de Hipertrofia', 'Dieta focada em ganho de massa muscular', 
  'Hipertrofia', 'Intermediário', 30, 2500, 150, 300, 70);-->
 
-            </div>
-            <form id="createDietaForm" method="post" action="/admin/create-dieta">
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input class="form-control" type="text" name="nome_da_dieta" value="">
-                </div>
-                <div class="form-group">
-                    <label>descricao_da_dieta</label>
-                    <input class="form-control" type="text" name="descricao_da_dieta" value="">
-                </div>
-                <div class="form-group">
-                    <label>objetivo_da_dieta</label>
-                    <input class="form-control" type="text" name="objetivo_da_dieta" value="">
-                </div>
-                <div class="form-group">
-                    <label>duracao_estimada</label>
-                    <input class="form-control" type="text" name="duracao_estimada" value="">
-                </div>
-                <div class="form-group">
-                    <label>nivel_de_dificuldade</label>
-                    <input class="form-control" type="text" name="nivel_de_dificuldade" value="">
-                </div>  
-                <div class="form-group">
-                    <label>calorias_diarias</label>
-                    <input class="form-control" type="text" name="calorias_diarias" value="">
-                </div>      
-                <div class="form-group">
-                    <label>proteinas</label>
-                    <input class="form-control" type="text" name="proteinas" value="">
-                </div> 
-                <div class="form-group">
-                    <label>carboidratos</label>
-                    <input class="form-control" type="text" name="carboidratos" value="">
-                </div> 
-                <div class="form-group">
-                    <label>gorduras</label>
-                    <input class="form-control" type="text" name="gorduras" value="">
-                </div> 
-                         
-                <button class="btn btn-success" type="submit">Cadastrar</button>
-            </form>
-            
-            
-        </div>
-        <!-- horizontal Basic Forms End -->
-        <%-include('./partials/footer')%>
-    </div>
-    <!-- js -->
-    
-    <script src="../../boardMain/vendors/scripts/core.js"></script>
-    <script src="../../boardMain/vendors/scripts/script.min.js"></script>
-    <script src="../../boardMain/vendors/scripts/process.js"></script>
-    <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
-    
+                            </div>
+                            <form id="createDietaForm" method="post" action="/admin/create-dieta">
+                                
+                                
+                                <div class="form-group">
+									<label for="cliente">Selecione o Cliente:</label>
+									<select class="custom-select2 form-control" name="clienteId" id="cliente" required style="width: 100%; height: 38px;">
+										<optgroup label="Clientes">
+											<% clientes.forEach(cliente=> { %>
+                                                <option class="form-control" value="<%= cliente.id %>">
+                                                    <%= cliente.nome %>
+                                                </option>
+                                                <% }) %>
+										</optgroup>
+										<!-- <optgroup label="Pacific Time Zone">
+											<option value="CA">California</option>
+											<option value="NV">Nevada</option>
+											<option value="OR">Oregon</option>
+											<option value="WA">Washington</option>
+										</optgroup>
+										<optgroup label="Mountain Time Zone">
+											<option value="AZ">Arizona</option>
+											<option value="CO">Colorado</option>
+											<option value="ID">Idaho</option>
+											<option value="MT">Montana</option>
+											<option value="NE">Nebraska</option>
+											<option value="NM">New Mexico</option>
+											<option value="ND">North Dakota</option>
+											<option value="UT">Utah</option>
+											<option value="WY">Wyoming</option>
+										</optgroup> -->
+									</select>
+								</div>
+                                <div class="form-group">
+                                    <label>Nome</label>
+                                    <input class="form-control" type="text" name="nome_da_dieta" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>descricao_da_dieta</label>
+                                    <input class="form-control" type="text" name="descricao_da_dieta" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>objetivo_da_dieta</label>
+                                    <input class="form-control" type="text" name="objetivo_da_dieta" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>duracao_estimada</label>
+                                    <input class="form-control" type="text" name="duracao_estimada" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>nivel_de_dificuldade</label>
+                                    <input class="form-control" type="text" name="nivel_de_dificuldade" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>calorias_diarias</label>
+                                    <input class="form-control" type="text" name="calorias_diarias" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>proteinas</label>
+                                    <input class="form-control" type="text" name="proteinas" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>carboidratos</label>
+                                    <input class="form-control" type="text" name="carboidratos" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>gorduras</label>
+                                    <input class="form-control" type="text" name="gorduras" value="">
+                                </div>
+
+                                <button class="btn btn-success" type="submit">Cadastrar</button>
+                            </form>
+
+
+                        </div>
+                        <!-- horizontal Basic Forms End -->
+                        <%-include('./partials/footer')%>
+                    </div>
+                    <!-- js -->
+
+                    <script src="../../boardMain/vendors/scripts/core.js"></script>
+                    <script src="../../boardMain/vendors/scripts/script.min.js"></script>
+                    <script src="../../boardMain/vendors/scripts/process.js"></script>
+                    <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
+
 </body>
 
 </html>

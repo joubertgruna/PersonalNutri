@@ -121,7 +121,7 @@
                                                                 <span>Senha:</span>
                                                                 <%=cliente.password%>
                                                             </li>
-                                                            
+
                                                         </ul>
 
                                                     </div>
@@ -199,14 +199,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mb-30">
                                 <div class="card-box height-100-p overflow-hidden">
                                     <div class="profile-tab height-100-p">
@@ -241,109 +241,128 @@
                                             <div class="tab-content">
                                                 <!-- Tasks Tab start -->
                                                 <div class="tab-pane fade show active" id="perfil" role="tabpanel">
-                                                    <div class="faq-wrap">
-                                                        <div id="accordion">
-                                                            <div class="card">
-                                                                <div class="card-header">
-                                                                    <button class="btn btn-block" data-toggle="collapse"
-                                                                        data-target="#faq4">
-                                                                        Editar aluno
-                                                                    </button>
-                                                                </div>
-                                                                <div id="faq4" class="collapse show" data-parent="#accordion">
+                                                    <div class="pd-20 profile-task-wrap">
+                                                        <div class="clearfix">
+                                                            <div class="pull-left">
+                                                                <h4 class="text-blue h4">Editar Cliente</h4>
+                                                                <hr>
+                                                            </div>
 
-                                                                    <div class="pd-20 card-box mb-30">
-                                                                      
-                                                                        <form id="createAlunoForm" method="post"
-                                                                            action="/admin/edit-cliente/<%=cliente.id%>">
-                                                                            <div class="pull-left">
-                                                                                <h4 class="text-blue h6">Informações Pessoais</h4>
-                                                                            </div><br><hr>
-                                                                            <div class="form-group">
-                                                                                <label>Nome</label>
-                                                                                <input class="form-control" type="text"
-                                                                                    name="name"
-                                                                                    value="<%=cliente.nome%>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Email</label>
-                                                                                <input class="form-control" type="email"
-                                                                                    name="email"
-                                                                                    value="<%=cliente.email%>">
-                                                                            </div>
+                                                        </div>
+                                                        <div class="container pd-0">
+                                                            <div class="faq-wrap">
+                                                                <div id="accordion">
+                                                                    <div class="card">
+                                                                        <div class="card-header">
+                                                                            <button class="btn btn-block"
+                                                                                data-toggle="collapse"
+                                                                                data-target="#faq4">
+                                                                                Informações do cliente
+                                                                            </button>
+                                                                        </div>
+                                                                        <div id="faq4" class="collapse show"
+                                                                            data-parent="#accordion">
 
-                                                                            <div class="form-group">
-                                                                                <label>Celular</label>
-                                                                                <input class="form-control" type="tel"
-                                                                                    name="cellphone"
-                                                                                    value="<%=cliente.cellphone%>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Senha</label>
-                                                                                <input class="form-control"
-                                                                                    type="password" name="password"
-                                                                                    value="<%=cliente.password%>">
-                                                                            </div>
-                                                                            <hr>
-                                                                            <div class="pull-left">
-                                                                                <h4 class="text-blue h6">Informações Físicas </h4>
-                                                                            </div><br>
-                                                                            <hr>
-                                                                            <div class="form-group">
-                                                                                <label>Peso</label>
-                                                                                <input class="form-control" type="text"
-                                                                                    name="peso"
-                                                                                    value="<%=cliente.peso%>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>% de gordura</label>
-                                                                                <input class="form-control" type="text"
-                                                                                    name="gordura"
-                                                                                    value="<%=cliente.gordura%>">
-                                                                            </div>
+                                                                            <div class="pd-20 card-box mb-30">
 
-                                                                            <div class="form-group">
-                                                                                <label>abdômen(cintura) - cm</label>
-                                                                                <input class="form-control" type="text"
-                                                                                    name="abdomen"
-                                                                                    value="<%=cliente.cintura%>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Braço - cm</label>
-                                                                                <input class="form-control"
-                                                                                    type="text" name="braco"
-                                                                                    value="<%=cliente.braco%>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Peitoral - cm</label>
-                                                                                <input class="form-control"
-                                                                                    type="text" name="peitoral"
-                                                                                    value="<%=cliente.peitoral%>">
-                                                                            </div>
-                                                                            
-                                                                            <button class="btn btn-success"
-                                                                                type="submit">Editar</button>
-                                                                        </form>
+                                                                                <form id="createAlunoForm" method="post"
+                                                                                    action="/admin/edit-cliente/<%=cliente.id%>">
+                                                                                    <div class="pull-left">
+                                                                                        <h4 class="text-blue h6">
+                                                                                            Informações Pessoais</h4>
+                                                                                    </div><br>
+                                                                                    <hr>
+                                                                                    <div class="form-group">
+                                                                                        <label>Nome</label>
+                                                                                        <input class="form-control"
+                                                                                            type="text" name="name"
+                                                                                            value="<%=cliente.nome%>">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label>Email</label>
+                                                                                        <input class="form-control"
+                                                                                            type="email" name="email"
+                                                                                            value="<%=cliente.email%>">
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <label>Celular</label>
+                                                                                        <input class="form-control"
+                                                                                            type="tel" name="cellphone"
+                                                                                            value="<%=cliente.cellphone%>">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label>Senha</label>
+                                                                                        <input class="form-control"
+                                                                                            type="password"
+                                                                                            name="password"
+                                                                                            value="<%=cliente.password%>">
+                                                                                    </div>
+                                                                                    <hr>
+                                                                                    <div class="pull-left">
+                                                                                        <h4 class="text-blue h6">
+                                                                                            Informações Físicas </h4>
+                                                                                    </div><br>
+                                                                                    <hr>
+                                                                                    <div class="form-group">
+                                                                                        <label>Peso</label>
+                                                                                        <input class="form-control"
+                                                                                            type="text" name="peso"
+                                                                                            value="<%=cliente.peso%>">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label>% de gordura</label>
+                                                                                        <input class="form-control"
+                                                                                            type="text" name="gordura"
+                                                                                            value="<%=cliente.gordura%>">
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <label>abdômen(cintura) -
+                                                                                            cm</label>
+                                                                                        <input class="form-control"
+                                                                                            type="text" name="abdomen"
+                                                                                            value="<%=cliente.cintura%>">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label>Braço - cm</label>
+                                                                                        <input class="form-control"
+                                                                                            type="text" name="braco"
+                                                                                            value="<%=cliente.braco%>">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label>Peitoral - cm</label>
+                                                                                        <input class="form-control"
+                                                                                            type="text" name="peitoral"
+                                                                                            value="<%=cliente.peitoral%>">
+                                                                                    </div>
+
+                                                                                    <button class="btn btn-success"
+                                                                                        type="submit">Editar</button>
+                                                                                </form>
 
 
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
+
+
                                                                 </div>
                                                             </div>
-                                                           
-                                                            
                                                         </div>
                                                     </div>
-
                                                 </div>
                                                 <!-- Tasks Tab End -->
                                                 <!-- Tasks Tab start -->
                                                 <div class="tab-pane fade" id="dieta" role="tabpanel">
                                                     <div class="pd-20 profile-task-wrap">
                                                         <div class="container pd-0">
-                                                            <div class="pd-20 card-box mb-30">
+                                                            <div class="pd-20 mb-30">
                                                                 <div class="clearfix">
                                                                     <div class="pull-left">
-                                                                        <h4 class="text-blue h4">Editar Dieta</h4>
+                                                                        <h4 class="text-blue h4">Editar Dieta
+                                                                            <hr>
+                                                                        </h4>
                                                                     </div>
 
                                                                 </div>
@@ -351,110 +370,331 @@
                                                                     <div id="accordion">
                                                                         <div class="card">
                                                                             <div class="card-header">
-                                                                                <button class="btn btn-block" data-toggle="collapse" data-target="#faq8">
+                                                                                <button class="btn btn-block"
+                                                                                    data-toggle="collapse"
+                                                                                    data-target="#faq8">
                                                                                     Criar dieta
                                                                                 </button>
                                                                             </div>
-                                                                            <div id="faq8" class="collapse hidden" data-parent="#accordion">
+                                                                            <div id="faq8" class="collapse hidden"
+                                                                                data-parent="#accordion">
                                                                                 <div class="card-body">
-                                                                                    <form id="form-dieta" method="POST" action="/admin/create-dieta">
-                                                                                        <input type="hidden" name="clienteId" value="<%=cliente.id%>">
+                                                                                    <form id="form-dieta" method="POST"
+                                                                                        action="/admin/create-dieta">
+                                                                                        <input type="hidden"
+                                                                                            name="clienteId"
+                                                                                            value="<%=cliente.id%>">
                                                                                         <div class="form-group">
-                                                                                          <label for="nome_da_dieta">Nome da Dieta</label>
-                                                                                          <input type="text" class="form-control" id="nome_da_dieta" name="nome_da_dieta" required>
+                                                                                            <label
+                                                                                                for="nome_da_dieta">Nome
+                                                                                                da Dieta</label>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                id="nome_da_dieta"
+                                                                                                name="nome_da_dieta"
+                                                                                                required>
                                                                                         </div>
                                                                                         <div class="form-group">
-                                                                                          <label for="descricao_da_dieta">Descrição</label>
-                                                                                          <textarea class="form-control" id="descricao_da_dieta" name="descricao_da_dieta" required></textarea>
+                                                                                            <label
+                                                                                                for="descricao_da_dieta">Descrição</label>
+                                                                                            <textarea
+                                                                                                class="form-control"
+                                                                                                id="descricao_da_dieta"
+                                                                                                name="descricao_da_dieta"
+                                                                                                required></textarea>
                                                                                         </div>
                                                                                         <div class="form-group">
-                                                                                          <label for="objetivo_da_dieta">Objetivo da Dieta</label>
-                                                                                          <input type="text" class="form-control" id="objetivo_da_dieta" name="objetivo_da_dieta" required>
+                                                                                            <label
+                                                                                                for="objetivo_da_dieta">Objetivo
+                                                                                                da Dieta</label>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                id="objetivo_da_dieta"
+                                                                                                name="objetivo_da_dieta"
+                                                                                                required>
                                                                                         </div>
                                                                                         <div class="form-group">
-                                                                                          <label for="duracao_estimada">Duração Estimada</label>
-                                                                                          <input type="text" class="form-control" id="duracao_estimada" name="duracao_estimada" required>
+                                                                                            <label
+                                                                                                for="duracao_estimada">Duração
+                                                                                                Estimada</label>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                id="duracao_estimada"
+                                                                                                name="duracao_estimada"
+                                                                                                required>
                                                                                         </div>
                                                                                         <div class="form-group">
-                                                                                          <label for="nivel_de_dificuldade">Nível de Dificuldade</label>
-                                                                                          <select class="form-control" id="nivel_de_dificuldade" name="nivel_de_dificuldade" required>
-                                                                                            <option value="Iniciante">Iniciante</option>
-                                                                                            <option value="Intermediário">Intermediário</option>
-                                                                                            <option value="Avançado">Avançado</option>
-                                                                                          </select>
+                                                                                            <label
+                                                                                                for="nivel_de_dificuldade">Nível
+                                                                                                de Dificuldade</label>
+                                                                                            <select class="form-control"
+                                                                                                id="nivel_de_dificuldade"
+                                                                                                name="nivel_de_dificuldade"
+                                                                                                required>
+                                                                                                <option
+                                                                                                    value="Iniciante">
+                                                                                                    Iniciante</option>
+                                                                                                <option
+                                                                                                    value="Intermediário">
+                                                                                                    Intermediário
+                                                                                                </option>
+                                                                                                <option
+                                                                                                    value="Avançado">
+                                                                                                    Avançado</option>
+                                                                                            </select>
                                                                                         </div>
                                                                                         <div class="form-group">
-                                                                                          <label for="calorias_diarias">Calorias Diárias</label>
-                                                                                          <input type="number" class="form-control" id="calorias_diarias" name="calorias_diarias" required>
+                                                                                            <label
+                                                                                                for="calorias_diarias">Calorias
+                                                                                                Diárias</label>
+                                                                                            <input type="number"
+                                                                                                class="form-control"
+                                                                                                id="calorias_diarias"
+                                                                                                name="calorias_diarias"
+                                                                                                required>
                                                                                         </div>
                                                                                         <div class="form-group">
-                                                                                          <label for="proteinas">Proteínas (g)</label>
-                                                                                          <input type="number" class="form-control" id="proteinas" name="proteinas" required>
+                                                                                            <label
+                                                                                                for="proteinas">Proteínas
+                                                                                                (g)</label>
+                                                                                            <input type="number"
+                                                                                                class="form-control"
+                                                                                                id="proteinas"
+                                                                                                name="proteinas"
+                                                                                                required>
                                                                                         </div>
                                                                                         <div class="form-group">
-                                                                                          <label for="carboidratos">Carboidratos (g)</label>
-                                                                                          <input type="number" class="form-control" id="carboidratos" name="carboidratos" required>
+                                                                                            <label
+                                                                                                for="carboidratos">Carboidratos
+                                                                                                (g)</label>
+                                                                                            <input type="number"
+                                                                                                class="form-control"
+                                                                                                id="carboidratos"
+                                                                                                name="carboidratos"
+                                                                                                required>
                                                                                         </div>
                                                                                         <div class="form-group">
-                                                                                          <label for="gorduras">Gorduras (g)</label>
-                                                                                          <input type="number" class="form-control" id="gorduras" name="gorduras" required>
+                                                                                            <label
+                                                                                                for="gorduras">Gorduras
+                                                                                                (g)</label>
+                                                                                            <input type="number"
+                                                                                                class="form-control"
+                                                                                                id="gorduras"
+                                                                                                name="gorduras"
+                                                                                                required>
                                                                                         </div>
-                                                                                        <button type="submit" class="btn btn-primary">Criar Dieta</button>
-                                                                                      </form>
-                                                                                      
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-primary">Criar
+                                                                                            Dieta</button>
+                                                                                    </form>
+
                                                                                 </div>
-                                                                                
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="card">
                                                                             <div class="card-header">
-                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                                                <button class="btn btn-block collapsed"
+                                                                                    data-toggle="collapse"
                                                                                     data-target="#faq9">
                                                                                     Visualizar Dieta
                                                                                 </button>
                                                                             </div>
-                                                                            <div id="faq9" class="collapse" data-parent="#accordion">
+                                                                            <div id="faq9" class="collapse"
+                                                                                data-parent="#accordion">
                                                                                 <div class="pd-20 card-box">
                                                                                     <!-- <h5 class="h4 text-blue mb-20">Custom vertical Tab</h5> -->
                                                                                     <div class="tab">
                                                                                         <div class="row clearfix">
-                                                                                            <div class="col-md-3 col-sm-12">
-                                                                                                <ul class="nav flex-column vtabs nav-pills customtab" role="tablist">
-                                                                                                    <li class="nav-item">
-                                                                                                        <a class="nav-link active" data-toggle="tab" href="#home4" role="tab" aria-selected="true">Geral</a>
+                                                                                            <div
+                                                                                                class="col-md-3 col-sm-12">
+                                                                                                <ul class="nav flex-column vtabs nav-pills customtab"
+                                                                                                    role="tablist">
+                                                                                                    <li
+                                                                                                        class="nav-item">
+                                                                                                        <a class="nav-link active"
+                                                                                                            data-toggle="tab"
+                                                                                                            href="#home4"
+                                                                                                            role="tab"
+                                                                                                            aria-selected="true">Geral</a>
                                                                                                     </li>
-                                                                                                    <li class="nav-item">
-                                                                                                        <a class="nav-link" data-toggle="tab" href="#profile4" role="tab" aria-selected="false">Alimentos</a>
+                                                                                                    <li
+                                                                                                        class="nav-item">
+                                                                                                        <a class="nav-link"
+                                                                                                            data-toggle="tab"
+                                                                                                            href="#profile4"
+                                                                                                            role="tab"
+                                                                                                            aria-selected="false">Alimentos</a>
                                                                                                     </li>
-                                                                                                    <li class="nav-item">
-                                                                                                        <a class="nav-link" data-toggle="tab" href="#contact4" role="tab" aria-selected="false">Rotina</a>
+                                                                                                    <li
+                                                                                                        class="nav-item">
+                                                                                                        <a class="nav-link"
+                                                                                                            data-toggle="tab"
+                                                                                                            href="#contact4"
+                                                                                                            role="tab"
+                                                                                                            aria-selected="false">Rotina</a>
                                                                                                     </li>
                                                                                                 </ul>
                                                                                             </div>
-                                                                                            <div class="col-md-9 col-sm-12">
-                                                                                                <div class="tab-content">
-                                                                                                    <div class="tab-pane fade show active" id="home4" role="tabpanel">
-                                                                                                        <div class="pd-20">
-                                                                                                            Nome: <%=dieta.nome_da_dieta%><br>
-                                                                                                            Descrição: <%=dieta.descricao_da_dieta%><br>
-                                                                                                            Objetivo: <%=dieta.objetivo_da_dieta%><br>
-                                                                                                            Duração: <%=dieta.duracao_estimada%><br>
-                                                                                                            Nível: <%=dieta.nivel_de_dificuldade%><br>
-                                                                                                            Cal/Dia: <%=dieta.calorias_diarias%><br>
-                                                                                                            Proteina/Dia: <%=dieta.proteinas%><br>
-                                                                                                            Carbo/Dia: <%=dieta.carboidratos%><br>
-                                                                                                            Gordura/Dia: <%=dieta.gorduras%>
-                                                                                                           
+                                                                                            <div
+                                                                                                class="col-md-9 col-sm-12">
+                                                                                                <div
+                                                                                                    class="tab-content">
+                                                                                                    <div class="tab-pane fade show active"
+                                                                                                        id="home4"
+                                                                                                        role="tabpanel">
+                                                                                                        <div
+                                                                                                            class="pd-20">
+
+                                                                                                            <% if(dieta)
+                                                                                                                { %>
+                                                                                                                Nome:
+                                                                                                                <%=dieta.nome_da_dieta%>
+                                                                                                                    <br>
+                                                                                                                    Descrição:
+                                                                                                                    <%=dieta.descricao_da_dieta%>
+                                                                                                                        <br>
+                                                                                                                        Objetivo:
+                                                                                                                        <%=dieta.objetivo_da_dieta%>
+                                                                                                                            <br>
+                                                                                                                            Duração:
+                                                                                                                            <%=dieta.duracao_estimada%>
+                                                                                                                                <br>
+                                                                                                                                Nível:
+                                                                                                                                <%=dieta.nivel_de_dificuldade%>
+                                                                                                                                    <br>
+                                                                                                                                    Cal/Dia:
+                                                                                                                                    <%=dieta.calorias_diarias%>
+                                                                                                                                        <br>
+                                                                                                                                        Proteina/Dia:
+                                                                                                                                        <%=dieta.proteinas%>
+                                                                                                                                            <br>
+                                                                                                                                            Carbo/Dia:
+                                                                                                                                            <%=dieta.carboidratos%>
+                                                                                                                                                <br>
+                                                                                                                                                Gordura/Dia:
+                                                                                                                                                <%=dieta.gorduras%>
+                                                                                                                                                    <% } else
+                                                                                                                                                        {
+                                                                                                                                                        %>
+                                                                                                                                                        <p>Este
+                                                                                                                                                            cliente
+                                                                                                                                                            ainda
+                                                                                                                                                            não
+                                                                                                                                                            possui
+                                                                                                                                                            uma
+                                                                                                                                                            dieta
+                                                                                                                                                            vinculada.
+                                                                                                                                                        </p>
+                                                                                                                                                        <% }
+                                                                                                                                                            %>
+
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <div class="tab-pane fade" id="profile4" role="tabpanel">
-                                                                                                        <div class="pd-20">
-                                                                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                                                                    <div class="tab-pane fade"
+                                                                                                        id="profile4"
+                                                                                                        role="tabpanel">
+                                                                                                        <div
+                                                                                                            class="pd-20">
+                                                                                                            Lorem ipsum
+                                                                                                            dolor sit
+                                                                                                            amet,
+                                                                                                            consectetur
+                                                                                                            adipisicing
+                                                                                                            elit, sed do
+                                                                                                            eiusmod
+                                                                                                            tempor
+                                                                                                            incididunt
+                                                                                                            ut labore et
+                                                                                                            dolore magna
+                                                                                                            aliqua. Ut
+                                                                                                            enim ad
+                                                                                                            minim
+                                                                                                            veniam, quis
+                                                                                                            nostrud
+                                                                                                            exercitation
+                                                                                                            ullamco
+                                                                                                            laboris nisi
+                                                                                                            ut aliquip
+                                                                                                            ex ea
+                                                                                                            commodo
+                                                                                                            consequat.
+                                                                                                            Duis aute
+                                                                                                            irure dolor
+                                                                                                            in
+                                                                                                            reprehenderit
+                                                                                                            in voluptate
+                                                                                                            velit esse
+                                                                                                            cillum
+                                                                                                            dolore eu
+                                                                                                            fugiat nulla
+                                                                                                            pariatur.
+                                                                                                            Excepteur
+                                                                                                            sint
+                                                                                                            occaecat
+                                                                                                            cupidatat
+                                                                                                            non
+                                                                                                            proident,
+                                                                                                            sunt in
+                                                                                                            culpa qui
+                                                                                                            officia
+                                                                                                            deserunt
+                                                                                                            mollit anim
+                                                                                                            id est
+                                                                                                            laborum.
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <div class="tab-pane fade" id="contact4" role="tabpanel">
-                                                                                                        <div class="pd-20">
-                                                                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                                                                    <div class="tab-pane fade"
+                                                                                                        id="contact4"
+                                                                                                        role="tabpanel">
+                                                                                                        <div
+                                                                                                            class="pd-20">
+                                                                                                            Lorem ipsum
+                                                                                                            dolor sit
+                                                                                                            amet,
+                                                                                                            consectetur
+                                                                                                            adipisicing
+                                                                                                            elit, sed do
+                                                                                                            eiusmod
+                                                                                                            tempor
+                                                                                                            incididunt
+                                                                                                            ut labore et
+                                                                                                            dolore magna
+                                                                                                            aliqua. Ut
+                                                                                                            enim ad
+                                                                                                            minim
+                                                                                                            veniam, quis
+                                                                                                            nostrud
+                                                                                                            exercitation
+                                                                                                            ullamco
+                                                                                                            laboris nisi
+                                                                                                            ut aliquip
+                                                                                                            ex ea
+                                                                                                            commodo
+                                                                                                            consequat.
+                                                                                                            Duis aute
+                                                                                                            irure dolor
+                                                                                                            in
+                                                                                                            reprehenderit
+                                                                                                            in voluptate
+                                                                                                            velit esse
+                                                                                                            cillum
+                                                                                                            dolore eu
+                                                                                                            fugiat nulla
+                                                                                                            pariatur.
+                                                                                                            Excepteur
+                                                                                                            sint
+                                                                                                            occaecat
+                                                                                                            cupidatat
+                                                                                                            non
+                                                                                                            proident,
+                                                                                                            sunt in
+                                                                                                            culpa qui
+                                                                                                            officia
+                                                                                                            deserunt
+                                                                                                            mollit anim
+                                                                                                            id est
+                                                                                                            laborum.
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -462,58 +702,211 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="card">
                                                                             <div class="card-header">
-                                                                                <button class="btn btn-block collapsed" data-toggle="collapse"
+                                                                                <button class="btn btn-block collapsed"
+                                                                                    data-toggle="collapse"
                                                                                     data-target="#faq15">
                                                                                     Gerenciar Dieta
                                                                                 </button>
                                                                             </div>
-                                                                            <div id="faq15" class="collapse" data-parent="#accordion">
+                                                                            <div id="faq15" class="collapse"
+                                                                                data-parent="#accordion">
                                                                                 <div class="pd-20 card-box">
                                                                                     <!-- <h5 class="h4 text-blue mb-20">Custom vertical Tab</h5> -->
                                                                                     <div class="tab">
                                                                                         <div class="row clearfix">
-                                                                                            <div class="col-md-3 col-sm-12">
-                                                                                                <ul class="nav flex-column vtabs nav-pills customtab" role="tablist">
-                                                                                                    <li class="nav-item">
-                                                                                                        <a class="nav-link active" data-toggle="tab" href="#home4" role="tab" aria-selected="true">Geral</a>
+                                                                                            <div
+                                                                                                class="col-md-3 col-sm-12">
+                                                                                                <ul class="nav flex-column vtabs nav-pills customtab"
+                                                                                                    role="tablist">
+                                                                                                    <li
+                                                                                                        class="nav-item">
+                                                                                                        <a class="nav-link active"
+                                                                                                            data-toggle="tab"
+                                                                                                            href="#home4"
+                                                                                                            role="tab"
+                                                                                                            aria-selected="true">Geral</a>
                                                                                                     </li>
-                                                                                                    <li class="nav-item">
-                                                                                                        <a class="nav-link" data-toggle="tab" href="#profile4" role="tab" aria-selected="false">Alimentos</a>
+                                                                                                    <li
+                                                                                                        class="nav-item">
+                                                                                                        <a class="nav-link"
+                                                                                                            data-toggle="tab"
+                                                                                                            href="#profile4"
+                                                                                                            role="tab"
+                                                                                                            aria-selected="false">Alimentos</a>
                                                                                                     </li>
-                                                                                                    <li class="nav-item">
-                                                                                                        <a class="nav-link" data-toggle="tab" href="#contact4" role="tab" aria-selected="false">Rotina</a>
+                                                                                                    <li
+                                                                                                        class="nav-item">
+                                                                                                        <a class="nav-link"
+                                                                                                            data-toggle="tab"
+                                                                                                            href="#contact4"
+                                                                                                            role="tab"
+                                                                                                            aria-selected="false">Rotina</a>
                                                                                                     </li>
                                                                                                 </ul>
                                                                                             </div>
-                                                                                            <div class="col-md-9 col-sm-12">
-                                                                                                <div class="tab-content">
-                                                                                                    <div class="tab-pane fade show active" id="home4" role="tabpanel">
-                                                                                                        <div class="pd-20">
-                                                                                                            Nome: <%=dieta.nome_da_dieta%><br>
-                                                                                                            Descrição: <%=dieta.descricao_da_dieta%><br>
-                                                                                                            Objetivo: <%=dieta.objetivo_da_dieta%><br>
-                                                                                                            Duração: <%=dieta.duracao_estimada%><br>
-                                                                                                            Nível: <%=dieta.nivel_de_dificuldade%><br>
-                                                                                                            Cal/Dia: <%=dieta.calorias_diarias%><br>
-                                                                                                            Proteina/Dia: <%=dieta.proteinas%><br>
-                                                                                                            Carbo/Dia: <%=dieta.carboidratos%><br>
-                                                                                                            Gordura/Dia: <%=dieta.gorduras%>
-                                                                                                           
+                                                                                            <div
+                                                                                                class="col-md-9 col-sm-12">
+                                                                                                <div
+                                                                                                    class="tab-content">
+                                                                                                    <div class="tab-pane fade show active"
+                                                                                                        id="home4"
+                                                                                                        role="tabpanel">
+                                                                                                        <div
+                                                                                                            class="pd-20">
+                                                                                                            <% if(dieta)
+                                                                                                                { %>
+                                                                                                                Nome:
+                                                                                                                <%=dieta.nome_da_dieta%>
+                                                                                                                    <br>
+                                                                                                                    Descrição:
+                                                                                                                    <%=dieta.descricao_da_dieta%>
+                                                                                                                        <br>
+                                                                                                                        Objetivo:
+                                                                                                                        <%=dieta.objetivo_da_dieta%>
+                                                                                                                            <br>
+                                                                                                                            Duração:
+                                                                                                                            <%=dieta.duracao_estimada%>
+                                                                                                                                <br>
+                                                                                                                                Nível:
+                                                                                                                                <%=dieta.nivel_de_dificuldade%>
+                                                                                                                                    <br>
+                                                                                                                                    Cal/Dia:
+                                                                                                                                    <%=dieta.calorias_diarias%>
+                                                                                                                                        <br>
+                                                                                                                                        Proteina/Dia:
+                                                                                                                                        <%=dieta.proteinas%>
+                                                                                                                                            <br>
+                                                                                                                                            Carbo/Dia:
+                                                                                                                                            <%=dieta.carboidratos%>
+                                                                                                                                                <br>
+                                                                                                                                                Gordura/Dia:
+                                                                                                                                                <%=dieta.gorduras%>
+                                                                                                                                                    <% } else
+                                                                                                                                                        {
+                                                                                                                                                        %>
+                                                                                                                                                        <p>Este
+                                                                                                                                                            cliente
+                                                                                                                                                            ainda
+                                                                                                                                                            não
+                                                                                                                                                            possui
+                                                                                                                                                            uma
+                                                                                                                                                            dieta
+                                                                                                                                                            vinculada.
+                                                                                                                                                        </p>
+                                                                                                                                                        <% }
+                                                                                                                                                            %>
+
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <div class="tab-pane fade" id="profile4" role="tabpanel">
-                                                                                                        <div class="pd-20">
-                                                                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                                                                    <div class="tab-pane fade"
+                                                                                                        id="profile4"
+                                                                                                        role="tabpanel">
+                                                                                                        <div
+                                                                                                            class="pd-20">
+                                                                                                            Lorem ipsum
+                                                                                                            dolor sit
+                                                                                                            amet,
+                                                                                                            consectetur
+                                                                                                            adipisicing
+                                                                                                            elit, sed do
+                                                                                                            eiusmod
+                                                                                                            tempor
+                                                                                                            incididunt
+                                                                                                            ut labore et
+                                                                                                            dolore magna
+                                                                                                            aliqua. Ut
+                                                                                                            enim ad
+                                                                                                            minim
+                                                                                                            veniam, quis
+                                                                                                            nostrud
+                                                                                                            exercitation
+                                                                                                            ullamco
+                                                                                                            laboris nisi
+                                                                                                            ut aliquip
+                                                                                                            ex ea
+                                                                                                            commodo
+                                                                                                            consequat.
+                                                                                                            Duis aute
+                                                                                                            irure dolor
+                                                                                                            in
+                                                                                                            reprehenderit
+                                                                                                            in voluptate
+                                                                                                            velit esse
+                                                                                                            cillum
+                                                                                                            dolore eu
+                                                                                                            fugiat nulla
+                                                                                                            pariatur.
+                                                                                                            Excepteur
+                                                                                                            sint
+                                                                                                            occaecat
+                                                                                                            cupidatat
+                                                                                                            non
+                                                                                                            proident,
+                                                                                                            sunt in
+                                                                                                            culpa qui
+                                                                                                            officia
+                                                                                                            deserunt
+                                                                                                            mollit anim
+                                                                                                            id est
+                                                                                                            laborum.
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <div class="tab-pane fade" id="contact4" role="tabpanel">
-                                                                                                        <div class="pd-20">
-                                                                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                                                                    <div class="tab-pane fade"
+                                                                                                        id="contact4"
+                                                                                                        role="tabpanel">
+                                                                                                        <div
+                                                                                                            class="pd-20">
+                                                                                                            Lorem ipsum
+                                                                                                            dolor sit
+                                                                                                            amet,
+                                                                                                            consectetur
+                                                                                                            adipisicing
+                                                                                                            elit, sed do
+                                                                                                            eiusmod
+                                                                                                            tempor
+                                                                                                            incididunt
+                                                                                                            ut labore et
+                                                                                                            dolore magna
+                                                                                                            aliqua. Ut
+                                                                                                            enim ad
+                                                                                                            minim
+                                                                                                            veniam, quis
+                                                                                                            nostrud
+                                                                                                            exercitation
+                                                                                                            ullamco
+                                                                                                            laboris nisi
+                                                                                                            ut aliquip
+                                                                                                            ex ea
+                                                                                                            commodo
+                                                                                                            consequat.
+                                                                                                            Duis aute
+                                                                                                            irure dolor
+                                                                                                            in
+                                                                                                            reprehenderit
+                                                                                                            in voluptate
+                                                                                                            velit esse
+                                                                                                            cillum
+                                                                                                            dolore eu
+                                                                                                            fugiat nulla
+                                                                                                            pariatur.
+                                                                                                            Excepteur
+                                                                                                            sint
+                                                                                                            occaecat
+                                                                                                            cupidatat
+                                                                                                            non
+                                                                                                            proident,
+                                                                                                            sunt in
+                                                                                                            culpa qui
+                                                                                                            officia
+                                                                                                            deserunt
+                                                                                                            mollit anim
+                                                                                                            id est
+                                                                                                            laborum.
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -521,7 +914,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -540,13 +933,14 @@
                                                             <div id="accordion">
                                                                 <div class="card">
                                                                     <div class="card-header">
-                                                                        <button class="btn btn-block" data-toggle="collapse"
-                                                                            data-target="#faq6">
+                                                                        <button class="btn btn-block"
+                                                                            data-toggle="collapse" data-target="#faq6">
                                                                             Treino A
                                                                         </button>
                                                                     </div>
-                                                                    <div id="faq6" class="collapse show" data-parent="#accordion">
-                    
+                                                                    <div id="faq6" class="collapse show"
+                                                                        data-parent="#accordion">
+
                                                                         <div class="pd-20 card-box mb-30 profile-info">
                                                                             <ul>
                                                                                 <li>
@@ -561,20 +955,21 @@
                                                                                     <span>Senha:</span>
                                                                                     <%=cliente.password%>
                                                                                 </li>
-                                                                                
+
                                                                             </ul>
-                    
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card">
                                                                     <div class="card-header">
-                                                                        <button class="btn btn-block collapsed" data-toggle="collapse"
-                                                                            data-target="#faq7">
+                                                                        <button class="btn btn-block collapsed"
+                                                                            data-toggle="collapse" data-target="#faq7">
                                                                             Treino B
                                                                         </button>
                                                                     </div>
-                                                                    <div id="faq7" class="collapse" data-parent="#accordion">
+                                                                    <div id="faq7" class="collapse"
+                                                                        data-parent="#accordion">
                                                                         <div class="pd-20 card-box mb-30 profile-info">
                                                                             <ul>
                                                                                 <li>
@@ -597,49 +992,62 @@
                                                                                     <span>peitoral:</span>
                                                                                     137cm
                                                                                 </li>
-                    
+
                                                                             </ul>
-                    
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card">
                                                                     <div class="card-header">
-                                                                        <button class="btn btn-block collapsed" data-toggle="collapse"
-                                                                            data-target="#faq8">
+                                                                        <button class="btn btn-block collapsed"
+                                                                            data-toggle="collapse" data-target="#faq8">
                                                                             Treino C
                                                                         </button>
                                                                     </div>
-                                                                    <div id="faq8" class="collapse" data-parent="#accordion">
+                                                                    <div id="faq8" class="collapse"
+                                                                        data-parent="#accordion">
                                                                         <div class="card-body profile-skills">
                                                                             <h6 class="mb-5 font-14">Hipertrofia</h6>
-                                                                            <div class="progress mb-20" style="height: 6px;">
-                                                                                <div class="progress-bar" role="progressbar"
-                                                                                    style="width: 90%" aria-valuenow="0" aria-valuemin="0"
+                                                                            <div class="progress mb-20"
+                                                                                style="height: 6px;">
+                                                                                <div class="progress-bar"
+                                                                                    role="progressbar"
+                                                                                    style="width: 90%" aria-valuenow="0"
+                                                                                    aria-valuemin="0"
                                                                                     aria-valuemax="100"></div>
                                                                             </div>
                                                                             <h6 class="mb-5 font-14">Força</h6>
-                                                                            <div class="progress mb-20" style="height: 6px;">
-                                                                                <div class="progress-bar" role="progressbar"
-                                                                                    style="width: 70%" aria-valuenow="0" aria-valuemin="0"
+                                                                            <div class="progress mb-20"
+                                                                                style="height: 6px;">
+                                                                                <div class="progress-bar"
+                                                                                    role="progressbar"
+                                                                                    style="width: 70%" aria-valuenow="0"
+                                                                                    aria-valuemin="0"
                                                                                     aria-valuemax="100"></div>
                                                                             </div>
                                                                             <h6 class="mb-5 font-14">Resistência</h6>
-                                                                            <div class="progress mb-20" style="height: 6px;">
-                                                                                <div class="progress-bar" role="progressbar"
-                                                                                    style="width: 60%" aria-valuenow="0" aria-valuemin="0"
+                                                                            <div class="progress mb-20"
+                                                                                style="height: 6px;">
+                                                                                <div class="progress-bar"
+                                                                                    role="progressbar"
+                                                                                    style="width: 60%" aria-valuenow="0"
+                                                                                    aria-valuemin="0"
                                                                                     aria-valuemax="100"></div>
                                                                             </div>
                                                                             <h6 class="mb-5 font-14">Explosão</h6>
-                                                                            <div class="progress mb-20" style="height: 6px;">
-                                                                                <div class="progress-bar" role="progressbar"
-                                                                                    style="width: 80%" aria-valuenow="0" aria-valuemin="0"
+                                                                            <div class="progress mb-20"
+                                                                                style="height: 6px;">
+                                                                                <div class="progress-bar"
+                                                                                    role="progressbar"
+                                                                                    style="width: 80%" aria-valuenow="0"
+                                                                                    aria-valuemin="0"
                                                                                     aria-valuemax="100"></div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1029,7 +1437,8 @@
                                                                     <li>
                                                                         <div class="date">03 Ago</div>
                                                                         <div class="task-name"><i
-                                                                                class="ion-ios-chatboxes"></i> Info. Pessoal</div>
+                                                                                class="ion-ios-chatboxes"></i> Info.
+                                                                            Pessoal</div>
                                                                         <p>senha atualizada</p>
                                                                         <div class="task-time">10:30</div>
                                                                     </li>
@@ -1044,7 +1453,8 @@
                                                                     <li>
                                                                         <div class="date">10 Aug</div>
                                                                         <div class="task-name"><i
-                                                                                class="ion-ios-clock"></i> Info. Suplemento
+                                                                                class="ion-ios-clock"></i> Info.
+                                                                            Suplemento
                                                                         </div>
                                                                         <p>Novo suplemento adicionado</p>
                                                                         <div class="task-time">10:34</div>

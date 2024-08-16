@@ -83,55 +83,65 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% dieta.forEach((dieta)=>{ %>
-									<tr>
-										<td class="table-plus">
-											<%=dieta.id%>
-										</td>
-										<td class="table-plus">
-											<%=dieta.nome_da_dieta%>
-										</td>
-										<td>
-											<%=dieta.descricao_da_dieta%>
-										</td>
-										<td>
-											<%=dieta.duracao_estimada%>
-										</td>
-										<td>
-											<%=dieta.calorias_diarias%>
-										</td>
-                                        <td>
-											<%=dieta.objetivo_da_dieta%>
-										</td>
-										<!-- <td>29-03-2018</td> -->
-										<td>
-											<div class="dropdown">
-												<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-													href="#" role="button" data-toggle="dropdown">
-													<i class="dw dw-more"></i>
-												</a>
-												<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-													<!-- <a class="dropdown-item" href="/admin/edit-dieta"><i class="dw dw-eye"></i> View</a> -->
-													<a class="dropdown-item"
-														href="/admin/edit-dieta/<%=dieta.id%>"><i
-															class="dw dw-edit2"></i>
-														Editar</a>
-
-													<a class="dropdown-item">
-														<form action="/admin/delete-dieta" method="POST"
-															onsubmit="verifica(event, this)">
-															<input type="hidden" name="id" value="<%=dieta.dieta_id%>">
-															<button class="btn btn-sm btn-transparent" type="submit">
-																Deletar<i class="dw dw-delete-3"></i>
-															</button>
-														</form>
-														
-													</a>
-												</div>
-											</div>
-										</td>
-									</tr>
-									<%})%>
+								
+									<% if (dieta.length > 0) { %>
+										<ul>
+											<% dieta.forEach(dieta => { %>
+												<tr>
+													<td class="table-plus">
+														<%=dieta.id%>
+													</td>
+													<td class="table-plus">
+														<%=dieta.nome_da_dieta%>
+													</td>
+													<td>
+														<%=dieta.descricao_da_dieta%>
+													</td>
+													<td>
+														<%=dieta.duracao_estimada%>
+													</td>
+													<td>
+														<%=dieta.calorias_diarias%>
+													</td>
+													<td>
+														<%=dieta.objetivo_da_dieta%>
+													</td>
+													<!-- <td>29-03-2018</td> -->
+													<td>
+														<div class="dropdown">
+															<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+																href="#" role="button" data-toggle="dropdown">
+																<i class="dw dw-more"></i>
+															</a>
+															<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+																<!-- <a class="dropdown-item" href="/admin/edit-dieta"><i class="dw dw-eye"></i> View</a> -->
+																<a class="dropdown-item"
+																	href="/admin/edit-dieta/<%=dieta.id%>"><i
+																		class="dw dw-edit2"></i>
+																	Editar</a>
+			
+																<a class="dropdown-item">
+																	<form action="/admin/delete-dieta" method="POST"
+																		onsubmit="verifica(event, this)">
+																		<input type="hidden" name="id" value="<%=dieta.id%>">
+																		<button class="btn btn-sm btn-transparent" type="submit">
+																			Deletar<i class="dw dw-delete-3"></i>
+																		</button>
+																	</form>
+																	
+																</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+											<% }); %>
+										</ul>
+									<% } else { %>
+										<div>
+											<h6 class="text-center">Nenhuma dieta encontrada para os clientes deste profissional.</h6>
+										</div>
+										
+									<% } %>
 							</tbody>
 						</table>
 					</div>

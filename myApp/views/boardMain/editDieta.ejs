@@ -71,12 +71,12 @@
                                 <div id="accordion">
                                     <div class="card">
                                         <div class="card-header">
-                                            <button class="btn btn-block" data-toggle="collapse" data-target="#faq1">
+                                            <button style="background-color: #1d1c1c; " class="btn btn-block" data-toggle="collapse" data-target="#faq1">
                                                 Editar a dieta
                                             </button>
                                         </div>
-                                        <div id="faq1" class="collapse hidden" data-parent="#accordion">
-                                            
+                                        <div id="faq1" class="collapse hidden pt-4" data-parent="#accordion">
+
                                             <div class="card-body">
                                                 <form id="createDietaForm" method="post"
                                                     action="/admin/edit-dieta/<%=dieta.id%>">
@@ -136,64 +136,64 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-header">
-                                            <button class="btn btn-block collapsed" data-toggle="collapse"
+                                            <button style="background-color: #1d1c1c; " class="btn btn-block collapsed" data-toggle="collapse"
                                                 data-target="#faq2">
-                                                Informações adicionais
+                                                Refeições
                                             </button>
                                         </div>
-                                        <div id="faq2" class="collapse" data-parent="#accordion">
+                                        <div id="faq2" class="collapse pt-4" data-parent="#accordion">
                                             <div class="card-body">
-                                                <tbody>
-                                                  
-                                                        <tr>
-                                                            <td class="table-plus">
-                                                                <%=dieta.id%>
-                                                            </td>
-                                                            <td class="table-plus">
-                                                                <%=dieta.nome_da_dieta%>
-                                                            </td>
-                                                            <td>
-                                                                <%=dieta.descricao_da_dieta%>
-                                                            </td>
-                                                            <td>
-                                                                <%=dieta.duracao_estimada%>
-                                                            </td>
-                                                            <td>
-                                                                <%=dieta.calorias_diarias%>
-                                                            </td>
-                                                            <td>
-                                                                <%=dieta.objetivo_da_dieta%>
-                                                            </td>
-                                                            <!-- <td>29-03-2018</td> -->
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                                                        href="#" role="button" data-toggle="dropdown">
-                                                                        <i class="dw dw-more"></i>
-                                                                    </a>
-                                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                                        <!-- <a class="dropdown-item" href="/admin/edit-dieta"><i class="dw dw-eye"></i> View</a> -->
-                                                                        <a class="dropdown-item"
-                                                                            href="/admin/edit-dieta/<%=dieta.id%>"><i
-                                                                                class="dw dw-edit2"></i>
-                                                                            Editar</a>
-                    
-                                                                        <a class="dropdown-item">
-                                                                            <form action="/admin/delete-dieta" method="POST"
-                                                                                onsubmit="verifica(event, this)">
-                                                                                <input type="hidden" name="id" value="<%=dieta.dieta_id%>">
-                                                                                <button class="btn btn-sm btn-transparent" type="submit">
-                                                                                    Deletar<i class="dw dw-delete-3"></i>
-                                                                                </button>
-                                                                            </form>
-                                                                            
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        
-                                                </tbody>
+                                                <form id="dieta-form" action="/admin/edit-dieta/<%= dieta.id %>"
+                                                    method="POST">
+                                                    <div id="refeicoes-container">
+                                                        <!-- Área para adicionar refeições dinamicamente -->
+                                                    </div>
+                                                    <button class="btn btn-outline-primary" type="button"
+                                                        id="add-refeicao">Adicionar Refeição</button>
+                                                    <button class="btn btn-outline-dark" type="submit">Salvar
+                                                        Dieta</button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div style="background-color: #300808; " class="card-header">
+                                            <button class="btn btn-block collapsed text-white" data-toggle="collapse"
+                                                data-target="#faq3">
+                                                Visualizar Dieta
+                                            </button>
+                                        </div>
+                                        <div id="faq3" class="collapse" data-parent="#accordion">
+                                            <div class="card-body">
+                                                    <h6 class="pt-3">
+                                                      Dieta:  <%= dieta.nome_da_dieta %> <hr>
+                                                    </h6>
+                                                    <h6>Refeições:</h6>
+                                                    <!-- <p>Descrição: <%= dieta.descricao_da_dieta %> <br> Objetivo: <%= dieta.objetivo_da_dieta %> <br>Duração: <%= dieta.duracao_estimada %> dias -->
+                                                    <hr>
+                                                    
+                                                    <% if (dieta.refeicoes && dieta.refeicoes.length> 0) { %>
+                                                        <% dieta.refeicoes.forEach(function(refeicao) { %>
+                                                            <div  class="pt-1">
+                                                                <h6 class="mb-1 h6">
+                                                                    - <%= refeicao.nome %> 
+                                                                </h6>
+                                                                <ul class="list-group-flush">
+                                                                    <% refeicao.alimentos.forEach(function(alimento) { %>
+                                                                        <li style="font-size: small; font-weight: 400;" class="list-group"><%= alimento.nome %> - <%= alimento.quantidade %> </li>
+                                                                    <% }) %>
+                                                                </ul>
+                                                                <hr>
+                                                            </div>
+                                            
+                                                        <% }) %>
+                                                        <% } else { %>
+                                                             <p>Não há refeições cadastradas para esta dieta.</p>
+                                                        <% } %>
+
+
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -337,6 +337,56 @@
                     <script src="../../boardMain/vendors/scripts/script.min.js"></script>
                     <script src="../../boardMain/vendors/scripts/process.js"></script>
                     <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            let refeicaoCount = 0;
+
+                            document.getElementById('add-refeicao').addEventListener('click', () => {
+                                refeicaoCount++;
+                                const refeicaoContainer = document.createElement('div');
+                                refeicaoContainer.classList.add('refeicao');
+                                refeicaoContainer.innerHTML = `
+                                    <h6>Refeição ${refeicaoCount}</h6>
+                                    <div class="form-group">
+                                        <label for="nome_refeicao_${refeicaoCount}">Nome da Refeição:</label>
+                                        <input class="form-control" type="text" name="refeicoes[${refeicaoCount}][nome]" id="nome_refeicao_${refeicaoCount}" placeholder="Adicionar refeição">
+                                    <div class="alimentos-container pt-2" id="alimentos_${refeicaoCount}">
+                                        <label><strong>Adicionar alimentos à refeição:</strong></label>
+                                    </div>
+                                   
+                                    <i type="button" class="icon-copy dw dw-add add-alimento btn btn-dark" data-refeicao="${refeicaoCount}"></i><hr>
+                                    </div>
+                                `;
+                                document.getElementById('refeicoes-container').appendChild(refeicaoContainer);
+                            });
+
+                            document.getElementById('refeicoes-container').addEventListener('click', (event) => {
+                                if (event.target.classList.contains('add-alimento')) {
+                                    const refeicaoId = event.target.dataset.refeicao;
+                                    const alimentosContainer = document.getElementById(`alimentos_${refeicaoId}`);
+                                    const alimentoCount = alimentosContainer.children.length + 1;
+                                    const alimentoDiv = document.createElement('div');
+                                    alimentoDiv.innerHTML = `
+                                    <div class="form-group">
+                                        <label for="alimento_${refeicaoId}_${alimentoCount}"> - Alimento: </label>
+                                        <input class="form-control" type="text" name="refeicoes[${refeicaoId}][alimentos][${alimentoCount}][nome]" id="alimento_${refeicaoId}_${alimentoCount}" placeholder="Adicionar alimento">
+                                    </div>
+                                    `;
+                                    alimentosContainer.appendChild(alimentoDiv);
+                                }
+                            });
+
+                            document.getElementById('dieta-form').addEventListener('submit', (event) => {
+                                // Log para ver os dados que serão enviados no submit
+                                console.log("Dados enviados:");
+                                const formData = new FormData(event.target);
+                                for (let pair of formData.entries()) {
+                                    console.log(pair[0] + ': ' + pair[1]);
+                                }
+                            });
+                        });
+                    </script>
+
 
 </body>
 

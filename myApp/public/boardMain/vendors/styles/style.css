@@ -3368,13 +3368,13 @@ body.IE .register-page-wrap .container {
     padding: 16px 40px 16px 16px;
     position: relative;
     white-space: normal;
-    color: #300808;
+    color: #b9b9b9;
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out
 }
 
 .faq-wrap .card-header .btn.collapsed {
-    color: #222
+    color: #b4b4b4
 }
 
 .faq-wrap .card-header .btn:after {
@@ -3382,7 +3382,7 @@ body.IE .register-page-wrap .container {
     font-family: "Ionicons";
     position: absolute;
     right: 10px;
-    color: #300808;
+    color: #c2c2c2;
     top: 16px
 }
 
