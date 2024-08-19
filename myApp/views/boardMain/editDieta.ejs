@@ -158,45 +158,101 @@
                                         </div>
                                     </div>
                                     <div class="card">
-                                        <div style="background-color: #300808; " class="card-header">
-                                            <button class="btn btn-block collapsed text-white" data-toggle="collapse"
-                                                data-target="#faq3">
+                                        <div style="background-color: #300808;" class="card-header">
+                                            <button class="btn btn-block collapsed text-white" data-toggle="collapse" data-target="#faq3">
                                                 Visualizar Dieta
                                             </button>
                                         </div>
                                         <div id="faq3" class="collapse" data-parent="#accordion">
                                             <div class="card-body">
-                                                    <h6 class="pt-3">
-                                                      Dieta:  <%= dieta.nome_da_dieta %> <hr>
-                                                    </h6>
-                                                    <h6>Refeições:</h6>
-                                                    <!-- <p>Descrição: <%= dieta.descricao_da_dieta %> <br> Objetivo: <%= dieta.objetivo_da_dieta %> <br>Duração: <%= dieta.duracao_estimada %> dias -->
-                                                    <hr>
-                                                    
-                                                    <% if (dieta.refeicoes && dieta.refeicoes.length> 0) { %>
-                                                        <% dieta.refeicoes.forEach(function(refeicao) { %>
-                                                            <div  class="pt-1">
-                                                                <h6 class="mb-1 h6">
-                                                                    - <%= refeicao.nome %> 
-                                                                </h6>
-                                                                <ul class="list-group-flush">
-                                                                    <% refeicao.alimentos.forEach(function(alimento) { %>
-                                                                        <li style="font-size: small; font-weight: 400;" class="list-group"><%= alimento.nome %> - <%= alimento.quantidade %> </li>
-                                                                    <% }) %>
-                                                                </ul>
-                                                                <hr>
+                                                <h6 class="pt-3">
+                                                    Dieta: <%= dieta.nome_da_dieta %> <hr>
+                                                </h6>
+                                                <h6>Refeições:</h6>
+                                                <hr>
+                                    
+                                                <% if (dieta.refeicoes && dieta.refeicoes.length > 0) { %>
+                                                    <% dieta.refeicoes.forEach(function(refeicao, indexRefeicao) { %>
+                                                        <div class="pt-1">
+                                                            <h6 class="mb-1 h6">
+                                                                - <%= refeicao.nome %>
+                                                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editRefeicaoModal<%= indexRefeicao %>">
+                                                                    Editar
+                                                                </button>
+                                                            </h6>
+                                    
+                                                            <!-- Modal para editar a refeição -->
+                                                            <div class="modal fade" id="editRefeicaoModal<%= indexRefeicao %>" tabindex="-1" aria-labelledby="editRefeicaoModalLabel<%= indexRefeicao %>" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="editRefeicaoModalLabel<%= indexRefeicao %>">Editar Refeição</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form action="/admin/update-refeicao/<%= refeicao.id %>" method="POST">
+                                                                            <div class="modal-body">
+                                                                                <div class="form-group">
+                                                                                    <label for="nome_refeicao_<%= indexRefeicao %>">Nome da Refeição:</label>
+                                                                                    <input type="text" class="form-control" id="nome_refeicao_<%= indexRefeicao %>" name="nome_refeicao" value="<%= refeicao.nome %>">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                            
-                                                        <% }) %>
-                                                        <% } else { %>
-                                                             <p>Não há refeições cadastradas para esta dieta.</p>
-                                                        <% } %>
-
-
-                                                
+                                    
+                                                            <ul class="list-group-flush">
+                                                                <% refeicao.alimentos.forEach(function(alimento, indexAlimento) { %>
+                                                                    <li style="font-size: small; font-weight: 400;" class="list-group">
+                                                                        <%= alimento.nome %> - <%= alimento.quantidade %>
+                                                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editAlimentoModal<%= indexRefeicao %>_<%= indexAlimento %>">
+                                                                            Editar
+                                                                        </button>
+                                    
+                                                                        <!-- Modal para editar o alimento -->
+                                                                        <div class="modal fade" id="editAlimentoModal<%= indexRefeicao %>_<%= indexAlimento %>" tabindex="-1" aria-labelledby="editAlimentoModalLabel<%= indexRefeicao %>_<%= indexAlimento %>" aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="editAlimentoModalLabel<%= indexRefeicao %>_<%= indexAlimento %>">Editar Alimento</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <form action="/admin/update-alimento/<%= alimento.id %>" method="POST">
+                                                                                        <div class="modal-body">
+                                                                                            <div class="form-group">
+                                                                                                <label for="nome_alimento_<%= indexRefeicao %>_<%= indexAlimento %>">Nome do Alimento:</label>
+                                                                                                <input type="text" class="form-control" id="nome_alimento_<%= indexRefeicao %>_<%= indexAlimento %>" name="nome_alimento" value="<%= alimento.nome %>">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                            <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                <% }) %>
+                                                            </ul>
+                                                            <hr>
+                                                        </div>
+                                                    <% }) %>
+                                                <% } else { %>
+                                                    <p>Não há refeições cadastradas para esta dieta.</p>
+                                                <% } %>
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <!-- <div class="card">
                                         <div class="card-header">
                                             <button class="btn btn-block collapsed" data-toggle="collapse"

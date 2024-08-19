@@ -1238,7 +1238,7 @@ router.get('/alimentos', async (req, res) => {
         res.status(500).send('Erro ao buscar alimentos');
     }
 });
-router.get('/create-dieta', authenticateToken, authorizeProfessional, async (req, res) => {
+router.get('/create-dieta', async (req, res) => {
     try {
         // Obter todos os clientes vinculados ao profissional
         const clientes = await knex('clientes').where('profissionalId', req.user.id).select('*');
@@ -1250,7 +1250,7 @@ router.get('/create-dieta', authenticateToken, authorizeProfessional, async (req
     }
 });
 
-router.post('/create-dieta', authenticateToken, authorizeProfessional, async (req, res) => {
+router.post('/create-dieta', async (req, res) => {
     const { nome_da_dieta, descricao_da_dieta, objetivo_da_dieta, duracao_estimada, clienteId, alimentoId, calorias_diarias, carboidratos, gorduras, nivel_de_dificuldade, proteinas, ergogenicoId, suplementoId } = req.body;
 
     try {
@@ -1278,7 +1278,7 @@ router.post('/create-dieta', authenticateToken, authorizeProfessional, async (re
     }
 });
 
-router.post('/create-refeicao', authenticateToken, authorizeProfessional, (req, res) => {
+router.post('/create-refeicao', (req, res) => {
     const { nome, dietaId } = req.body;
 
     knex('refeicoes')
@@ -1292,7 +1292,7 @@ router.post('/create-refeicao', authenticateToken, authorizeProfessional, (req, 
         });
 });
 
-router.post('/add-alimento-refeicao', authenticateToken, authorizeProfessional, (req, res) => {
+router.post('/add-alimento-refeicao', (req, res) => {
     const { refeicaoId, alimentoId, quantidade } = req.body;
 
     knex('refeicao_alimentos')
@@ -1306,6 +1306,40 @@ router.post('/add-alimento-refeicao', authenticateToken, authorizeProfessional, 
         });
 });
 
+// Rota para atualizar uma refeição
+router.post('/update-refeicao/:id', async (req, res) => {
+    const refeicaoId = req.params.id;
+    const { nome_refeicao } = req.body;
+
+    try {
+        await knex('refeicoes')
+            .where({ id: refeicaoId })
+            .update({ nome: nome_refeicao });
+
+        console.log(`Refeição ID ${refeicaoId} atualizada com sucesso.`);
+        res.redirect(`/admin/edit-dieta/${req.body.dietaId}`); // Redireciona de volta para a edição da dieta
+    } catch (error) {
+        console.error('Erro ao atualizar a refeição:', error);
+        res.status(500).send('Erro ao atualizar a refeição.');
+    }
+});
+// Rota para atualizar um alimento
+router.post('/update-alimento/:id', async (req, res) => {
+    const alimentoId = req.params.id;
+    const { nome_alimento } = req.body;
+
+    try {
+        await knex('alimentos')
+            .where({ id: alimentoId })
+            .update({ nome: nome_alimento });
+
+        console.log(`Alimento ID ${alimentoId} atualizado com sucesso.`);
+        res.redirect(`/admin/edit-dieta/${req.body.dietaId}`); // Redireciona de volta para a edição da dieta
+    } catch (error) {
+        console.error('Erro ao atualizar o alimento:', error);
+        res.status(500).send('Erro ao atualizar o alimento.');
+    }
+});
 
 
 // Criar Dieta 
@@ -1423,69 +1457,6 @@ router.get('/edit-dieta/:id', async (req, res) => {
     }
 });
 
-// router.post('/edit-dieta/:id', authenticateToken, authorizeProfessional, (req, res) => {
-//     const dietaId = req.params.id;
-//     const refeicoes = req.body.refeicoes;
-
-//     console.log(req.body); // Verificar a estrutura dos dados recebidos
-
-//     if (!refeicoes || Object.keys(refeicoes).length === 0) {
-//         console.log("Dados das refeições não enviados.");
-//         return res.status(400).send('Dados das refeições não enviados.');
-//     }
-
-//     // Processamento das refeições
-//     refeicoes.forEach((refeicao, index) => {
-//         console.log(`Refeição ${index + 1}:`, refeicao.nome);
-//         console.log(`Alimentos:`, refeicao.alimentos);
-//     });
-
-    
-//     if (!refeicoes) {
-//         return res.status(400).send('Dados das refeições não enviados.');
-//     }
-
-//     console.log('Refeições: ', refeicoes, dietaId)
-//     // Atualizar a dieta no banco de dados (se necessário)
-//     // ...
-
-//     // Adicionar ou atualizar refeições e alimentos
-//     Object.keys(refeicoes).forEach(async (refeicaoIndex) => {
-//         const refeicao = refeicoes[refeicaoIndex];
-
-//         if (refeicao.nome) {
-//             try {
-//                 // Adicionar a refeição
-//                 const [refeicaoId] = await knex('refeicoes').insert({
-//                     nome: refeicao.nome,
-//                     dietaId: dietaId
-//                 });
-
-//                 // Adicionar alimentos à refeição
-//                 if (refeicao.alimentos) {
-//                     Object.values(refeicao.alimentos).forEach(async (alimento) => {
-//                         if (alimento) {
-//                             await knex('alimentos').insert({
-//                                 nome: alimento,
-//                                 refeicaoId: refeicaoId
-//                             }).then(rtn=>{
-//                                 console.log(rtn)
-//                                 res.redirect('/admin/list-dietas');
-//                             })
-//                         }
-//                     });
-//                 }
-//             } catch (error) {
-//                 console.error('Erro ao adicionar refeição ou alimentos:', error);
-//                 res.status(500).send('Erro ao processar os dados da dieta.');
-//             }
-//         }
-//     });
-
-   
-// });
-
-
 // Deletar Dieta 
 // router.post('/edit-dieta/:id', (req, res) => {
 //     const dietaId = req.params.id;
@@ -1557,7 +1528,6 @@ router.post('/edit-dieta/:id', async (req, res) => {
         res.status(500).send('Erro ao salvar os dados');
     }
 });
-
 
 router.post('/delete-dieta', (req, res) => {
     var id = req.body.id
