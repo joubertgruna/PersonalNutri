@@ -1,36 +1,54 @@
-# This is a basic workflow to help you get started with Actions
+name: Update README with GitHub API Data
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  schedule:
+    - cron: '0 0 * * *' # Executa diariamente à meia-noite (UTC)
+  workflow_dispatch: # Permite execução manual
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  update-readme:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Get GitHub Data
+        id: github_data
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          # Obtenha o total de commits que você fez
+          total_commits=$(curl -s "https://api.github.com/search/commits?q=author:${{ github.actor }}" -H "Accept: application/vnd.github.cloak-preview" | jq '.total_count')
+
+          # Obtenha os últimos 3 repositórios atualizados
+          repos=$(curl -s "https://api.github.com/users/${{ github.actor }}/repos?sort=updated&direction=desc&per_page=3" | jq -r '.[].name')
+
+          # Salve os dados como arquivos de ambiente
+          echo "total_commits=$total_commits" >> $GITHUB_ENV
+
+          # Reformatando a lista de repositórios para evitar problemas de formatação
+          repos_formatted=$(echo "$repos" | paste -sd "," -)
+          echo "repos=$repos_formatted" >> $GITHUB_ENV
+
+      - name: Update README
+        run: |
+          # Leia o conteúdo atual do README.md
+          readme=$(cat README.md)
+
+          # Atualize o conteúdo com o número de commits e últimos repositórios
+          echo "$readme" > README.md
+          echo -e "\n## Estatísticas do GitHub\n" >> README.md
+          echo "Total de commits: $total_commits" >> README.md
+          echo "Últimos repositórios atualizados:" >> README.md
+          IFS=',' read -r -a repos_array <<< "$repos"
+          for repo in "${repos_array[@]}"; do
+            echo "- $repo" >> README.md
+          done
+
+      - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Certifique-se de que o token está disponível
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+          git add README.md
+          git commit -m "Atualizando dados do README" || echo "Nada a commitar, README não foi alterado."
+          git push
