@@ -4,7 +4,9 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8">
-    <title><%=title%></title>
+    <title>
+        <%=title%>
+    </title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="../../boardMain/vendors/images/apple-touch-icon.png">
@@ -37,71 +39,107 @@
 <body>
     <%-include('./partials/preloader')%>
 
-   <%-include('./partials/header')%>
+        <%-include('./partials/header')%>
 
-    
-   <%-include('./partials/left-sidebar')%>
-    <div class="mobile-menu-overlay"></div>
 
-    <div class="main-container">
-        <div class="min-height-200px">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="title">
-                            <h4>Form de Cadastro</h4>
+            <%-include('./partials/left-sidebar')%>
+                <div class="mobile-menu-overlay"></div>
+
+                <div class="main-container">
+                    <div class="min-height-200px">
+                        <div class="page-header">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="title">
+                                        <h4>Form de Cadastro</h4>
+                                    </div>
+                                    <nav aria-label="breadcrumb" role="navigation">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Cliente</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
                         </div>
-                        <nav aria-label="breadcrumb" role="navigation">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Aluno</li>
-                            </ol>
-                        </nav>
+                        <!-- horizontal Basic Forms Start -->
+                        <div class="pd-20 card-box mb-30">
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <h4 class="text-blue h4">Cadastre um novo cliente</h4>
+                                </div>
+
+                            </div>
+                            <form id="createAlunoForm" method="post" action="/admin/clientes">
+                                
+                                <div class="pull-left">
+                                    <h4 class="text-blue h6">
+                                        Informações Pessoais</h4>
+                                </div><br>
+                                <hr>
+                                <div class="form-group">
+                                     <label>Nome</label>
+                                    <input class="form-control" type="text" name="name" >
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" type="email" name="email" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Celular</label>
+                                    <input class="form-control" type="tel" name="cellphone">
+                                        
+                                </div>
+                                <div class="form-group">
+                                    <label>Senha</label>
+                                    <input class="form-control" type="password" name="password">
+                                        
+                                </div>
+                                <hr>
+                                <div class="pull-left">
+                                    <h4 class="text-blue h6">
+                                        Informações Físicas </h4>
+                                </div><br>
+                                <hr>
+                                <div class="form-group">
+                                    <label>Peso</label>
+                                    <input class="form-control" type="text" name="peso">
+                                </div>
+                                <div class="form-group">
+                                    <label>% de gordura</label>
+                                    <input class="form-control" type="text" name="gordura">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>abdômen(cintura) -
+                                        cm</label>
+                                    <input class="form-control" type="text" name="abdomen">
+                                </div>
+                                <div class="form-group">
+                                    <label>Braço - cm</label>
+                                    <input class="form-control" type="text" name="braco">
+                                </div>
+                                <div class="form-group">
+                                    <label>Peitoral - cm</label>
+                                    <input class="form-control" type="text" name="peitoral">
+                                </div>
+
+                                <button class="btn btn-sm btn-dark" type="submit">Cadastrar</button>
+                            </form>
+
+
+                        </div>
+                        <!-- horizontal Basic Forms End -->
+                        <%-include('./partials/footer')%>
                     </div>
-                </div>
-            </div>
-        <!-- horizontal Basic Forms Start -->
-        <div class="pd-20 card-box mb-30">
-            <div class="clearfix">
-                <div class="pull-left">
-                    <h4 class="text-blue h4">Cadastro Aluno</h4>
-                </div>
-                
-            </div>
-            <form id="createAlunoForm" method="post" action="/admin/clientes">
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input class="form-control" type="text" name="name" value="" placeholder="Nome">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input class="form-control" type="email" name="email" value="">
-                </div>
-                
-                <div class="form-group">
-                    <label>Telephone</label>
-                    <input class="form-control" type="tel" name="cellphone" value="">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input class="form-control" type="password" name="password" value="">
-                </div>
-                
-                <button class="btn btn-success" type="submit">Cadastrar</button>
-            </form>
-            
-            
-        </div>
-        <!-- horizontal Basic Forms End -->
-        <%-include('./partials/footer')%>
-    </div>
-    <!-- js -->
-    
-    <script src="../../boardMain/vendors/scripts/core.js"></script>
-    <script src="../../boardMain/vendors/scripts/script.min.js"></script>
-    <script src="../../boardMain/vendors/scripts/process.js"></script>
-    <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
-    
+                    <!-- js -->
+
+                    <script src="../../boardMain/vendors/scripts/core.js"></script>
+                    <script src="../../boardMain/vendors/scripts/script.min.js"></script>
+                    <script src="../../boardMain/vendors/scripts/process.js"></script>
+                    <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
+
 </body>
 
 </html>

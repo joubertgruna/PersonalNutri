@@ -76,10 +76,11 @@
 									<th class="table-plus datatable-nosort">ID</th>
 									<th class="table-plus datatable-nosort">Nome</th>
 									<th>Quantidade</th>
-									<th>Categoria</th>
+									<th>Calorias</th>
 									<th>Carboidratos</th>
 									<th>Proteinas</th>
-									<th class="datatable-nosort">Edicao</th>
+									<th>Gorduras</th>
+									<th class="datatable-nosort">Ações</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -92,17 +93,18 @@
 											<%=alimento.nome%>
 										</td>
 										<td>
-											<%=alimento.quantidade%>
+											<%=alimento.quantidade%><%=alimento.unidadeMD%>
 										</td>
 										<td>
-											<%=alimento.categoria%>
+											<%=alimento.caloria%>
 										</td>
 										<td>
-											<%=alimento.carboidratos%>
+											<%=alimento.carboidrato%>
 										</td>
                                         <td>
-											<%=alimento.proteinas%>
+											<%=alimento.proteina%>
 										</td>
+										<td><%=alimento.gordura%></td>
 										<!-- <td>29-03-2018</td> -->
 										<td>
 											<div class="dropdown">

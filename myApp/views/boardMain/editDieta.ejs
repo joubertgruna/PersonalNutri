@@ -64,14 +64,16 @@
                         <div class="pd-20 card-box mb-30">
                             <div class="clearfix">
                                 <div class="pull-left">
-                                    <h4 class="text-blue h4">Dieta</h4>
+                                    <h4 class="text-blue h4" style="font-size: medium;"><span
+                                            style="border-bottom: solid thin #1d1c1c;">Gerenciar</span></h4>
                                 </div>
                             </div>
                             <div class="faq-wrap">
                                 <div id="accordion">
                                     <div class="card">
                                         <div class="card-header">
-                                            <button style="background-color: #1d1c1c; " class="btn btn-block" data-toggle="collapse" data-target="#faq1">
+                                            <button style="background-color: #1d1c1c; " class="btn btn-block"
+                                                data-toggle="collapse" data-target="#faq1">
                                                 Editar a dieta
                                             </button>
                                         </div>
@@ -128,16 +130,16 @@
                                                             value="<%=dieta.gorduras%>">
                                                     </div>
 
-                                                    <button class="btn btn-success" type="submit">Editar</button>
-                                                    <a href="/admin/list-dietas" class="btn btn-secondary">Voltar</a>
+                                                    <button class="btn btn-dark btn-sm" type="submit">Editar</button>
+
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card">
                                         <div class="card-header">
-                                            <button style="background-color: #1d1c1c; " class="btn btn-block collapsed" data-toggle="collapse"
-                                                data-target="#faq2">
+                                            <button style="background-color: #1d1c1c;" class="btn btn-block collapsed"
+                                                data-toggle="collapse" data-target="#faq2">
                                                 Refeições
                                             </button>
                                         </div>
@@ -151,108 +153,260 @@
                                                     <button class="btn btn-outline-primary" type="button"
                                                         id="add-refeicao">Adicionar Refeição</button>
                                                     <button class="btn btn-outline-dark" type="submit">Salvar
-                                                        Dieta</button>
+                                                        Refeição</button>
                                                 </form>
-
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card">
                                         <div style="background-color: #300808;" class="card-header">
-                                            <button class="btn btn-block collapsed text-white" data-toggle="collapse" data-target="#faq3">
+                                            <button class="btn btn-block collapsed text-white" data-toggle="collapse"
+                                                data-target="#faq3">
                                                 Visualizar Dieta
                                             </button>
                                         </div>
                                         <div id="faq3" class="collapse" data-parent="#accordion">
                                             <div class="card-body">
-                                                <h6 class="pt-3">
-                                                    Dieta: <%= dieta.nome_da_dieta %> <hr>
+                                                <h6 class="pt-3" style="font-size: small;">
+                                                    Nome: <%= dieta.nome_da_dieta %>
+                                                        <hr>
+                                                        <!-- Botão para visualizar dieta completa -->
+                                                        <button class="btn btn-outline-dark btn-sm mb-4"
+                                                            data-toggle="modal" data-target="#viewDietaCompletaModal">
+                                                            Ver Dieta Completa
+                                                        </button>
                                                 </h6>
-                                                <h6>Refeições:</h6>
+                                                <h6 style="font-size: small;">Refeições:</h6>
                                                 <hr>
-                                    
-                                                <% if (dieta.refeicoes && dieta.refeicoes.length > 0) { %>
-                                                    <% dieta.refeicoes.forEach(function(refeicao, indexRefeicao) { %>
-                                                        <div class="pt-1">
-                                                            <h6 class="mb-1 h6">
-                                                                - <%= refeicao.nome %>
-                                                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editRefeicaoModal<%= indexRefeicao %>">
-                                                                    Editar
-                                                                </button>
+
+                                                <% if (refeicoes && refeicoes.length> 0) { %>
+                                                    <% refeicoes.forEach(function(refeicao, indexRefeicao) { %>
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-3">
+                                                            <h6 class="pt-3 h6">- <%= refeicao.nome %>
                                                             </h6>
-                                    
-                                                            <!-- Modal para editar a refeição -->
-                                                            <div class="modal fade" id="editRefeicaoModal<%= indexRefeicao %>" tabindex="-1" aria-labelledby="editRefeicaoModalLabel<%= indexRefeicao %>" aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="editRefeicaoModalLabel<%= indexRefeicao %>">Editar Refeição</h5>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
+                                                            <div>
+                                                                <i class="icon-copy dw dw-edit-1" data-toggle="modal"
+                                                                    data-target="#editRefeicaoModal<%= indexRefeicao %>"></i>
+                                                                <i type="button" class="icon-copy dw dw-delete-2"
+                                                                    data-toggle="modal"
+                                                                    data-target="#deleteRefeicaoModal<%= indexRefeicao %>"></i>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- <ul>
+                                                            <% refeicao.alimentos.forEach(function(alimento) { %>
+                                                                <li>
+                                                                    <%= alimento.quantidade %>
+                                                                        <%= alimento.unidadeMD %> de <%= alimento.nome
+                                                                                %> -
+                                                                                <%= alimento.proteina %>g de proteínas,
+                                                                                    <%= alimento.carboidrato %>g de
+                                                                                        carboidratos,
+                                                                                        <%= alimento.gordura %>g de
+                                                                                            gorduras,
+                                                                                            <%= alimento.caloria %>
+                                                                                                calorias
+                                                                </li>
+                                                                <% }) %>
+                                                        </ul> -->
+                                                        <hr>
+
+                                                        <!-- Modal para editar refeição e alimentos -->
+                                                        <div class="modal fade"
+                                                            id="editRefeicaoModal<%= indexRefeicao %>" tabindex="-1"
+                                                            aria-labelledby="editRefeicaoModalLabel<%= indexRefeicao %>"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="editRefeicaoModalLabel<%= indexRefeicao %>">
+                                                                            Editar Refeição e Alimentos
+                                                                        </h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <form id="editRefeicaoForm<%= indexRefeicao %>"
+                                                                        action="/admin/update-refeicao/<%= refeicao.id %>"
+                                                                        method="POST">
+                                                                        <input type="hidden" name="dietaId"
+                                                                            value="<%= dieta.id %>">
+                                                                        <div class="modal-body">
+                                                                            <div class="form-group">
+                                                                                <label
+                                                                                    for="nome_refeicao_<%= indexRefeicao %>">Nome
+                                                                                    da Refeição:</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    id="nome_refeicao_<%= indexRefeicao %>"
+                                                                                    name="nome_refeicao"
+                                                                                    value="<%= refeicao.nome %>">
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label>Alimentos:</label>
+                                                                                <% if (refeicao.alimentos &&
+                                                                                    refeicao.alimentos.length> 0) { %>
+                                                                                    <% refeicao.alimentos.forEach(function(alimento,
+                                                                                        indexAlimento) { %>
+                                                                                        <div class="form-group">
+                                                                                            <input type="hidden"
+                                                                                                name="alimentos[<%= indexAlimento %>][id]"
+                                                                                                value="<%= alimento.id %>">
+                                                                                            <label
+                                                                                                for="nome_alimento_<%= indexRefeicao %>_<%= indexAlimento %>">Nome
+                                                                                                do Alimento:</label>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                id="nome_alimento_<%= indexRefeicao %>_<%= indexAlimento %>"
+                                                                                                name="alimentos[<%= indexAlimento %>][nome]"
+                                                                                                value="<%= alimento.nome %>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="quantidade_alimento_<%= indexRefeicao %>_<%= indexAlimento %>">Quantidade:</label>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                id="quantidade_alimento_<%= indexRefeicao %>_<%= indexAlimento %>"
+                                                                                                name="alimentos[<%= indexAlimento %>][quantidade]"
+                                                                                                value="<%= alimento.quantidade %>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="unidade_medida_<%= indexRefeicao %>_<%= indexAlimento %>">Unidade
+                                                                                                de Medida:</label>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                id="unidade_medida_<%= indexRefeicao %>_<%= indexAlimento %>"
+                                                                                                name="alimentos[<%= indexAlimento %>][unidadeMD]"
+                                                                                                value="<%= alimento.unidadeMD %>">
+                                                                                        </div>
+                                                                                        <% }) %>
+                                                                                            <% } else { %>
+                                                                                                <p>Não há alimentos
+                                                                                                    cadastrados para
+                                                                                                    esta refeição.</p>
+                                                                                                <% } %>
+                                                                            </div>
                                                                         </div>
-                                                                        <form action="/admin/update-refeicao/<%= refeicao.id %>" method="POST">
-                                                                            <div class="modal-body">
-                                                                                <div class="form-group">
-                                                                                    <label for="nome_refeicao_<%= indexRefeicao %>">Nome da Refeição:</label>
-                                                                                    <input type="text" class="form-control" id="nome_refeicao_<%= indexRefeicao %>" name="nome_refeicao" value="<%= refeicao.nome %>">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                                                <button type="submit" class="btn btn-primary">Salvar mudanças</button>
-                                                                            </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Fechar</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Salvar
+                                                                                mudanças</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Modal de exclusão -->
+                                                        <div class="modal fade"
+                                                            id="deleteRefeicaoModal<%= indexRefeicao %>" tabindex="-1"
+                                                            aria-labelledby="deleteRefeicaoModalLabel<%= indexRefeicao %>"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="deleteRefeicaoModalLabel<%= indexRefeicao %>">
+                                                                            Confirmar Exclusão</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Tem certeza de que deseja excluir a refeição <%=
+                                                                            refeicao.nome %>?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <form
+                                                                            action="/admin/delete-refeicao/<%= refeicao.id %>"
+                                                                            method="POST">
+                                                                            <input type="hidden" name="dietaId"
+                                                                                value="<%= dieta.id %>">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Cancelar</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Excluir</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                    
-                                                            <ul class="list-group-flush">
-                                                                <% refeicao.alimentos.forEach(function(alimento, indexAlimento) { %>
-                                                                    <li style="font-size: small; font-weight: 400;" class="list-group">
-                                                                        <%= alimento.nome %> - <%= alimento.quantidade %>
-                                                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editAlimentoModal<%= indexRefeicao %>_<%= indexAlimento %>">
-                                                                            Editar
-                                                                        </button>
-                                    
-                                                                        <!-- Modal para editar o alimento -->
-                                                                        <div class="modal fade" id="editAlimentoModal<%= indexRefeicao %>_<%= indexAlimento %>" tabindex="-1" aria-labelledby="editAlimentoModalLabel<%= indexRefeicao %>_<%= indexAlimento %>" aria-hidden="true">
-                                                                            <div class="modal-dialog">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="editAlimentoModalLabel<%= indexRefeicao %>_<%= indexAlimento %>">Editar Alimento</h5>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <form action="/admin/update-alimento/<%= alimento.id %>" method="POST">
-                                                                                        <div class="modal-body">
-                                                                                            <div class="form-group">
-                                                                                                <label for="nome_alimento_<%= indexRefeicao %>_<%= indexAlimento %>">Nome do Alimento:</label>
-                                                                                                <input type="text" class="form-control" id="nome_alimento_<%= indexRefeicao %>_<%= indexAlimento %>" name="nome_alimento" value="<%= alimento.nome %>">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="modal-footer">
-                                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                                                            <button type="submit" class="btn btn-primary">Salvar mudanças</button>
-                                                                                        </div>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-                                                                <% }) %>
+                                                        </div>
+                                                        <% }) %>
+                                                            <% } else { %>
+                                                                <p>Não há refeições cadastradas para esta dieta.</p>
+                                                                <% } %>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal para visualizar dieta completa -->
+                                    <div class="modal fade" id="viewDietaCompletaModal" tabindex="-1"
+                                        aria-labelledby="viewDietaCompletaModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="viewDietaCompletaModalLabel">Dieta
+                                                        Completa</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h6>Nome da Dieta: <%= dieta.nome_da_dieta %>
+                                                    </h6>
+                                                    <hr>
+                                                    <% if (refeicoes && refeicoes.length> 0) { %>
+                                                        <% refeicoes.forEach(function(refeicao) { %>
+                                                            <h6 class="pb-1"><strong>
+                                                                    <%= refeicao.nome %>
+                                                                </strong></h6>
+                                                            <ul>
+                                                                <% if (refeicao.alimentos && refeicao.alimentos.length>
+                                                                    0) { %>
+                                                                    <% refeicao.alimentos.forEach(function(alimento) {
+                                                                        %>
+                                                                        <li>
+                                                                            <%= alimento.quantidade %>
+                                                                                <%= alimento.unidadeMD %> <strong>
+                                                                                        <%= alimento.nome %>
+                                                                                    </strong>
+                                                                        </li>
+                                                                        <% }) %>
+                                                                            <% } else { %>
+                                                                                <li>Sem alimentos para esta refeição.
+                                                                                </li>
+                                                                                <% } %>
                                                             </ul>
                                                             <hr>
-                                                        </div>
-                                                    <% }) %>
-                                                <% } else { %>
-                                                    <p>Não há refeições cadastradas para esta dieta.</p>
-                                                <% } %>
+                                                            <% }) %>
+                                                                <% } else { %>
+                                                                    <p>Não há refeições cadastradas para esta dieta.</p>
+                                                                    <% } %>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Fechar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- <div class="card">
                                         <div class="card-header">
                                             <button class="btn btn-block collapsed" data-toggle="collapse"
@@ -380,6 +534,8 @@
                                         </div>
                                     </div> -->
                                 </div>
+                                <hr>
+                                <a href="/admin/list-dietas" class="btn btn-outline-dark btn-sm">Voltar</a>
                             </div>
 
 
@@ -396,7 +552,9 @@
                     <script>
                         document.addEventListener('DOMContentLoaded', () => {
                             let refeicaoCount = 0;
+                            const alimentos = <%- JSON.stringify(alimentos) %>; // Passando a lista de alimentos do backend
 
+                            // Função para adicionar uma nova refeição
                             document.getElementById('add-refeicao').addEventListener('click', () => {
                                 refeicaoCount++;
                                 const refeicaoContainer = document.createElement('div');
@@ -406,34 +564,58 @@
                                     <div class="form-group">
                                         <label for="nome_refeicao_${refeicaoCount}">Nome da Refeição:</label>
                                         <input class="form-control" type="text" name="refeicoes[${refeicaoCount}][nome]" id="nome_refeicao_${refeicaoCount}" placeholder="Adicionar refeição">
+                                    </div>
                                     <div class="alimentos-container pt-2" id="alimentos_${refeicaoCount}">
                                         <label><strong>Adicionar alimentos à refeição:</strong></label>
                                     </div>
-                                   
-                                    <i type="button" class="icon-copy dw dw-add add-alimento btn btn-dark" data-refeicao="${refeicaoCount}"></i><hr>
-                                    </div>
+                                    <i type="button" class="icon-copy dw dw-add add-alimento btn btn-dark" data-refeicao="${refeicaoCount}"></i>
+                                    <hr>
                                 `;
                                 document.getElementById('refeicoes-container').appendChild(refeicaoContainer);
                             });
 
+                            // Função para adicionar alimentos à refeição
                             document.getElementById('refeicoes-container').addEventListener('click', (event) => {
                                 if (event.target.classList.contains('add-alimento')) {
                                     const refeicaoId = event.target.dataset.refeicao;
                                     const alimentosContainer = document.getElementById(`alimentos_${refeicaoId}`);
                                     const alimentoCount = alimentosContainer.children.length + 1;
+
                                     const alimentoDiv = document.createElement('div');
-                                    alimentoDiv.innerHTML = `
-                                    <div class="form-group">
-                                        <label for="alimento_${refeicaoId}_${alimentoCount}"> - Alimento: </label>
-                                        <input class="form-control" type="text" name="refeicoes[${refeicaoId}][alimentos][${alimentoCount}][nome]" id="alimento_${refeicaoId}_${alimentoCount}" placeholder="Adicionar alimento">
-                                    </div>
-                                    `;
+                                    alimentoDiv.classList.add('form-group');
+
+                                    // Criar o select com a lista de alimentos, quantidade e unidade de medida
+                                    // Estrutura HTML para o select de alimentos e o input de quantidade, alinhados corretamente
+                                    const selectAndQuantityHTML = `
+    <div class="row">
+        <div class="col-12">
+            <label for="alimento_${refeicaoId}_${alimentoCount}">- Alimento:</label>
+            <select class="form-control alimento-select" name="refeicoes[${refeicaoId}][alimentos][${alimentoCount}][id]" id="alimento_${refeicaoId}_${alimentoCount}">
+                <option value="">Selecione um alimento</option>
+                ${alimentos.map(alimento => `<option value="${alimento.id}">${alimento.nome}</option>`).join('')}
+            </select>
+        </div>
+        
+        <div class="col-12 pt-2">
+            <label for="quantidade_${refeicaoId}_${alimentoCount}">- Quantidade:</label>
+            <input class="form-control" type="number" step="0.01" name="refeicoes[${refeicaoId}][alimentos][${alimentoCount}][quantidade]" id="quantidade_${refeicaoId}_${alimentoCount}" placeholder="Digite a quantidade">
+        </div>
+    </div>
+`;
+                                    alimentoDiv.innerHTML = selectAndQuantityHTML;
                                     alimentosContainer.appendChild(alimentoDiv);
+
+                                    // Ativar o plugin Select2 para o campo select com busca
+                                    $(`#alimento_${refeicaoId}_${alimentoCount}`).select2({
+                                        placeholder: 'Selecione ou busque um alimento',
+                                        width: '100%',
+                                        height: '100%'
+                                    });
                                 }
                             });
 
+                            // Log para ver os dados que serão enviados no submit
                             document.getElementById('dieta-form').addEventListener('submit', (event) => {
-                                // Log para ver os dados que serão enviados no submit
                                 console.log("Dados enviados:");
                                 const formData = new FormData(event.target);
                                 for (let pair of formData.entries()) {
@@ -442,6 +624,11 @@
                             });
                         });
                     </script>
+
+                    <!-- Importando a biblioteca Select2 -->
+                    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+                        rel="stylesheet" />
+                    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 </body>

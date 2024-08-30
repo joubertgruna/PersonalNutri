@@ -70,43 +70,46 @@
             </div>
             <form id="createAlimentoForm" method="post" action="/admin/edit-alimento/<%=alimentos.id%>">
                 <div class="form-group">
-                    <label>Nome</label>
-                    <input class="form-control" type="text" name="name" value="<%=alimentos.nome%>" placeholder="<%=alimentos.nome%>">
+                    <label>Nome *</label>
+                    <input class="form-control" type="text" name="name" value="<%=alimentos.nome%>">
                 </div>
                 <div class="form-group">
-                    <label>quantidade em gramas</label>
+                    <label>Quantidade *</label>
                     <input class="form-control" type="text" name="quantidade" value="<%=alimentos.quantidade%>">
                 </div>
                 <div class="form-group">
-                    <label>Categoria</label>
-                    <input class="form-control" type="text" name="categoria" value="<%=alimentos.categoria%>">
+                    <label>Unidade de medida *</label>
+                    <select class="form-control" name="unidadeMD" value="<%=alimentos.unidadeMD%>">
+                        <option value="<%=alimentos.unidadeMD%>"><%=alimentos.unidadeMD%></option>
+                        <option value="x">x</option>
+                        <option value="mg">mg</option>
+                        <option value="g">g</option>
+                        <option value="kg">kg</option>
+                        <option value="ml">ml</option>
+                        <option value="l">l</option>
+                        <option value="%">%</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Calorias</label>
+                    <input class="form-control" type="text" name="caloria" value="<%=alimentos.caloria%>">
                 </div>
                 <div class="form-group">
                     <label>Carboidratos</label>
-                    <input class="form-control" type="text" name="carboidratos" value="<%=alimentos.carboidratos%>">
+                    <input class="form-control" type="text" name="carboidrato" value="<%=alimentos.carboidrato%>">
                 </div>
                 <div class="form-group">
-                    <label>lipidios</label>
-                    <input class="form-control" type="text" name="lipidios" value="<%=alimentos.lipidios%>">
+                    <label>Proteínas</label>
+                    <input class="form-control" type="text" name="proteina" value="<%=alimentos.proteina%>">
                 </div>
                 <div class="form-group">
-                    <label> proteinas</label>
-                    <input class="form-control" type="text" name="proteinas" value="<%=alimentos.proteinas%>">
-                </div>
-                <div class="form-group">
-                    <label>vitaminas</label>
-                    <input class="form-control" type="text" name="vitaminas" value="<%=alimentos.vitaminas%>">
-                </div>
-                <div class="form-group">
-                    <label>saisMinerais</label>
-                    <input class="form-control" type="text" name="saisMinerais" value="<%=alimentos.saisMinerais%>">
-                </div>
-                <div class="form-group">
-                    <label>dietaId</label>
-                    <input class="form-control" type="text" name="alimentoId" value="<%=alimentos.dietaId%>">
-                </div>                
-                <button class="btn btn-success" type="submit">Editar</button>
-                <a class="btn btn-warning" href="/admin/list-alimentos">Voltar</a>
+                    <label>Gordura</label>
+                    <input class="form-control" type="text" name="gordura" value="<%=alimentos.gordura%>">
+                </div> 
+                              
+                <button class="btn btn-outline-dark btn-sm" type="submit">Editar</button>
+                <a class="btn btn-outline-dark btn-sm" href="/admin/list-alimentos">Voltar</a>
             </form>
             
             

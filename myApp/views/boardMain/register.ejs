@@ -44,7 +44,7 @@
             </div>
             <div class="login-menu">
                 <ul>
-                    <li><a href="/admin/login">Login</a></li>
+                    <li><a style="font-size: small;" href="/admin/login">Login <i class="icon-copy dw dw-login"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -58,7 +58,7 @@
                 <div class="col-md-6 col-lg-5">
                     <div class="login-box bg-white box-shadow border-radius-10">
                         <div class="login-title">
-                            <h4 class="text-center">Registro - PersonalNutri</h4>
+                            <h4 class="text-center" style="font-size: medium;">Registrar uma conta</h4>
                             <hr>
                         </div>
                         <form method="post" action="/admin/register">
@@ -68,41 +68,31 @@
                                         <input type="radio" name="tipo" value="Profissional" id="admin">
                                         <div class="icon"><i style="font-size: 32px;"  class="icon-copy dw dw-id-card2"></i>
                                         </div>
-                                        <span>Sou</span>
-                                        Profissional
+                                        <span class="pl-2" style="font-size: small;">Sou</span>
+                                        <span class="pl-2">Profissional</span>
                                     </label>
                                     <label class="btn">
                                         <input type="radio" name="tipo" value="Cliente" id="user">
                                         <div class="icon"><i style="font-size: 32px;" class="icon-copy dw dw-user-2"></i>
                                         </div>
-                                        <span>Sou</span>
-                                        Cliente
+                                        <span class="pl-2" style="font-size: small;">Sou</span>
+                                        <span class="pl-2">Cliente</span>
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Nome</label>
-                                <input class="form-control" type="text" name="nome" value="" placeholder="Johnny Brown">
+                                <label>Nome *</label>
+                                <input class="form-control" type="text" name="nome" value="" placeholder="Nome *">
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <input class="form-control" type="email" name="email" value="">
+                                <label>Email *</label>
+                                <input class="form-control" type="email" name="email" value="" placeholder="E-mail *">
                             </div>
-
-                            <!-- <div class="form-group">
-                                <label>Celular</label>
-                                <input class="form-control" type="tel" name="cellphone" value="">
-                            </div> -->
                             <div class="form-group">
-                                <label>Senha</label>
-                                <input class="form-control" type="password" name="senha" value="">
+                                <label>Senha *</label>
+                                <input class="form-control" type="password" name="senha" value="" placeholder="Senha *">
                             </div>
-                            <!-- <div class="form-group">
-                                <label>Confirmar Senha</label>
-                                <input class="form-control" type="password" name="password" value="">
-                            </div> -->
                             <hr>
-
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="input-group mb-0">

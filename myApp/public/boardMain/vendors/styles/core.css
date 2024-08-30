@@ -4164,13 +4164,13 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
   padding: .5rem .75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #300808;
+  color: white;
   background-color: #300808;
   border: 1px solid #dee2e6; }
 
 .page-link:hover {
   z-index: 2;
-  color: #0056b3;
+  color: silver;
   text-decoration: none;
   background-color: #300808;
   border-color: #dee2e6; }
@@ -4197,10 +4197,10 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
   border-color: #300808; }
 
 .page-item.disabled .page-link {
-  color: #6c757d;
-  pointer-events: none;
+  color: white;
+  pointer-events: show;
   cursor: auto;
-  background-color: #fff;
+  background-color: #300808;
   border-color: #dee2e6; }
 
 .pagination-lg .page-link {

@@ -41,7 +41,7 @@
 			</div>
 			<div class="login-menu">
 				<ul>
-					<li><a href="/admin/register">Registrar</a></li>
+					<li><a style="font-size: small;" href="/admin/register">Registrar <i class="icon-copy dw dw-enter"></i></a></li>
 				</ul>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
 						<div class="login-title">
-							<h4 class="text-center">Login - PersonalNutri</h4><hr>
+							<h4 class="text-center" style="font-size: medium;">Entrar em uma conta</h4><hr>
 						</div>
 						<form method="post" action="/admin/login">
 							<div class="select-role">
@@ -64,15 +64,15 @@
                                         <input type="radio" name="tipo" value="Profissional" id="admin">
                                         <div class="icon"><i style="font-size: 32px;"  class="icon-copy dw dw-id-card2"></i>
                                         </div>
-                                        <span>Sou</span>
-                                        Profissional
+                                        <span class="pl-2" style="font-size: small;">Sou</span>
+                                        <span class="pl-2">Profissional</span>
                                     </label>
                                     <label class="btn">
                                         <input type="radio" name="tipo" value="Cliente" id="user">
                                         <div class="icon"><i style="font-size: 32px;" class="icon-copy dw dw-user-2"></i>
                                         </div>
-                                        <span>Sou</span>
-                                        Cliente
+                                        <span class="pl-2" style="font-size: small;">Sou</span>
+                                        <span class="pl-2">Cliente</span>
                                     </label>
 								</div>
                                 <span style="display: show; font-size: small; color: red;"> <%=msg%> </span>

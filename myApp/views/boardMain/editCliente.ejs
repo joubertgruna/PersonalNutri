@@ -109,9 +109,14 @@
 
                                                     <div class="pd-20 card-box mb-30 profile-info">
                                                         <ul>
+
+                                                            <li>
+                                                                <span>Nome:</span>
+                                                                <%=cliente.nome%>
+                                                            </li>
                                                             <li>
                                                                 <span>Email:</span>
-                                                                <%=cliente.nome%>
+                                                                <%=cliente.email%>
                                                             </li>
                                                             <li>
                                                                 <span>Celular:</span>
@@ -139,23 +144,23 @@
                                                         <ul>
                                                             <li>
                                                                 <span>Peso: </span>
-                                                                65kg
+                                                                <%=cliente.peso%>kg
                                                             </li>
                                                             <li>
                                                                 <span>Percent de gordura:</span>
-                                                                12%
+                                                                <%=cliente.gordura%>%
                                                             </li>
                                                             <li>
                                                                 <span>abdômen(cintura):</span>
-                                                                80cm
+                                                                <%=cliente.abdomen%>cm
                                                             </li>
                                                             <li>
                                                                 <span>braço:</span>
-                                                                37cm
+                                                                <%=cliente.braco%>cm
                                                             </li>
                                                             <li>
                                                                 <span>peitoral:</span>
-                                                                137cm
+                                                                <%=cliente.peitoral%>cm
                                                             </li>
 
                                                         </ul>
@@ -322,7 +327,7 @@
                                                                                             cm</label>
                                                                                         <input class="form-control"
                                                                                             type="text" name="abdomen"
-                                                                                            value="<%=cliente.cintura%>">
+                                                                                            value="<%=cliente.abdomen%>">
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label>Braço - cm</label>
@@ -337,7 +342,7 @@
                                                                                             value="<%=cliente.peitoral%>">
                                                                                     </div>
 
-                                                                                    <button class="btn btn-success"
+                                                                                    <button class="btn btn-sm btn-dark"
                                                                                         type="submit">Editar</button>
                                                                                 </form>
 
@@ -356,7 +361,7 @@
                                                 <!-- Tasks Tab start -->
                                                 <div class="tab-pane fade" id="dieta" role="tabpanel">
                                                     <div class="pd-20 profile-task-wrap">
-                                                        <div class="container pd-0">
+                                                        <div style="color: black;" class="container pd-0">
                                                             <div class="pd-20 mb-30">
                                                                 <div class="clearfix">
                                                                     <div class="pull-left">
@@ -368,6 +373,85 @@
                                                                 </div>
                                                                 <div class="faq-wrap">
                                                                     <div id="accordion">
+                                                                        <div class="card">
+                                                                            <div class="card-header">
+                                                                                <button class="btn btn-block collapsed"
+                                                                                    data-toggle="collapse"
+                                                                                    data-target="#faq9">
+                                                                                    Visualizar Dieta
+                                                                                </button>
+                                                                            </div>
+                                                                            <div id="faq9" class="collapse" data-parent="#accordion">
+                                                                                <div class="pd-20 card-box">
+                                                                                    <!-- Abas de navegação -->
+                                                                                    <div class="tab">
+                                                                                        <div class="row clearfix">
+                                                                                            <div class="col-md-3 col-sm-12">
+                                                                                                <ul class="nav flex-column vtabs nav-pills customtab" role="tablist">
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link active" data-toggle="tab" href="#home4" role="tab" aria-selected="true">Geral</a>
+                                                                                                    </li>
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link" data-toggle="tab" href="#profile4" role="tab" aria-selected="false">Refeições</a>
+                                                                                                    </li>
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link" data-toggle="tab" href="#contact4" role="tab" aria-selected="false">Rotina</a>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                            <div class="col-md-9 col-sm-12">
+                                                                                                <div class="tab-content">
+                                                                                                    <!-- Aba Geral -->
+                                                                                                    <div class="tab-pane fade show active" id="home4" role="tabpanel">
+                                                                                                        <div class="pd-20">
+                                                                                                            <% if (dieta) { %>
+                                                                                                                Nome: <%= dieta.nome_da_dieta %><br>
+                                                                                                                Descrição: <%= dieta.descricao_da_dieta %><br>
+                                                                                                                Objetivo: <%= dieta.objetivo_da_dieta %><br>
+                                                                                                                Duração: <%= dieta.duracao_estimada %><br>
+                                                                                                                Nível: <%= dieta.nivel_de_dificuldade %><br>
+                                                                                                                Cal/Dia: <%= dieta.calorias_diarias %><br>
+                                                                                                                Proteína/Dia: <%= dieta.proteinas %><br>
+                                                                                                                Carbo/Dia: <%= dieta.carboidratos %><br>
+                                                                                                                Gordura/Dia: <%= dieta.gorduras %><br>
+                                                                                                            <% } else { %>
+                                                                                                                <p>Este cliente ainda não possui uma dieta vinculada.</p>
+                                                                                                            <% } %>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    
+                                                                                                    <!-- Aba Alimentos -->
+                                                                                                    <div class="tab-pane fade" id="profile4" role="tabpanel">
+                                                                                                        <div class="pd-20">
+                                                                                                            <% if (dieta && dieta.refeicoes && dieta.refeicoes.length > 0) { %>
+                                                                                                                <% dieta.refeicoes.forEach(function(refeicao) { %>
+                                                                                                                    <h6>- <%= refeicao.nome %></h6>
+                                                                                                                    <ul>
+                                                                                                                        <% refeicao.alimentos.forEach(function(alimento) { %>
+                                                                                                                            <li><%= alimento.nome %> - <%= alimento.quantidade %></li>
+                                                                                                                        <% }) %>
+                                                                                                                    </ul>
+                                                                                                                    <hr>
+                                                                                                                <% }) %>
+                                                                                                            <% } else { %>
+                                                                                                                <p>Não há refeições cadastradas para esta dieta.</p>
+                                                                                                            <% } %>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    
+                                                                                                    <!-- Aba Rotina -->
+                                                                                                    <div class="tab-pane fade" id="contact4" role="tabpanel">
+                                                                                                        <div class="pd-20">
+                                                                                                            Esse cliente não possui um rotina vinculada.
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                         <div class="card">
                                                                             <div class="card-header">
                                                                                 <button class="btn btn-block"
@@ -492,431 +576,8 @@
 
                                                                             </div>
                                                                         </div>
-                                                                        <div class="card">
-                                                                            <div class="card-header">
-                                                                                <button class="btn btn-block collapsed"
-                                                                                    data-toggle="collapse"
-                                                                                    data-target="#faq9">
-                                                                                    Visualizar Dieta
-                                                                                </button>
-                                                                            </div>
-                                                                            <div id="faq9" class="collapse"
-                                                                                data-parent="#accordion">
-                                                                                <div class="pd-20 card-box">
-                                                                                    <!-- <h5 class="h4 text-blue mb-20">Custom vertical Tab</h5> -->
-                                                                                    <div class="tab">
-                                                                                        <div class="row clearfix">
-                                                                                            <div
-                                                                                                class="col-md-3 col-sm-12">
-                                                                                                <ul class="nav flex-column vtabs nav-pills customtab"
-                                                                                                    role="tablist">
-                                                                                                    <li
-                                                                                                        class="nav-item">
-                                                                                                        <a class="nav-link active"
-                                                                                                            data-toggle="tab"
-                                                                                                            href="#home4"
-                                                                                                            role="tab"
-                                                                                                            aria-selected="true">Geral</a>
-                                                                                                    </li>
-                                                                                                    <li
-                                                                                                        class="nav-item">
-                                                                                                        <a class="nav-link"
-                                                                                                            data-toggle="tab"
-                                                                                                            href="#profile4"
-                                                                                                            role="tab"
-                                                                                                            aria-selected="false">Alimentos</a>
-                                                                                                    </li>
-                                                                                                    <li
-                                                                                                        class="nav-item">
-                                                                                                        <a class="nav-link"
-                                                                                                            data-toggle="tab"
-                                                                                                            href="#contact4"
-                                                                                                            role="tab"
-                                                                                                            aria-selected="false">Rotina</a>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="col-md-9 col-sm-12">
-                                                                                                <div
-                                                                                                    class="tab-content">
-                                                                                                    <div class="tab-pane fade show active"
-                                                                                                        id="home4"
-                                                                                                        role="tabpanel">
-                                                                                                        <div
-                                                                                                            class="pd-20">
-
-                                                                                                            <% if(dieta)
-                                                                                                                { %>
-                                                                                                                Nome:
-                                                                                                                <%=dieta.nome_da_dieta%>
-                                                                                                                    <br>
-                                                                                                                    Descrição:
-                                                                                                                    <%=dieta.descricao_da_dieta%>
-                                                                                                                        <br>
-                                                                                                                        Objetivo:
-                                                                                                                        <%=dieta.objetivo_da_dieta%>
-                                                                                                                            <br>
-                                                                                                                            Duração:
-                                                                                                                            <%=dieta.duracao_estimada%>
-                                                                                                                                <br>
-                                                                                                                                Nível:
-                                                                                                                                <%=dieta.nivel_de_dificuldade%>
-                                                                                                                                    <br>
-                                                                                                                                    Cal/Dia:
-                                                                                                                                    <%=dieta.calorias_diarias%>
-                                                                                                                                        <br>
-                                                                                                                                        Proteina/Dia:
-                                                                                                                                        <%=dieta.proteinas%>
-                                                                                                                                            <br>
-                                                                                                                                            Carbo/Dia:
-                                                                                                                                            <%=dieta.carboidratos%>
-                                                                                                                                                <br>
-                                                                                                                                                Gordura/Dia:
-                                                                                                                                                <%=dieta.gorduras%>
-                                                                                                                                                    <% } else
-                                                                                                                                                        {
-                                                                                                                                                        %>
-                                                                                                                                                        <p>Este
-                                                                                                                                                            cliente
-                                                                                                                                                            ainda
-                                                                                                                                                            não
-                                                                                                                                                            possui
-                                                                                                                                                            uma
-                                                                                                                                                            dieta
-                                                                                                                                                            vinculada.
-                                                                                                                                                        </p>
-                                                                                                                                                        <% }
-                                                                                                                                                            %>
-
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="tab-pane fade"
-                                                                                                        id="profile4"
-                                                                                                        role="tabpanel">
-                                                                                                        <div
-                                                                                                            class="pd-20">
-                                                                                                            Lorem ipsum
-                                                                                                            dolor sit
-                                                                                                            amet,
-                                                                                                            consectetur
-                                                                                                            adipisicing
-                                                                                                            elit, sed do
-                                                                                                            eiusmod
-                                                                                                            tempor
-                                                                                                            incididunt
-                                                                                                            ut labore et
-                                                                                                            dolore magna
-                                                                                                            aliqua. Ut
-                                                                                                            enim ad
-                                                                                                            minim
-                                                                                                            veniam, quis
-                                                                                                            nostrud
-                                                                                                            exercitation
-                                                                                                            ullamco
-                                                                                                            laboris nisi
-                                                                                                            ut aliquip
-                                                                                                            ex ea
-                                                                                                            commodo
-                                                                                                            consequat.
-                                                                                                            Duis aute
-                                                                                                            irure dolor
-                                                                                                            in
-                                                                                                            reprehenderit
-                                                                                                            in voluptate
-                                                                                                            velit esse
-                                                                                                            cillum
-                                                                                                            dolore eu
-                                                                                                            fugiat nulla
-                                                                                                            pariatur.
-                                                                                                            Excepteur
-                                                                                                            sint
-                                                                                                            occaecat
-                                                                                                            cupidatat
-                                                                                                            non
-                                                                                                            proident,
-                                                                                                            sunt in
-                                                                                                            culpa qui
-                                                                                                            officia
-                                                                                                            deserunt
-                                                                                                            mollit anim
-                                                                                                            id est
-                                                                                                            laborum.
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="tab-pane fade"
-                                                                                                        id="contact4"
-                                                                                                        role="tabpanel">
-                                                                                                        <div
-                                                                                                            class="pd-20">
-                                                                                                            Lorem ipsum
-                                                                                                            dolor sit
-                                                                                                            amet,
-                                                                                                            consectetur
-                                                                                                            adipisicing
-                                                                                                            elit, sed do
-                                                                                                            eiusmod
-                                                                                                            tempor
-                                                                                                            incididunt
-                                                                                                            ut labore et
-                                                                                                            dolore magna
-                                                                                                            aliqua. Ut
-                                                                                                            enim ad
-                                                                                                            minim
-                                                                                                            veniam, quis
-                                                                                                            nostrud
-                                                                                                            exercitation
-                                                                                                            ullamco
-                                                                                                            laboris nisi
-                                                                                                            ut aliquip
-                                                                                                            ex ea
-                                                                                                            commodo
-                                                                                                            consequat.
-                                                                                                            Duis aute
-                                                                                                            irure dolor
-                                                                                                            in
-                                                                                                            reprehenderit
-                                                                                                            in voluptate
-                                                                                                            velit esse
-                                                                                                            cillum
-                                                                                                            dolore eu
-                                                                                                            fugiat nulla
-                                                                                                            pariatur.
-                                                                                                            Excepteur
-                                                                                                            sint
-                                                                                                            occaecat
-                                                                                                            cupidatat
-                                                                                                            non
-                                                                                                            proident,
-                                                                                                            sunt in
-                                                                                                            culpa qui
-                                                                                                            officia
-                                                                                                            deserunt
-                                                                                                            mollit anim
-                                                                                                            id est
-                                                                                                            laborum.
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="card">
-                                                                            <div class="card-header">
-                                                                                <button class="btn btn-block collapsed"
-                                                                                    data-toggle="collapse"
-                                                                                    data-target="#faq15">
-                                                                                    Gerenciar Dieta
-                                                                                </button>
-                                                                            </div>
-                                                                            <div id="faq15" class="collapse"
-                                                                                data-parent="#accordion">
-                                                                                <div class="pd-20 card-box">
-                                                                                    <!-- <h5 class="h4 text-blue mb-20">Custom vertical Tab</h5> -->
-                                                                                    <div class="tab">
-                                                                                        <div class="row clearfix">
-                                                                                            <div
-                                                                                                class="col-md-3 col-sm-12">
-                                                                                                <ul class="nav flex-column vtabs nav-pills customtab"
-                                                                                                    role="tablist">
-                                                                                                    <li
-                                                                                                        class="nav-item">
-                                                                                                        <a class="nav-link active"
-                                                                                                            data-toggle="tab"
-                                                                                                            href="#home4"
-                                                                                                            role="tab"
-                                                                                                            aria-selected="true">Geral</a>
-                                                                                                    </li>
-                                                                                                    <li
-                                                                                                        class="nav-item">
-                                                                                                        <a class="nav-link"
-                                                                                                            data-toggle="tab"
-                                                                                                            href="#profile4"
-                                                                                                            role="tab"
-                                                                                                            aria-selected="false">Alimentos</a>
-                                                                                                    </li>
-                                                                                                    <li
-                                                                                                        class="nav-item">
-                                                                                                        <a class="nav-link"
-                                                                                                            data-toggle="tab"
-                                                                                                            href="#contact4"
-                                                                                                            role="tab"
-                                                                                                            aria-selected="false">Rotina</a>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="col-md-9 col-sm-12">
-                                                                                                <div
-                                                                                                    class="tab-content">
-                                                                                                    <div class="tab-pane fade show active"
-                                                                                                        id="home4"
-                                                                                                        role="tabpanel">
-                                                                                                        <div
-                                                                                                            class="pd-20">
-                                                                                                            <% if(dieta)
-                                                                                                                { %>
-                                                                                                                Nome:
-                                                                                                                <%=dieta.nome_da_dieta%>
-                                                                                                                    <br>
-                                                                                                                    Descrição:
-                                                                                                                    <%=dieta.descricao_da_dieta%>
-                                                                                                                        <br>
-                                                                                                                        Objetivo:
-                                                                                                                        <%=dieta.objetivo_da_dieta%>
-                                                                                                                            <br>
-                                                                                                                            Duração:
-                                                                                                                            <%=dieta.duracao_estimada%>
-                                                                                                                                <br>
-                                                                                                                                Nível:
-                                                                                                                                <%=dieta.nivel_de_dificuldade%>
-                                                                                                                                    <br>
-                                                                                                                                    Cal/Dia:
-                                                                                                                                    <%=dieta.calorias_diarias%>
-                                                                                                                                        <br>
-                                                                                                                                        Proteina/Dia:
-                                                                                                                                        <%=dieta.proteinas%>
-                                                                                                                                            <br>
-                                                                                                                                            Carbo/Dia:
-                                                                                                                                            <%=dieta.carboidratos%>
-                                                                                                                                                <br>
-                                                                                                                                                Gordura/Dia:
-                                                                                                                                                <%=dieta.gorduras%>
-                                                                                                                                                    <% } else
-                                                                                                                                                        {
-                                                                                                                                                        %>
-                                                                                                                                                        <p>Este
-                                                                                                                                                            cliente
-                                                                                                                                                            ainda
-                                                                                                                                                            não
-                                                                                                                                                            possui
-                                                                                                                                                            uma
-                                                                                                                                                            dieta
-                                                                                                                                                            vinculada.
-                                                                                                                                                        </p>
-                                                                                                                                                        <% }
-                                                                                                                                                            %>
-
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="tab-pane fade"
-                                                                                                        id="profile4"
-                                                                                                        role="tabpanel">
-                                                                                                        <div
-                                                                                                            class="pd-20">
-                                                                                                            Lorem ipsum
-                                                                                                            dolor sit
-                                                                                                            amet,
-                                                                                                            consectetur
-                                                                                                            adipisicing
-                                                                                                            elit, sed do
-                                                                                                            eiusmod
-                                                                                                            tempor
-                                                                                                            incididunt
-                                                                                                            ut labore et
-                                                                                                            dolore magna
-                                                                                                            aliqua. Ut
-                                                                                                            enim ad
-                                                                                                            minim
-                                                                                                            veniam, quis
-                                                                                                            nostrud
-                                                                                                            exercitation
-                                                                                                            ullamco
-                                                                                                            laboris nisi
-                                                                                                            ut aliquip
-                                                                                                            ex ea
-                                                                                                            commodo
-                                                                                                            consequat.
-                                                                                                            Duis aute
-                                                                                                            irure dolor
-                                                                                                            in
-                                                                                                            reprehenderit
-                                                                                                            in voluptate
-                                                                                                            velit esse
-                                                                                                            cillum
-                                                                                                            dolore eu
-                                                                                                            fugiat nulla
-                                                                                                            pariatur.
-                                                                                                            Excepteur
-                                                                                                            sint
-                                                                                                            occaecat
-                                                                                                            cupidatat
-                                                                                                            non
-                                                                                                            proident,
-                                                                                                            sunt in
-                                                                                                            culpa qui
-                                                                                                            officia
-                                                                                                            deserunt
-                                                                                                            mollit anim
-                                                                                                            id est
-                                                                                                            laborum.
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="tab-pane fade"
-                                                                                                        id="contact4"
-                                                                                                        role="tabpanel">
-                                                                                                        <div
-                                                                                                            class="pd-20">
-                                                                                                            Lorem ipsum
-                                                                                                            dolor sit
-                                                                                                            amet,
-                                                                                                            consectetur
-                                                                                                            adipisicing
-                                                                                                            elit, sed do
-                                                                                                            eiusmod
-                                                                                                            tempor
-                                                                                                            incididunt
-                                                                                                            ut labore et
-                                                                                                            dolore magna
-                                                                                                            aliqua. Ut
-                                                                                                            enim ad
-                                                                                                            minim
-                                                                                                            veniam, quis
-                                                                                                            nostrud
-                                                                                                            exercitation
-                                                                                                            ullamco
-                                                                                                            laboris nisi
-                                                                                                            ut aliquip
-                                                                                                            ex ea
-                                                                                                            commodo
-                                                                                                            consequat.
-                                                                                                            Duis aute
-                                                                                                            irure dolor
-                                                                                                            in
-                                                                                                            reprehenderit
-                                                                                                            in voluptate
-                                                                                                            velit esse
-                                                                                                            cillum
-                                                                                                            dolore eu
-                                                                                                            fugiat nulla
-                                                                                                            pariatur.
-                                                                                                            Excepteur
-                                                                                                            sint
-                                                                                                            occaecat
-                                                                                                            cupidatat
-                                                                                                            non
-                                                                                                            proident,
-                                                                                                            sunt in
-                                                                                                            culpa qui
-                                                                                                            officia
-                                                                                                            deserunt
-                                                                                                            mollit anim
-                                                                                                            id est
-                                                                                                            laborum.
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
+                                                                        
+                                                                        
                                                                     </div>
                                                                 </div>
 
