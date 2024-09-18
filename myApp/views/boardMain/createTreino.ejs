@@ -68,36 +68,24 @@
                 </div>
                 
             </div>
-            <form id="createTreinoForm" method="post" action="/admin/create-treino">
+            <form id="treino-form" action="/admin/create-treino" method="POST">
                 <div class="form-group">
-                    <label>Nome</label>
-                    <input class="form-control" type="text" name="nome_do_treino" value="">
+                    <label for="nome">Nome do Treino:</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
                 </div>
                 <div class="form-group">
-                    <label>descricao_do_treino</label>
-                    <input class="form-control" type="text" name="descricao_do_treino" value="">
+                    <label for="descricao">Descrição:</label>
+                    <textarea class="form-control" id="descricao" name="descricao"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>nivel_de_dificuldade</label>
-                    <input class="form-control" type="text" name="nivel_de_dificuldade" value="">
+                    <label for="objetivo">Objetivo:</label>
+                    <input type="text" class="form-control" id="objetivo" name="objetivo">
                 </div>
-                <div class="form-group">
-                    <label>objetivo_do_treino</label>
-                    <input class="form-control" type="text" name="objetivo_do_treino" value="">
+                <div id="exercicios-container">
+                    <!-- Exercícios adicionados dinamicamente -->
                 </div>
-                <div class="form-group">
-                    <label> duracao_estimada_do_treino</label>
-                    <input class="form-control" type="text" name="duracao_estimada_do_treino" value="">
-                </div>
-                <div class="form-group">
-                    <label>frequencia_semanal</label>
-                    <input class="form-control" type="text" name="frequencia_semanal" value="">
-                </div>   
-                <div class="form-group">
-                    <label>treinoId</label>
-                    <input class="form-control" type="text" name="treinoId" value="">
-                </div>       
-                <button class="btn btn-success" type="submit">Cadastrar</button>
+                <button type="button" class="btn btn-primary" id="add-exercicio">Adicionar Exercício</button>
+                <button type="submit" class="btn btn-success">Criar Treino</button>
             </form>
             
             
@@ -111,6 +99,39 @@
     <script src="../../boardMain/vendors/scripts/script.min.js"></script>
     <script src="../../boardMain/vendors/scripts/process.js"></script>
     <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
+    <script>
+        document.getElementById('add-exercicio').addEventListener('click', () => {
+            const exercicioCount = document.querySelectorAll('.exercicio').length + 1;
+            const exercicioContainer = document.createElement('div');
+            exercicioContainer.classList.add('exercicio');
+            exercicioContainer.innerHTML = `
+                <h6>Exercício ${exercicioCount}</h6>
+                <div class="form-group">
+                    <label for="exercicio_${exercicioCount}">Exercício:</label>
+                    <select class="form-control" name="exercicios[${exercicioCount}][id]" id="exercicio_${exercicioCount}">
+                        <option value="">Selecione um exercício</option>
+                        <% exercicios.forEach(exercicio => { %>
+                            <option value="<%= exercicio.id %>"><%= exercicio.nome %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="series_${exercicioCount}">Séries:</label>
+                    <input type="number" class="form-control" name="exercicios[${exercicioCount}][series]" id="series_${exercicioCount}">
+                </div>
+                <div class="form-group">
+                    <label for="repeticoes_${exercicioCount}">Repetições:</label>
+                    <input type="number" class="form-control" name="exercicios[${exercicioCount}][repeticoes]" id="repeticoes_${exercicioCount}">
+                </div>
+                <div class="form-group">
+                    <label for="carga_${exercicioCount}">Carga (kg):</label>
+                    <input type="number" class="form-control" name="exercicios[${exercicioCount}][carga]" id="carga_${exercicioCount}">
+                </div>
+                <hr>
+            `;
+            document.getElementById('exercicios-container').appendChild(exercicioContainer);
+        });
+    </script>
     
 </body>
 

@@ -831,33 +831,37 @@ router.get('/create-treino', authenticateToken, getUserDetails, authorizeProfess
     const user = req.userDetails;
     res.render('./boardMain/createTreino', {user: user, title: 'Criar Treino' })
 })
-router.post('/create-treino', (req, res) => {
-    const nome_do_treino = req.body.nome_do_treino;
-    const descricao_do_treino = req.body.descricao_do_treino;
-    const nivel_de_dificuldade = req.body.nivel_de_dificuldade;
-    const objetivo_do_treino = req.body.objetivo_do_treino;
-    const duracao_estimada_do_treino = req.body.duracao_estimada_do_treino;
-    const frequencia_semanal = req.body.frequencia_semanal;
-    const treinoId = req.body.treinoId;
-    // Insere os dados do personais no banco de dados
+router.post('/create-treino', async (req, res) => {
+    const { nome, descricao, objetivo, clienteId, profissionalId, exercicios } = req.body;
 
-    knex('treinos').insert({
-        nome_do_treino: nome_do_treino,
-        descricao_do_treino: descricao_do_treino,
-        nivel_de_dificuldade: nivel_de_dificuldade,
-        objetivo_do_treino: objetivo_do_treino,
-        duracao_estimada_do_treino: duracao_estimada_do_treino,
-        frequencia_semanal: frequencia_semanal,
-        treinoId: treinoId
-    })
-        .then((treinos) => {
-            res.redirect('/admin/list-treinos'); // Move a chamada para dentro deste callback
-        })
-        .catch((error) => {
-            console.error('Erro ao inserir o treino:', error);
-            res.status(500).send(`Erro ao inserir o treino: ${error.message}`);
+    try {
+        // Criar o treino
+        const [treinoId] = await knex('treinos').insert({
+            nome,
+            descricao,
+            objetivo,
+            clienteId,
+            profissionalId
         });
-})
+
+        // Adicionar os exercícios ao treino
+        for (const exercicio of exercicios) {
+            await knex('treino_exercicio').insert({
+                treinoId,
+                exercicioId: exercicio.id,
+                series: exercicio.series,
+                repeticoes: exercicio.repeticoes,
+                carga: exercicio.carga
+            });
+        }
+
+        res.status(201).json({ message: 'Treino criado com sucesso!', treinoId });
+    } catch (error) {
+        console.error('Erro ao criar treino:', error);
+        res.status(500).json({ message: 'Erro ao criar treino.' });
+    }
+});
+
 // Listar treino
 router.get('/list-treinos', authenticateToken, getUserDetails, authorizeProfessional, (req, res) => {
     const user = req.userDetails;

@@ -26,3 +26,7 @@ Cada relacionamento deve funcionar da seguinte forma
 Eu preciso criar esses relacionamentos gostaria primeiramente como eu faria esses relacionamentos em uma base de dados 
 MySQL
 
+
+Wallet Access: nose gown assault nominee hill diagram dance whip ramp purity proof tennis
+Wallet Ethereum conta: 0xea18bE3E742AE4bFbC4f2102488453563bC8AC56
+Private Key: d6cbab674c56ac0a724c951678a83f623cb2033880da826a75f5599cf742c203
