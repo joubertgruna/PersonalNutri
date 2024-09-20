@@ -37,436 +37,433 @@
 <body>
     <%-include('./partials/preloader')%>
 
-   <%-include('./partials/header')%>
+        <%-include('./partials/header')%>
 
-    
-   <%-include('./partials/left-sidebar')%>
-    <div class="mobile-menu-overlay"></div>
 
-    <div class="main-container">
-        <div class="min-height-200px">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="title">
-                            <h4>Form de Editar</h4>
-                        </div>
-                        <nav aria-label="breadcrumb" role="navigation">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Treino</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        <!-- horizontal Basic Forms Start -->
-        <div class="pd-20 card-box mb-30">
-            <div class="clearfix">
-                <div class="pull-left">
-                    <h4 class="text-blue h4">Editar Treino</h4>
-                </div>
-            </div>
-            <div class="faq-wrap">
-                <div id="accordion">
-                    <div class="card">
-                        <div class="card-header">
-                            <button style="background-color: #1d1c1c; " class="btn btn-block"
-                                data-toggle="collapse" data-target="#faq1">
-                                Editar o treino
-                            </button>
-                        </div>
-                        <div id="faq1" class="collapse hidden pt-4" data-parent="#accordion">
+            <%-include('./partials/left-sidebar')%>
+                <div class="mobile-menu-overlay"></div>
 
-                            <div class="card-body">
-                                <form id="createTreinoForm" method="post" action="/admin/edit-treino/<%=treino.id%>">
-                                    <div class="form-group">
-                                        <label>Nome</label>
-                                        <input class="form-control" type="text" name="nome_do_treino" value="<%=treino.nome_do_treino%>">
+                <div class="main-container">
+                    <div class="min-height-200px">
+                        <div class="page-header">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="title">
+                                        <h4>Form de Editar</h4>
                                     </div>
-                                    <div class="form-group">
-                                        <label>descricao_do_treino</label>
-                                        <input class="form-control" type="text" name="descricao_do_treino" value="<%=treino.descricao_do_treino%>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>nivel_de_dificuldade</label>
-                                        <input class="form-control" type="text" name="nivel_de_dificuldade" value="<%=treino.nivel_de_dificuldade%>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>objetivo_do_treino</label>
-                                        <input class="form-control" type="text" name="objetivo_do_treino" value="<%=treino.objetivo_do_treino%>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label> duracao_estimada_do_treino</label>
-                                        <input class="form-control" type="text" name="duracao_estimada_do_treino" value="<%=treino.duracao_estimada_do_treino%>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>frequencia_semanal</label>
-                                        <input class="form-control" type="text" name="frequencia_semanal" value="<%=treino.frequencia_semanal%>">
-                                    </div>   
-                                    <div class="form-group">
-                                        <label>treinoId</label>
-                                        <input class="form-control" type="text" name="treinoId" value="<%=treino.treinoId%>">
-                                    </div>       
-                                    <button class="btn btn-success" type="submit">Editar</button>
-                                    <a href="/admin/list-treinos" class="btn btn-secondary">Voltar</a>
-                                </form>
+                                    <nav aria-label="breadcrumb" role="navigation">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Treino</li>
+                                        </ol>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <button style="background-color: #1d1c1c;" class="btn btn-block collapsed"
-                                data-toggle="collapse" data-target="#faq2">
-                                Sessões
-                            </button>
-                        </div>
-                        <div id="faq2" class="collapse pt-4" data-parent="#accordion">
-                            <div class="card-body">
-                                <form id="treino-form" action="/admin/create-sessao/<%= treino.id %>" method="POST">
-                                    <div id="sessoes-container">
-                                        <!-- Área para adicionar sessões dinamicamente -->
-                                    </div>
-                                    <button class="btn btn-outline-primary" type="button" id="add-sessao">Adicionar Sessão</button>
-                                    <button class="btn btn-outline-dark" type="submit">Salvar Sessão</button>
-                                </form>
+                        <!-- horizontal Basic Forms Start -->
+                        <div class="pd-20 card-box mb-30">
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <h4 class="text-blue h4">Editar Treino</h4>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div style="background-color: #300808;" class="card-header">
-                            <button class="btn btn-block collapsed text-white" data-toggle="collapse"
-                                data-target="#faq3">
-                                Visualizar Treino
-                            </button>
-                        </div>
-                        <div id="faq3" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                                <h6 class="pt-3" style="font-size: small;">
-                                    Nome: <%= treino.nome_da_dieta %>
-                                        <hr>
-                                        <!-- Botão para visualizar dieta completa -->
-                                        <button class="btn btn-outline-dark btn-sm mb-4"
-                                            data-toggle="modal" data-target="#viewDietaCompletaModal">
-                                            Ver treino Completo
-                                        </button>
-                                </h6>
-                                <h6 style="font-size: small;">Sessões:</h6>
-                                <hr>
+                            <div class="faq-wrap">
+                                <div id="accordion">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <button style="background-color: #1d1c1c; " class="btn btn-block"
+                                                data-toggle="collapse" data-target="#faq1">
+                                                Editar o treino
+                                            </button>
+                                        </div>
+                                        <div id="faq1" class="collapse hidden pt-4" data-parent="#accordion">
 
-                                <% if (sessoes && sessoes.length> 0) { %>
-                                    <% sessoes.forEach(function(sessao, indexSessao) { %>
-                                        <div
-                                            class="d-flex justify-content-between align-items-center mb-3">
-                                            <h6 class="pt-3 h6">- <%= sessao.nome %>
-                                            </h6>
-                                            <div>
-                                                <i class="icon-copy dw dw-edit-1" data-toggle="modal"
-                                                    data-target="#editRefeicaoModal<%= indexSessao %>"></i>
-                                                <i type="button" class="icon-copy dw dw-delete-2"
-                                                    data-toggle="modal"
-                                                    data-target="#deleteRefeicaoModal<%= indexSessao %>"></i>
+                                            <div class="card-body">
+                                                <form id="createTreinoForm" method="post"
+                                                    action="/admin/edit-treino/<%=treino.id%>">
+                                                    <div class="form-group">
+                                                        <label>Nome</label>
+                                                        <input class="form-control" type="text" name="nome_do_treino"
+                                                            value="<%=treino.nome_do_treino%>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>descricao_do_treino</label>
+                                                        <input class="form-control" type="text"
+                                                            name="descricao_do_treino"
+                                                            value="<%=treino.descricao_do_treino%>">
+                                                    </div>
+                                                    
+                                                    <button class="btn btn-success" type="submit">Editar</button>
+                                                    <a href="/admin/list-treinos" class="btn btn-secondary">Voltar</a>
+                                                </form>
                                             </div>
                                         </div>
-
-                                       
-                                        <hr>
-
-                                        <!-- Modal para editar refeição e alimentos -->
-                                        <div class="modal fade"
-                                            id="editRefeicaoModal<%= indexSessao %>" tabindex="-1"
-                                            aria-labelledby="editRefeicaoModalLabel<%= indexSessao %>"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"
-                                                            id="editRefeicaoModalLabel<%= indexSessao %>">
-                                                            Editar Sessão e Exercicios
-                                                        </h5>
-                                                        <button type="button" class="close"
-                                                            data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <button style="background-color: #1d1c1c;" class="btn btn-block collapsed"
+                                                data-toggle="collapse" data-target="#faq2">
+                                                Sessões
+                                            </button>
+                                        </div>
+                                        <div id="faq2" class="collapse pt-4" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <form id="treino-form" action="/admin/create-sessao" method="POST">
+                                                    <div id="sessoes-container">
+                                                        <!-- Área para adicionar sessões dinamicamente -->
                                                     </div>
-                                                    <form id="editRefeicaoForm<%= indexSessao %>"
-                                                        action="/admin/update-sessao/<%= sessao.id %>"
-                                                        method="POST">
-                                                        <input type="hidden" name="dietaId"
-                                                            value="<%= treino.id %>">
-                                                        <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <label
-                                                                    for="nome_refeicao_<%= indexSessao %>">Nome
-                                                                    da Sessão:</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="nome_refeicao_<%= indexSessao %>"
-                                                                    name="nome_refeicao"
-                                                                    value="<%= sessao.nome %>">
-                                                            </div>
+                                                    <button class="btn btn-outline-primary" type="button"
+                                                        id="add-sessao">Adicionar Sessão</button>
+                                                    <button class="btn btn-outline-dark" type="submit">Salvar
+                                                        Sessão</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div style="background-color: #300808;" class="card-header">
+                                            <button class="btn btn-block collapsed text-white" data-toggle="collapse"
+                                                data-target="#faq3">
+                                                Visualizar Treino
+                                            </button>
+                                        </div>
+                                        <div id="faq3" class="collapse" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <h6 class="pt-3" style="font-size: small;">
+                                                    Nome: <%= treino.nome_do_treino %>
+                                                        <hr>
+                                                        <!-- Botão para visualizar treino completo -->
+                                                        <button class="btn btn-outline-dark btn-sm mb-4"
+                                                            data-toggle="modal" data-target="#viewTreinoCompletoModal">
+                                                            Ver treino completo
+                                                        </button>
+                                                </h6>
 
-                                                            <div class="form-group">
-                                                                <label>Exercicios:</label>
-                                                                <% if (sessao.exercicios &&
-                                                                    sessao.exercicios.length> 0) { %>
-                                                                    <% sessao.exercicios.forEach(function(exercicio,
-                                                                        indexExercicio) { %>
-                                                                        <div class="form-group">
-                                                                            <input type="hidden"
-                                                                                name="exercicios[<%= indexExercicio %>][id]"
-                                                                                value="<%= exercicio.id %>">
-                                                                            <label
-                                                                                for="nome_alimento_<%= indexSessao %>_<%= indexExercicio %>">Nome
-                                                                                do Alimento:</label>
-                                                                            <input type="text"
-                                                                                class="form-control"
-                                                                                id="nome_alimento_<%= indexSessao %>_<%= indexExercicio %>"
-                                                                                name="exercicios[<%= indexExercicio %>][nome]"
-                                                                                value="<%= exercicio.nome %>">
+                                                <h6 style="font-size: small;">Sessões:</h6>
+                                                <hr>
+
+                                                <% if (sessoes && sessoes.length> 0) { %>
+                                                    <% sessoes.forEach(function(sessao, indexSessao) { %>
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-3">
+                                                            <h6 class="pt-3">- <%= sessao.nome_da_sessao %>
+                                                            </h6>
+                                                            <div>
+                                                                <!-- Botões de editar e excluir -->
+                                                                <i class="icon-copy dw dw-edit-1" data-toggle="modal"
+                                                                    data-target="#editSessaoModal<%= indexSessao %>"></i>
+                                                                <i class="icon-copy dw dw-delete-2" data-toggle="modal"
+                                                                    data-target="#deleteSessaoModal<%= indexSessao %>"></i>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+
+                                                        <!-- Modal para editar sessão e exercícios -->
+                                                        <div class="modal fade" id="editSessaoModal<%= indexSessao %>"
+                                                            tabindex="-1"
+                                                            aria-labelledby="editSessaoModalLabel<%= indexSessao %>"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="editSessaoModalLabel<%= indexSessao %>">
+                                                                            Editar Sessão e Exercícios</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <form id="editSessaoForm<%= indexSessao %>"
+                                                                        action="/admin/update-sessao/<%= sessao.id %>"
+                                                                        method="POST">
+                                                                        <input type="hidden" name="treinoId"
+                                                                            value="<%= treino.id %>">
+                                                                        <div class="modal-body">
+                                                                            <div class="form-group">
+                                                                                <label
+                                                                                    for="nome_sessao_<%= indexSessao %>">Nome
+                                                                                    da Sessão:</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    id="nome_sessao_<%= indexSessao %>"
+                                                                                    name="nome_sessao"
+                                                                                    value="<%= sessao.nome_da_sessao %>">
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label>Exercícios:</label>
+                                                                                <% if (sessao.exercicios &&
+                                                                                    sessao.exercicios.length> 0) { %>
+                                                                                    <% sessao.exercicios.forEach(function(exercicio,
+                                                                                        indexExercicio) { %>
+                                                                                        <div class="form-group">
+                                                                                            <input type="hidden"
+                                                                                                name="exercicios[<%= indexExercicio %>][id]"
+                                                                                                value="<%= exercicio.id %>">
+                                                                                            <label
+                                                                                                for="nome_exercicio_<%= indexSessao %>_<%= indexExercicio %>">Nome
+                                                                                                do Exercício:</label>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                id="nome_exercicio_<%= indexSessao %>_<%= indexExercicio %>"
+                                                                                                name="exercicios[<%= indexExercicio %>][nome]"
+                                                                                                value="<%= exercicio.nome_do_exercicio %>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="series_<%= indexSessao %>_<%= indexExercicio %>">Séries:</label>
+                                                                                            <input type="number"
+                                                                                                class="form-control"
+                                                                                                id="series_<%= indexSessao %>_<%= indexExercicio %>"
+                                                                                                name="exercicios[<%= indexExercicio %>][series]"
+                                                                                                value="<%= exercicio.series %>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="repeticoes_<%= indexSessao %>_<%= indexExercicio %>">Repetições:</label>
+                                                                                            <input type="number"
+                                                                                                class="form-control"
+                                                                                                id="repeticoes_<%= indexSessao %>_<%= indexExercicio %>"
+                                                                                                name="exercicios[<%= indexExercicio %>][repeticoes]"
+                                                                                                value="<%= exercicio.repeticoes %>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="carga_<%= indexSessao %>_<%= indexExercicio %>">Carga
+                                                                                                (kg):</label>
+                                                                                            <input type="number"
+                                                                                                class="form-control"
+                                                                                                step="0.01"
+                                                                                                id="carga_<%= indexSessao %>_<%= indexExercicio %>"
+                                                                                                name="exercicios[<%= indexExercicio %>][carga]"
+                                                                                                value="<%= exercicio.carga %>">
+                                                                                        </div>
+                                                                                        <% }); %>
+                                                                                            <% } else { %>
+                                                                                                <p>Não há exercícios
+                                                                                                    cadastrados para
+                                                                                                    esta sessão.</p>
+                                                                                                <% } %>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label
-                                                                                for="quantidade_alimento_<%= indexSessao %>_<%= indexExercicio %>">Quantidade:</label>
-                                                                            <input type="text"
-                                                                                class="form-control"
-                                                                                id="quantidade_alimento_<%= indexSessao %>_<%= indexExercicio %>"
-                                                                                name="exercicios[<%= indexExercicio %>][quantidade]"
-                                                                                value="<%= exercicio.quantidade %>">
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Fechar</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Salvar
+                                                                                mudanças</button>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label
-                                                                                for="unidade_medida_<%= indexSessao %>_<%= indexExercicio %>">Unidade
-                                                                                de Medida:</label>
-                                                                            <input type="text"
-                                                                                class="form-control"
-                                                                                id="unidade_medida_<%= indexSessao %>_<%= indexExercicio %>"
-                                                                                name="exercicios[<%= indexExercicio %>][unidadeMD]"
-                                                                                value="<%= exercicio.unidadeMD %>">
-                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Modal para exclusão de sessão -->
+                                                        <div class="modal fade" id="deleteSessaoModal<%= indexSessao %>"
+                                                            tabindex="-1"
+                                                            aria-labelledby="deleteSessaoModalLabel<%= indexSessao %>"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="deleteSessaoModalLabel<%= indexSessao %>">
+                                                                            Confirmar Exclusão</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Tem certeza de que deseja excluir a sessão <%=
+                                                                            sessao.nome %>?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <form
+                                                                            action="/admin/delete-sessao/<%= sessao.id %>"
+                                                                            method="POST">
+                                                                            <input type="hidden" name="treinoId"
+                                                                                value="<%= treino.id %>">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Cancelar</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Excluir</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <% }); %>
+                                                            <% } else { %>
+                                                                <p>Não há sessões cadastradas para este treino.</p>
+                                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Modal para visualizar treino completo -->
+                                    <div class="modal fade" id="viewDietaCompletaModal" tabindex="-1"
+                                        aria-labelledby="viewDietaCompletaModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="viewDietaCompletaModalLabel">Treino
+                                                        Completo</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h6>Nome do Treino: <%= treino.nome_da_dieta %>
+                                                    </h6>
+                                                    <hr>
+
+                                                    <% if (sessoes && sessoes.length> 0) { %>
+                                                        <% sessoes.forEach(function(sessao) { %>
+                                                            <h6 class="pb-1"><strong>
+                                                                    <%= sessao.nome %>
+                                                                </strong></h6>
+                                                            <ul>
+                                                                <% if (sessao.exercicios && sessao.exercicios.length> 0)
+                                                                    { %>
+                                                                    <% sessao.exercicios.forEach(function(exercicio) {
+                                                                        %>
+                                                                        <li>
+                                                                            <%= exercicio.quantidade %>
+                                                                                <%= exercicio.unidadeMD %> <strong>
+                                                                                        <%= exercicio.nome %>
+                                                                                    </strong>
+                                                                        </li>
                                                                         <% }) %>
                                                                             <% } else { %>
-                                                                                <p>Não há exercicios
-                                                                                    cadastrados para
-                                                                                    esta refeição.</p>
+                                                                                <li>Sem exercícios cadastrados para esta
+                                                                                    sessão.</li>
                                                                                 <% } %>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button"
-                                                                class="btn btn-secondary"
-                                                                data-dismiss="modal">Fechar</button>
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Salvar
-                                                                mudanças</button>
-                                                        </div>
-                                                    </form>
+                                                            </ul>
+                                                            <hr>
+                                                            <% }) %>
+                                                                <% } else { %>
+                                                                    <p>Não há sessões cadastradas para este treino.</p>
+                                                                    <% } %>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Fechar</button>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!-- Modal de exclusão -->
-                                        <div class="modal fade"
-                                            id="deleteRefeicaoModal<%= indexSessao %>" tabindex="-1"
-                                            aria-labelledby="deleteRefeicaoModalLabel<%= indexSessao %>"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"
-                                                            id="deleteRefeicaoModalLabel<%= indexSessao %>">
-                                                            Confirmar Exclusão</h5>
-                                                        <button type="button" class="close"
-                                                            data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Tem certeza de que deseja excluir a refeição <%=
-                                                            refeicao.nome %>?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <form
-                                                            action="/admin/delete-sessao/<%= sessao.id %>"
-                                                            method="POST">
-                                                            <input type="hidden" name="dietaId"
-                                                                value="<%= treino.id %>">
-                                                            <button type="button"
-                                                                class="btn btn-secondary"
-                                                                data-dismiss="modal">Cancelar</button>
-                                                            <button type="submit"
-                                                                class="btn btn-danger">Excluir</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <% }) %>
-                                            <% } else { %>
-                                                <p>Não há sessões cadastradas para este treino.</p>
-                                                <% } %>
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
-
-                    <!-- Modal para visualizar dieta completa -->
-                    <div class="modal fade" id="viewDietaCompletaModal" tabindex="-1"
-                        aria-labelledby="viewDietaCompletaModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="viewDietaCompletaModalLabel">Treino
-                                        Completo</h5>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <h6>Nome do Treino: <%= treino.nome_da_dieta %>
-                                    </h6>
-                                    <hr>
-                                    <% if (sessoes && sessoes.length> 0) { %>
-                                        <% sessoes.forEach(function(refeicao) { %>
-                                            <h6 class="pb-1"><strong>
-                                                    <%= sessao.nome %>
-                                                </strong></h6>
-                                            <ul>
-                                                <% if (sessao.exercicios && sessao.exercicios.length>
-                                                    0) { %>
-                                                    <% sessao.exercicios.forEach(function(exercicio) {
-                                                        %>
-                                                        <li>
-                                                            <%= exercicio.quantidade %>
-                                                                <%= exercicio.unidadeMD %> <strong>
-                                                                        <%= exercicio.nome %>
-                                                                    </strong>
-                                                        </li>
-                                                        <% }) %>
-                                                            <% } else { %>
-                                                                <li>Sem exercicios para esta refeição.
-                                                                </li>
-                                                                <% } %>
-                                            </ul>
-                                            <hr>
-                                            <% }) %>
-                                                <% } else { %>
-                                                    <p>Não há sessões cadastradas para este treino.</p>
-                                                    <% } %>
-
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Fechar</button>
-                                </div>
+                                <hr>
+                                <a href="/admin/list-treinos" class="btn btn-outline-dark btn-sm">Voltar</a>
                             </div>
                         </div>
+                        <!-- horizontal Basic Forms End -->
+                        <%-include('./partials/footer')%>
                     </div>
+                    <!-- js -->
 
-                
-                </div>
-                <hr>
-                <a href="/admin/list-dietas" class="btn btn-outline-dark btn-sm">Voltar</a>
-            </div>
-            
-            
-            
-        </div>
-        <!-- horizontal Basic Forms End -->
-        <%-include('./partials/footer')%>
-    </div>
-    <!-- js -->
-    
-    <script src="../../boardMain/vendors/scripts/core.js"></script>
-    <script src="../../boardMain/vendors/scripts/script.min.js"></script>
-    <script src="../../boardMain/vendors/scripts/process.js"></script>
-    <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let sessaoCount = 0;
-            const exercicios = <%- JSON.stringify(exercicios) %>; // Passando a lista de exercícios do backend
-    
-            // Função para adicionar uma nova sessão
-            document.getElementById('add-sessao').addEventListener('click', () => {
-                sessaoCount++;
-                const sessaoContainer = document.createElement('div');
-                sessaoContainer.classList.add('sessao');
-                sessaoContainer.innerHTML = `
+                    <script src="../../boardMain/vendors/scripts/core.js"></script>
+                    <script src="../../boardMain/vendors/scripts/script.min.js"></script>
+                    <script src="../../boardMain/vendors/scripts/process.js"></script>
+                    <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            let sessaoCount = 0;
+                            const exercicios = <%- JSON.stringify(exercicios) %>; // Recebe a lista de exercícios do backend
+
+                            // Função para adicionar uma nova sessão
+                            const addSessao = () => {
+                                sessaoCount++;
+                                const sessaoContainer = document.createElement('div');
+                                sessaoContainer.classList.add('sessao');
+                                sessaoContainer.innerHTML = `
                     <h6>Sessão ${sessaoCount}</h6>
                     <div class="form-group">
                         <label for="nome_sessao_${sessaoCount}">Nome da Sessão:</label>
-                        <input class="form-control" type="text" name="sessoes[${sessaoCount}][nome]" id="nome_sessao_${sessaoCount}" placeholder="Adicionar sessão">
+                        <input class="form-control" type="text" name="sessoes[${sessaoCount}][nome_da_sessao]" id="nome_sessao_${sessaoCount}" placeholder="Adicionar sessão">
                     </div>
                     <div class="exercicios-container pt-2" id="exercicios_${sessaoCount}">
                         <label><strong>Adicionar exercícios à sessão:</strong></label>
                     </div>
-                    <i type="button" class="icon-copy dw dw-add add-exercicio btn btn-dark" data-sessao="${sessaoCount}"></i>
+                    <button type="button" class="btn btn-dark add-exercicio" data-sessao="${sessaoCount}">
+                        <i class="icon-copy dw dw-add"></i> Adicionar Exercício
+                    </button>
                     <hr>
                 `;
-                document.getElementById('sessoes-container').appendChild(sessaoContainer);
-            });
-    
-            // Função para adicionar exercícios à sessão
-            document.getElementById('sessoes-container').addEventListener('click', (event) => {
-                if (event.target.classList.contains('add-exercicio')) {
-                    const sessaoId = event.target.dataset.sessao;
-                    const exerciciosContainer = document.getElementById(`exercicios_${sessaoId}`);
-                    const exercicioCount = exerciciosContainer.children.length + 1;
-    
-                    const exercicioDiv = document.createElement('div');
-                    exercicioDiv.classList.add('form-group');
-    
-                    // Criar o select com a lista de exercícios, séries, repetições e carga
-                    const selectAndQuantityHTML = `
-                        <div class="row">
-                            <div class="col-12">
-                                <label for="exercicio_${sessaoId}_${exercicioCount}">- Exercício:</label>
-                                <select class="form-control exercicio-select" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][id]" id="exercicio_${sessaoId}_${exercicioCount}">
-                                    <option value="">Selecione um exercício</option>
-                                    ${exercicios.map(exercicio => `<option value="${exercicio.id}">${exercicio.nome}</option>`).join('')}
-                                </select>
-                            </div>
-                            <div class="col-12 pt-2">
-                                <label for="series_${sessaoId}_${exercicioCount}">- Séries:</label>
-                                <input class="form-control" type="number" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][series]" id="series_${sessaoId}_${exercicioCount}" placeholder="Digite o número de séries">
-                            </div>
-                            <div class="col-12 pt-2">
-                                <label for="repeticoes_${sessaoId}_${exercicioCount}">- Repetições:</label>
-                                <input class="form-control" type="number" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][repeticoes]" id="repeticoes_${sessaoId}_${exercicioCount}" placeholder="Digite o número de repetições">
-                            </div>
-                            <div class="col-12 pt-2">
-                                <label for="carga_${sessaoId}_${exercicioCount}">- Carga (kg):</label>
-                                <input class="form-control" type="number" step="0.01" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][carga]" id="carga_${sessaoId}_${exercicioCount}" placeholder="Digite a carga">
-                            </div>
+                                document.getElementById('sessoes-container').appendChild(sessaoContainer);
+                            };
+
+                            // Função para adicionar exercícios a uma sessão
+                            const addExercicio = (sessaoId) => {
+                                const exerciciosContainer = document.getElementById(`exercicios_${sessaoId}`);
+                                const exercicioCount = exerciciosContainer.querySelectorAll('.form-group').length + 1;
+
+                                const exercicioDiv = document.createElement('div');
+                                exercicioDiv.classList.add('form-group');
+
+                                const selectAndQuantityHTML = `
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="exercicio_${sessaoId}_${exercicioCount}">- Exercício:</label>
+                            <select class="form-control exercicio-select" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][id]" id="exercicio_${sessaoId}_${exercicioCount}">
+                                <option value="">Selecione um exercício</option>
+                                ${exercicios.map(exercicio => `<option value="${exercicio.id}">${exercicio.nome_do_exercicio}</option>`).join('')}
+                            </select>
                         </div>
-                    `;
-                    exercicioDiv.innerHTML = selectAndQuantityHTML;
-                    exerciciosContainer.appendChild(exercicioDiv);
-    
-                    // Ativar o plugin Select2 para o campo select com busca
-                    $(`#exercicio_${sessaoId}_${exercicioCount}`).select2({
-                        placeholder: 'Selecione ou busque um exercício',
-                        width: '100%',
-                        height: '100%'
-                    });
-                }
-            });
-    
-            // Log para ver os dados que serão enviados no submit
-            document.getElementById('treino-form').addEventListener('submit', (event) => {
-                console.log("Dados enviados:");
-                const formData = new FormData(event.target);
-                for (let pair of formData.entries()) {
-                    console.log(pair[0] + ': ' + pair[1]);
-                }
-            });
-        });
-    </script>
-    
+                        <div class="col-12 pt-2">
+                            <label for="series_${sessaoId}_${exercicioCount}">- Séries:</label>
+                            <input class="form-control" type="number" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][series]" id="series_${sessaoId}_${exercicioCount}" placeholder="Digite o número de séries">
+                        </div>
+                        <div class="col-12 pt-2">
+                            <label for="repeticoes_${sessaoId}_${exercicioCount}">- Repetições:</label>
+                            <input class="form-control" type="number" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][repeticoes]" id="repeticoes_${sessaoId}_${exercicioCount}" placeholder="Digite o número de repetições">
+                        </div>
+                        <div class="col-12 pt-2">
+                            <label for="carga_${sessaoId}_${exercicioCount}">- Carga (kg):</label>
+                            <input class="form-control" type="number" step="0.01" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][carga]" id="carga_${sessaoId}_${exercicioCount}" placeholder="Digite a carga">
+                        </div>
+                    </div>
+                `;
+                                exercicioDiv.innerHTML = selectAndQuantityHTML;
+                                exerciciosContainer.appendChild(exercicioDiv);
+
+                                // Ativar o plugin Select2 para o campo select com busca
+                                $(`#exercicio_${sessaoId}_${exercicioCount}`).select2({
+                                    placeholder: 'Selecione ou busque um exercício',
+                                    width: '100%'
+                                });
+                            };
+
+                            // Event Listener para adicionar nova sessão
+                            document.getElementById('add-sessao').addEventListener('click', addSessao);
+
+                            // Event Listener para adicionar exercícios à sessão
+                            document.getElementById('sessoes-container').addEventListener('click', (event) => {
+                                if (event.target.classList.contains('add-exercicio')) {
+                                    const sessaoId = event.target.dataset.sessao;
+                                    addExercicio(sessaoId);
+                                }
+                            });
+
+                            // Log para verificar os dados enviados ao submeter o formulário
+                            document.getElementById('treino-form').addEventListener('submit', (event) => {
+                                console.log("Dados enviados:");
+                                const formData = new FormData(event.target);
+                                for (let pair of formData.entries()) {
+                                    console.log(`${pair[0]}: ${pair[1]}`);
+                                }
+                            });
+                        });
+                    </script>
+
+
 </body>
 
 </html>

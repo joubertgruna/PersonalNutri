@@ -917,7 +917,8 @@ router.get('/edit-treino/:id', authenticateToken, getUserDetails, authorizeProfe
             const exercicios = await knex('sessao_exercicio')
                 .join('exercicios', 'sessao_exercicio.exercicioId', '=', 'exercicios.id')
                 .where('sessao_exercicio.sessaoId', sessao.id)
-                .select('exercicios.*', 'sessao_exercicio.quantidade'); // Seleciona os dados do exercício e a quantidade
+                .select('exercicios.*', 'sessao_exercicio.series', 'sessao_exercicio.repeticoes', 'sessao_exercicio.carga', 'sessao_exercicio.unidade_de_medida_carga', 'sessao_exercicio.equipamento_necessario', 'sessao_exercicio.tempo_de_descanso', 'sessao_exercicio.nivel_de_dificuldade'); 
+                // Certifique-se de que essas colunas existam em 'sessao_exercicio'
 
             sessao.exercicios = exercicios;
         }
@@ -931,8 +932,8 @@ router.get('/edit-treino/:id', authenticateToken, getUserDetails, authorizeProfe
             id: id,
             treino: treino,
             sessoes: sessoes,  // Passar as sessões com seus exercícios para a view
-            exercicios: todosExercicios,
-            user: user, // Passar todos os exercícios para o select de adição
+            exercicios: todosExercicios,  // Passar todos os exercícios para o select de adição
+            user: user
         });
 
     } catch (error) {
@@ -940,6 +941,7 @@ router.get('/edit-treino/:id', authenticateToken, getUserDetails, authorizeProfe
         res.status(500).send('Erro ao selecionar o treino e seus dados associados.');
     }
 });
+
 
 router.post('/edit-treino/:id', (req, res) => {
     const id = req.params.id;
@@ -983,56 +985,22 @@ router.post('/delete-treino', (req, res) => {
     console.log('DELETED::: ', id)
 })
 
-router.post('/create-sessao', async (req, res) => {
-    const { nome_do_treino, descricao_do_treino, objetivo_do_treino, clienteId, sessoes } = req.body;
-console.log("XX", req.body)
-    try {
-        // Inserir o treino no banco de dados
-        const [treinoId] = await knex('treinos').insert({
-            nome_do_treino,
-            descricao_do_treino,
-            objetivo_do_treino,
-            clienteId // Vincular o treino ao cliente selecionado
+// Rota para criar sessões de treino
+router.post('/create-sessao', (req, res) => {
+    const { nome_da_sessao, treinoId } = req.body; // Alterado para treinoId, uma vez que estamos lidando com sessões e treinos
+
+    knex('sessoes')
+        .insert({ nome_da_sessao: nome_da_sessao, treinoId : 1}) // Alterado para 'sessoes' e 'treinoId'
+        .then(() => {
+            res.redirect(`/admin/edit-treino/${treinoId}`); // Redireciona para a página de edição do treino
+        })
+        .catch(error => {
+            console.error('Erro ao criar sessão:', error);
+            res.status(500).send('Erro ao criar sessão');
         });
-
-        console.log(`Treino criado com sucesso, ID: ${treinoId}`);
-
-        // Verificar se há sessões de treino para serem vinculadas
-        if (sessoes && sessoes.length > 0) {
-            for (const sessao of sessoes) {
-                const { nome_da_sessao, descricao_da_sessao, exercicios } = sessao;
-
-                // Inserir cada sessão de treino na tabela 'sessao_treino'
-                const [sessaoId] = await knex('sessao_treino').insert({
-                    treinoId: treinoId,
-                    nome_da_sessao: nome_da_sessao,
-                    descricao_da_sessao: descricao_da_sessao
-                });
-
-                // Verificar se há exercícios para serem vinculados à sessão
-                if (exercicios && exercicios.length > 0) {
-                    for (const exercicio of exercicios) {
-                        const { id, series, repeticoes, carga } = exercicio;
-
-                        // Inserir cada exercício na tabela 'exercicio_sessao', vinculando à sessão de treino
-                        await knex('exercicio_sessao').insert({
-                            sessaoId: sessaoId,
-                            exercicioId: id,
-                            series: series,
-                            repeticoes: repeticoes,
-                            carga: carga
-                        });
-                    }
-                }
-            }
-        }
-
-        res.redirect('/admin/list-treinos'); // Redireciona para uma página de sucesso
-    } catch (error) {
-        console.error('Erro ao criar o treino:', error);
-        res.status(500).send('Erro ao criar o treino.');
-    }
 });
+
+
 router.post('/add-exercicio-sessao', (req, res) => {
     const { sessaoId, exercicioId, series, repeticoes, carga, treinoId } = req.body;
 
@@ -1172,27 +1140,12 @@ router.post('/create-exercicio',  (req, res) => {
     const nome_do_exercicio = req.body.nome_do_exercicio;
     const descricao = req.body.descricao;
     const grupamento_muscular = req.body.grupamento_muscular;
-    const series = req.body.series;
-    const repeticoes_por_serie = req.body.repeticoes_por_serie;
-    const carga_por_lado = req.body.carga_por_lado
-    const unidade_de_medida_carga = req.body.unidade_de_medida_carga;
-    const equipamento_necessario = req.body.equipamento_necessario;
-    const tempo_de_descanso = req.body.tempo_de_descanso;
-    const nivel_de_dificuldade = req.body.nivel_de_dificuldade;
-    const exercicioId = req.body.exercicioId;
     // Insere os dados do personais no banco de dados
 
     knex('exercicios').insert({
         nome_do_exercicio: nome_do_exercicio,
         descricao: descricao,
         grupamento_muscular: grupamento_muscular,
-        series: series,
-        repeticoes_por_serie: repeticoes_por_serie,
-        carga_por_lado: carga_por_lado,
-        unidade_de_medida_carga: unidade_de_medida_carga,
-        equipamento_necessario: equipamento_necessario,
-        tempo_de_descanso: tempo_de_descanso,
-        nivel_de_dificuldade: nivel_de_dificuldade,
     })
         .then((exercicio) => {
             res.redirect('/admin/list-exercicios'); // Move a chamada para dentro deste callback
