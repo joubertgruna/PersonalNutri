@@ -75,11 +75,8 @@
 								<tr>
 									<th class="table-plus datatable-nosort">ID</th>
 									<th class="table-plus datatable-nosort">Nome</th>
-									<th>nivel_de_dificuldade</th>
-                                    <th>descricao_do_treino</th>
-									<th>objetivo_do_treino</th>
-									<th>Duração</th>
-									<th>frequencia_semanal</th>
+									<th>Descrição</th>
+                                    <th>Objetivo</th>
 									<th class="datatable-nosort">Ação</th>
 								</tr>
 							</thead>
@@ -90,23 +87,13 @@
 											<%=treino.id%>
 										</td>
 										<td class="table-plus">
-											<%=treino.nome_do_treino%>
+											<%=treino.nome%>
 										</td>
 										<td>
-											<%=treino.nivel_de_dificuldade%>
+											<%=treino.descricao%>
 										</td>
-                                        <td><%=treino.descricao_do_treino%></td> 
-										<td>
-											<%=treino.objetivo_do_treino%>
-										</td>
-										<td>
-											<%=treino.duracao_estimada_do_treino%>
-										</td> 
-                                        
-                                        <td>
-											<%=treino.frequencia_semanal%>
-										</td>
-									
+                                        <td><%=treino.objetivo%></td> 
+																			
 										<td>
 											<div class="dropdown">
 												<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"

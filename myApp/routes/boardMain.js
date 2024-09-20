@@ -196,6 +196,7 @@ router.get('/create-cliente', authenticateToken, getUserDetails, authorizeProfes
     const user = req.userDetails
     res.render('./boardMain/createCliente', { user: user, title: 'Cliente' })
 })
+
 router.post('/clientes', authenticateToken, getUserDetails, authorizeProfessional, async (req, res) => {
     const user = req.userDetails
     console.log('User: ', user)
@@ -826,39 +827,82 @@ router.post('/delete-gpmuscular', (req, res) => {
 })
 
 
-// Criar Treino 
-router.get('/create-treino', authenticateToken, getUserDetails, authorizeProfessional, (req, res) => {
+// Rota para criar um treino e associar a um cliente
+router.get('/create-treino', authenticateToken, getUserDetails, authorizeProfessional, async (req, res) => {
     const user = req.userDetails;
-    res.render('./boardMain/createTreino', {user: user, title: 'Criar Treino' })
-})
+    try {
+        // Obter todos os clientes vinculados ao profissional
+        const clientes = await knex('clientes').where('profissionalId', req.user.id).select('*');
+        
+        // Renderizar a página de criação de treino com os clientes
+        res.render('./boardMain/createTreino', { user: user, clientes });
+    } catch (error) {
+        console.error('Erro ao buscar clientes:', error);
+        res.status(500).send('Erro ao carregar a página de criação de treino.');
+    }
+});
+
+
+// Rota para criar um treino com exercícios
 router.post('/create-treino', async (req, res) => {
-    const { nome, descricao, objetivo, clienteId, profissionalId, exercicios } = req.body;
+    const { nome, descricao, objetivo } = req.body;
+
+    // Extrair e filtrar exercícios
+    const exercicios = [];
+
+    Object.keys(req.body).forEach(key => {
+        if (key.startsWith('exercicios[')) {
+            const index = key.split('[')[1].split(']')[0];
+            const id = req.body[`exercicios[${index}][id]`];
+            const series = req.body[`exercicios[${index}][series]`];
+            const repeticoes = req.body[`exercicios[${index}][repeticoes]`];
+            const carga = req.body[`exercicios[${index}][carga]`];
+
+            // Verifica se o ID não é vazio e cria um objeto de exercício
+            if (id) {
+                exercicios.push({ id, series, repeticoes, carga });
+            }
+        }
+    });
+
+    console.log('Exercícios válidos:', exercicios);
 
     try {
-        // Criar o treino
+        // Inserir o treino na tabela 'treinos'
         const [treinoId] = await knex('treinos').insert({
             nome,
             descricao,
             objetivo,
-            clienteId,
-            profissionalId
+            profissionalId: req.userDetails.id
         });
 
-        // Adicionar os exercícios ao treino
-        for (const exercicio of exercicios) {
-            await knex('treino_exercicio').insert({
-                treinoId,
-                exercicioId: exercicio.id,
-                series: exercicio.series,
-                repeticoes: exercicio.repeticoes,
-                carga: exercicio.carga
-            });
+        console.log(`Treino criado com sucesso, ID: ${treinoId}`);
+
+        if (exercicios.length > 0) {
+            for (const exercicio of exercicios) {
+                // Verifica se todos os campos estão presentes
+                if (exercicio.id && exercicio.series && exercicio.repeticoes && exercicio.carga) {
+                    // Aqui, acessamos cada propriedade diretamente
+                    await knex('treino_exercicio').insert({
+                        treinoId,
+                        exercicioId: exercicio.id,
+                        series: exercicio.series,
+                        repeticoes: exercicio.repeticoes,
+                        carga: exercicio.carga
+                    });
+                    console.log(`Exercício ID ${exercicio.id} vinculado ao Treino ID ${treinoId}`);
+                } else {
+                    console.warn(`Dados incompletos para o exercício: ${JSON.stringify(exercicio)}`);
+                }
+            }
+        } else {
+            console.warn('Nenhum exercício válido para vincular.');
         }
 
-        res.status(201).json({ message: 'Treino criado com sucesso!', treinoId });
+        res.redirect('/admin/list-treinos');
     } catch (error) {
-        console.error('Erro ao criar treino:', error);
-        res.status(500).json({ message: 'Erro ao criar treino.' });
+        console.error('Erro ao criar o treino e vincular exercícios:', error);
+        res.status(500).send(`Erro ao criar o treino e vincular exercícios: ${error.message}`);
     }
 });
 
@@ -969,7 +1013,6 @@ router.post('/create-exercicio',  (req, res) => {
         equipamento_necessario: equipamento_necessario,
         tempo_de_descanso: tempo_de_descanso,
         nivel_de_dificuldade: nivel_de_dificuldade,
-        exercicioId: exercicioId,
     })
         .then((exercicio) => {
             res.redirect('/admin/list-exercicios'); // Move a chamada para dentro deste callback
@@ -1025,13 +1068,12 @@ router.post('/edit-exercicio/:id', (req, res) => {
     const equipamento_necessario = req.body.equipamento_necessario;
     const tempo_de_descanso = req.body.tempo_de_descanso;
     const nivel_de_dificuldade = req.body.nivel_de_dificuldade;
-    const exercicioId = req.body.exercicioId;
     // Insere os dados do personais no banco de dadosc
 
     const validate = {
         nome_do_exercicio, descricao, grupamento_muscular, series,
         repeticoes_por_serie, carga_por_lado, unidade_de_medida_carga,
-        equipamento_necessario, tempo_de_descanso, nivel_de_dificuldade, exercicioId
+        equipamento_necessario, tempo_de_descanso, nivel_de_dificuldade
     };
 
     knex('exercicios').where({ id: id }).update(validate)
@@ -1157,8 +1199,7 @@ router.post('/create-dieta', async (req, res) => {
         console.error('Erro ao criar a dieta:', error);
         res.status(500).send('Erro ao criar a dieta.');
     }
-});
-
+}); 
 router.post('/create-refeicao', (req, res) => {
     const { nome, dietaId } = req.body;
 
@@ -1172,7 +1213,6 @@ router.post('/create-refeicao', (req, res) => {
             res.status(500).send('Erro ao criar refeição');
         });
 });
-
 router.post('/add-alimento-refeicao', (req, res) => {
     const { refeicaoId, alimentoId, quantidade, dietaId } = req.body;
 
@@ -1191,7 +1231,6 @@ router.post('/add-alimento-refeicao', (req, res) => {
             res.status(500).send('Erro ao adicionar alimento à refeição');
         });
 });
-
 // Atualizar refeição e alimentos
 router.post('/update-refeicao/:id', async (req, res) => {
     const refeicaoId = req.params.id;

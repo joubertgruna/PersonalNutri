@@ -2,9 +2,8 @@
 <html>
 
 <head>
-    <!-- Basic Page Info -->
     <meta charset="utf-8">
-    <title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+    <title>Cadastro de Treino</title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="../../boardMain/vendors/images/apple-touch-icon.png">
@@ -15,13 +14,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/core.css">
     <link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/icon-font.min.css">
     <link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/style.css">
-
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -29,18 +27,15 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'UA-119386393-1');
     </script>
 </head>
 
 <body>
-    <%-include('./partials/preloader')%>
+    <%- include('./partials/preloader') %>
+    <%- include('./partials/header') %>
+    <%- include('./partials/left-sidebar') %>
 
-   <%-include('./partials/header')%>
-
-    
-   <%-include('./partials/left-sidebar')%>
     <div class="mobile-menu-overlay"></div>
 
     <div class="main-container">
@@ -49,7 +44,7 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="title">
-                            <h4>Form de Cadastro</h4>
+                            <h4>Formulário de Cadastro</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
@@ -60,79 +55,85 @@
                     </div>
                 </div>
             </div>
-        <!-- horizontal Basic Forms Start -->
-        <div class="pd-20 card-box mb-30">
-            <div class="clearfix">
-                <div class="pull-left">
-                    <h4 class="text-blue h4">Cadastro do Treino</h4>
+
+            <!-- Formulário de Cadastro de Treino -->
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Cadastro do Treino</h4>
+                    </div>
                 </div>
-                
+
+                <form id="treino-form" action="/admin/create-treino" method="POST">
+                    <div class="form-group">
+                        <label for="nome">Nome do Treino:</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição:</label>
+                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="objetivo">Objetivo:</label>
+                        <input type="text" class="form-control" id="objetivo" name="objetivo">
+                    </div>
+
+                    <div id="exercicios-container">
+                        <!-- Exercícios serão adicionados dinamicamente aqui -->
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="add-exercicio">Adicionar Exercício</button>
+                    <button type="submit" class="btn btn-success">Criar Treino</button>
+                </form>
             </div>
-            <form id="treino-form" action="/admin/create-treino" method="POST">
-                <div class="form-group">
-                    <label for="nome">Nome do Treino:</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
-                </div>
-                <div class="form-group">
-                    <label for="descricao">Descrição:</label>
-                    <textarea class="form-control" id="descricao" name="descricao"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="objetivo">Objetivo:</label>
-                    <input type="text" class="form-control" id="objetivo" name="objetivo">
-                </div>
-                <div id="exercicios-container">
-                    <!-- Exercícios adicionados dinamicamente -->
-                </div>
-                <button type="button" class="btn btn-primary" id="add-exercicio">Adicionar Exercício</button>
-                <button type="submit" class="btn btn-success">Criar Treino</button>
-            </form>
-            
-            
+
+            <%- include('./partials/footer') %>
         </div>
-        <!-- horizontal Basic Forms End -->
-        <%-include('./partials/footer')%>
+
+        <!-- js -->
+        <script src="../../boardMain/vendors/scripts/core.js"></script>
+        <script src="../../boardMain/vendors/scripts/script.min.js"></script>
+        <script src="../../boardMain/vendors/scripts/process.js"></script>
+        <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
+
+        <script>
+            const exercicios = <%-JSON.stringify(exercicios) %>; // Dados dos exercícios vindos do backend
+
+            document.getElementById('add-exercicio').addEventListener('click', () => {
+                const exercicioCount = document.querySelectorAll('.exercicio').length + 1;
+                const exercicioContainer = document.createElement('div');
+                exercicioContainer.classList.add('exercicio');
+                exercicioContainer.innerHTML = `
+                    <h6>Exercício ${exercicioCount}</h6>
+                    <div class="form-group">
+                        <label for="exercicio_${exercicioCount}">Exercício:</label>
+                        <select class="form-control" name="exercicios[${exercicioCount}][id]" id="exercicio_${exercicioCount}">
+                            <option value="">Selecione um exercício</option>
+                            <% exercicios.forEach(exercicio => { %>
+                                <option value="<%= exercicio.id %>"><%= exercicio.nome_do_exercicio %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="series_${exercicioCount}">Séries:</label>
+                        <input type="number" class="form-control" name="exercicios[${exercicioCount}][series]" id="series_${exercicioCount}">
+                    </div>
+                    <div class="form-group">
+                        <label for="repeticoes_${exercicioCount}">Repetições:</label>
+                        <input type="number" class="form-control" name="exercicios[${exercicioCount}][repeticoes]" id="repeticoes_${exercicioCount}">
+                    </div>
+                    <div class="form-group">
+                        <label for="carga_${exercicioCount}">Carga (kg):</label>
+                        <input type="number" class="form-control" name="exercicios[${exercicioCount}][carga]" id="carga_${exercicioCount}">
+                    </div>
+                    <hr>
+                `;
+                document.getElementById('exercicios-container').appendChild(exercicioContainer);
+            });
+        </script>
     </div>
-    <!-- js -->
-    
-    <script src="../../boardMain/vendors/scripts/core.js"></script>
-    <script src="../../boardMain/vendors/scripts/script.min.js"></script>
-    <script src="../../boardMain/vendors/scripts/process.js"></script>
-    <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
-    <script>
-        document.getElementById('add-exercicio').addEventListener('click', () => {
-            const exercicioCount = document.querySelectorAll('.exercicio').length + 1;
-            const exercicioContainer = document.createElement('div');
-            exercicioContainer.classList.add('exercicio');
-            exercicioContainer.innerHTML = `
-                <h6>Exercício ${exercicioCount}</h6>
-                <div class="form-group">
-                    <label for="exercicio_${exercicioCount}">Exercício:</label>
-                    <select class="form-control" name="exercicios[${exercicioCount}][id]" id="exercicio_${exercicioCount}">
-                        <option value="">Selecione um exercício</option>
-                        <% exercicios.forEach(exercicio => { %>
-                            <option value="<%= exercicio.id %>"><%= exercicio.nome %></option>
-                        <% }); %>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="series_${exercicioCount}">Séries:</label>
-                    <input type="number" class="form-control" name="exercicios[${exercicioCount}][series]" id="series_${exercicioCount}">
-                </div>
-                <div class="form-group">
-                    <label for="repeticoes_${exercicioCount}">Repetições:</label>
-                    <input type="number" class="form-control" name="exercicios[${exercicioCount}][repeticoes]" id="repeticoes_${exercicioCount}">
-                </div>
-                <div class="form-group">
-                    <label for="carga_${exercicioCount}">Carga (kg):</label>
-                    <input type="number" class="form-control" name="exercicios[${exercicioCount}][carga]" id="carga_${exercicioCount}">
-                </div>
-                <hr>
-            `;
-            document.getElementById('exercicios-container').appendChild(exercicioContainer);
-        });
-    </script>
-    
 </body>
 
 </html>
