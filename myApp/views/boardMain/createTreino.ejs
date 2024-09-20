@@ -2,8 +2,9 @@
 <html>
 
 <head>
+    <!-- Basic Page Info -->
     <meta charset="utf-8">
-    <title>Cadastro de Treino</title>
+    <title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="../../boardMain/vendors/images/apple-touch-icon.png">
@@ -15,7 +16,7 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+    
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/core.css">
     <link rel="stylesheet" type="text/css" href="../../boardMain/vendors/styles/icon-font.min.css">
@@ -60,32 +61,51 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Cadastro do Treino</h4>
+                        <h4 class="text-blue h4">Cadastro de Treino</h4>
                     </div>
                 </div>
 
-                <form id="treino-form" action="/admin/create-treino" method="POST">
+                <form id="createTreinoForm" method="post" action="/admin/create-treino">
                     <div class="form-group">
-                        <label for="nome">Nome do Treino:</label>
-                        <input type="text" class="form-control" id="nome" name="nome" required>
+                        <label for="cliente">Selecione o Cliente:</label>
+                        <select class="custom-select2 form-control" name="clienteId" id="cliente" required style="width: 100%; height: 38px;">
+                            <optgroup label="Clientes">
+                                <% clientes.forEach(cliente => { %>
+                                    <option class="form-control" value="<%= cliente.id %>">
+                                        <%= cliente.nome %>
+                                    </option>
+                                <% }) %>
+                            </optgroup>
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="descricao">Descrição:</label>
-                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                        <label>Nome do Treino</label>
+                        <input class="form-control" type="text" name="nome_do_treino" value="">
                     </div>
 
                     <div class="form-group">
-                        <label for="objetivo">Objetivo:</label>
-                        <input type="text" class="form-control" id="objetivo" name="objetivo">
+                        <label>Descrição do Treino</label>
+                        <input class="form-control" type="text" name="descricao_do_treino" value="">
                     </div>
 
-                    <div id="exercicios-container">
-                        <!-- Exercícios serão adicionados dinamicamente aqui -->
+                    <div class="form-group">
+                        <label>Objetivo do Treino</label>
+                        <input class="form-control" type="text" name="objetivo_do_treino" value="">
                     </div>
 
-                    <button type="button" class="btn btn-primary" id="add-exercicio">Adicionar Exercício</button>
-                    <button type="submit" class="btn btn-success">Criar Treino</button>
+                    <div class="form-group">
+                        <label>Duração Estimada (em dias)</label>
+                        <input class="form-control" type="number" name="duracao_estimada" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nível de Dificuldade</label>
+                        <input class="form-control" type="text" name="nivel_de_dificuldade" value="">
+                    </div>
+
+                    <!-- Botão de cadastro -->
+                    <button class="btn btn-success" type="submit">Cadastrar</button>
                 </form>
             </div>
 
@@ -97,42 +117,6 @@
         <script src="../../boardMain/vendors/scripts/script.min.js"></script>
         <script src="../../boardMain/vendors/scripts/process.js"></script>
         <script src="../../boardMain/vendors/scripts/layout-settings.js"></script>
-
-        <script>
-            const exercicios = <%-JSON.stringify(exercicios) %>; // Dados dos exercícios vindos do backend
-
-            document.getElementById('add-exercicio').addEventListener('click', () => {
-                const exercicioCount = document.querySelectorAll('.exercicio').length + 1;
-                const exercicioContainer = document.createElement('div');
-                exercicioContainer.classList.add('exercicio');
-                exercicioContainer.innerHTML = `
-                    <h6>Exercício ${exercicioCount}</h6>
-                    <div class="form-group">
-                        <label for="exercicio_${exercicioCount}">Exercício:</label>
-                        <select class="form-control" name="exercicios[${exercicioCount}][id]" id="exercicio_${exercicioCount}">
-                            <option value="">Selecione um exercício</option>
-                            <% exercicios.forEach(exercicio => { %>
-                                <option value="<%= exercicio.id %>"><%= exercicio.nome_do_exercicio %></option>
-                            <% }); %>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="series_${exercicioCount}">Séries:</label>
-                        <input type="number" class="form-control" name="exercicios[${exercicioCount}][series]" id="series_${exercicioCount}">
-                    </div>
-                    <div class="form-group">
-                        <label for="repeticoes_${exercicioCount}">Repetições:</label>
-                        <input type="number" class="form-control" name="exercicios[${exercicioCount}][repeticoes]" id="repeticoes_${exercicioCount}">
-                    </div>
-                    <div class="form-group">
-                        <label for="carga_${exercicioCount}">Carga (kg):</label>
-                        <input type="number" class="form-control" name="exercicios[${exercicioCount}][carga]" id="carga_${exercicioCount}">
-                    </div>
-                    <hr>
-                `;
-                document.getElementById('exercicios-container').appendChild(exercicioContainer);
-            });
-        </script>
     </div>
 </body>
 
