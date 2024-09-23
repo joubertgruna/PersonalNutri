@@ -86,6 +86,7 @@
                                                         <input class="form-control" type="text" name="nome_do_treino"
                                                             value="<%=treino.nome_do_treino%>">
                                                     </div>
+                                                    
                                                     <div class="form-group">
                                                         <label>descricao_do_treino</label>
                                                         <input class="form-control" type="text"
@@ -109,16 +110,19 @@
                                         <div id="faq2" class="collapse pt-4" data-parent="#accordion">
                                             <div class="card-body">
                                                 <form id="treino-form" action="/admin/create-sessao" method="POST">
+                                                    <!-- Campo oculto para o ID do treino -->
+                                                    <input type="hidden" name="treinoId" id="treinoId" value="<%= treino.id %>">
+                                        
                                                     <div id="sessoes-container">
                                                         <!-- Área para adicionar sessões dinamicamente -->
                                                     </div>
-                                                    <button class="btn btn-outline-primary" type="button"
-                                                        id="add-sessao">Adicionar Sessão</button>
-                                                    <button class="btn btn-outline-dark" type="submit">Salvar
-                                                        Sessão</button>
+                                                    <button class="btn btn-outline-primary" type="button" id="add-sessao">Adicionar Sessão</button>
+                                                    <button class="btn btn-outline-dark" type="submit">Salvar Sessão</button>
                                                 </form>
                                             </div>
                                         </div>
+                                        
+                                        
                                     </div>
                                     <div class="card">
                                         <div style="background-color: #300808;" class="card-header">
@@ -164,7 +168,7 @@
                                                             aria-labelledby="editSessaoModalLabel<%= indexSessao %>"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog modal-lg">
-                                                                <div class="modal-content">
+                                                                <div style="border-radius: 20px;" class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title"
                                                                             id="editSessaoModalLabel<%= indexSessao %>">
@@ -178,82 +182,93 @@
                                                                         action="/admin/update-sessao/<%= sessao.id %>"
                                                                         method="POST">
                                                                         <input type="hidden" name="treinoId"
-                                                                            value="<%= treino.id %>">
-                                                                        <div class="modal-body">
-                                                                            <div class="form-group">
-                                                                                <label
-                                                                                    for="nome_sessao_<%= indexSessao %>">Nome
-                                                                                    da Sessão:</label>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="nome_sessao_<%= indexSessao %>"
-                                                                                    name="nome_sessao"
-                                                                                    value="<%= sessao.nome_da_sessao %>">
+                                                                            value="<%= treino .id %>">
+                                                                            <div class="modal-body">
+                                                                                <div class="form-group">
+                                                                                    <label for="nome_sessao_<%= indexSessao %>">Nome da Sessão:</label>
+                                                                                    <input type="text" class="form-control" id="nome_sessao_<%= indexSessao %>" name="nome_sessao" value="<%= sessao.nome_da_sessao %>">
+                                                                                </div>
+                                                                            
+                                                                                <div class="form-group">
+                                                                                    <label>Exercícios:</label>
+                                                                                    <% if (sessao.exercicios && sessao.exercicios.length > 0) { %>
+                                                                                        <div class="row">
+                                                                                            <% sessao.exercicios.forEach(function(exercicio, indexExercicio) { %>
+                                                                                                <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+                                                                                                    <div class="card card-box" style="background-color: #f8f9fa; display: flex; flex-direction: column; height: 100%;">
+                                                                                                        <div class="card-header text-left bg-dark text-white pl-3 pt-1 pb-1">
+                                                                                                            <strong style="font-size: medium;"><%= indexExercicio + 1 %></strong> - <%= exercicio.nome_do_exercicio %>
+                                                                                                        </div>
+                                                                                                        <img class="card-img-top" src="/<%= exercicio.img_url %>" alt="Imagem do Exercício" style="width: 100%; height: auto; object-fit: cover;">
+                                                                                                        <div class="card-body" style="flex-grow: 1;">
+                                                                                                            <div class="text-center">
+                                                                                                                <button class="btn  font-16 w-100" type="button" data-toggle="collapse" data-target="#collapse_<%= indexExercicio %>" aria-expanded="false" aria-controls="collapse_<%= indexExercicio %>">
+                                                                                                                    <i class="icon-copy dw dw-down-arrow-3"></i> Siga as instruções
+                                                                                                                </button>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div id="collapse_<%= indexExercicio %>" class="collapse">
+                                                                                                            <div class="list-group list-group-flush">
+                                                                                                                <div class="list-group-item">
+                                                                                                                    <label>Séries:</label>
+                                                                                                                    <input type="number" class="form-control" name="exercicios[<%= indexExercicio %>][series]" value="<%= exercicio.series %>">
+                                                                                                                </div>
+                                                                                                                <div class="list-group-item">
+                                                                                                                    <label>Repetições:</label>
+                                                                                                                    <input type="number" class="form-control" name="exercicios[<%= indexExercicio %>][repeticoes]" value="<%= exercicio.repeticoes %>">
+                                                                                                                </div>
+                                                                                                                <div class="list-group-item">
+                                                                                                                    <label>Carga (kg):</label>
+                                                                                                                    <input type="number" class="form-control" step="0.01" name="exercicios[<%= indexExercicio %>][carga]" value="<%= exercicio.carga %>">
+                                                                                                                </div>
+                                                                                                                <div class="list-group-item">
+                                                                                                                    <label>Unidade de Medida:</label>
+                                                                                                                    <input type="text" class="form-control" name="exercicios[<%= indexExercicio %>][unidade_de_medida_carga]" value="<%= exercicio.unidade_de_medida_carga %>">
+                                                                                                                </div>
+                                                                                                                <div class="list-group-item">
+                                                                                                                    <label>Equipamento Necessário:</label>
+                                                                                                                    <input type="text" class="form-control" name="exercicios[<%= indexExercicio %>][equipamento_necessario]" value="<%= exercicio.equipamento_necessario %>">
+                                                                                                                </div>
+                                                                                                                <div class="list-group-item">
+                                                                                                                    <label>Tempo de Descanso:</label>
+                                                                                                                    <input type="text" class="form-control" name="exercicios[<%= indexExercicio %>][tempo_de_descanso]" value="<%= exercicio.tempo_de_descanso %>">
+                                                                                                                </div>
+                                                                                                                <div class="list-group-item">
+                                                                                                                    <label>Nível de Dificuldade:</label>
+                                                                                                                    <input type="text" class="form-control" name="exercicios[<%= indexExercicio %>][nivel_de_dificuldade]" value="<%= exercicio.nivel_de_dificuldade %>">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="text-center">
+                                                                                                                <button class="btn  pt-2 w-100" type="button" data-toggle="collapse" data-target="#collapse_<%= indexExercicio %>" aria-expanded="true" aria-controls="collapse_<%= indexExercicio %>">
+                                                                                                                    <i class="icon-copy dw dw-up-arrow-5"></i> Fechar
+                                                                                                                </button>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <hr>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            <% }); %>
+                                                                                        </div>
+                                                                                    <% } else { %>
+                                                                                        <p>Não há exercícios cadastrados para esta sessão.</p>
+                                                                                    <% } %>
+                                                                                </div>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
                                                                             </div>
-
-                                                                            <div class="form-group">
-                                                                                <label>Exercícios:</label>
-                                                                                <% if (sessao.exercicios &&
-                                                                                    sessao.exercicios.length> 0) { %>
-                                                                                    <% sessao.exercicios.forEach(function(exercicio,
-                                                                                        indexExercicio) { %>
-                                                                                        <div class="form-group">
-                                                                                            <input type="hidden"
-                                                                                                name="exercicios[<%= indexExercicio %>][id]"
-                                                                                                value="<%= exercicio.id %>">
-                                                                                            <label
-                                                                                                for="nome_exercicio_<%= indexSessao %>_<%= indexExercicio %>">Nome
-                                                                                                do Exercício:</label>
-                                                                                            <input type="text"
-                                                                                                class="form-control"
-                                                                                                id="nome_exercicio_<%= indexSessao %>_<%= indexExercicio %>"
-                                                                                                name="exercicios[<%= indexExercicio %>][nome]"
-                                                                                                value="<%= exercicio.nome_do_exercicio %>">
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="series_<%= indexSessao %>_<%= indexExercicio %>">Séries:</label>
-                                                                                            <input type="number"
-                                                                                                class="form-control"
-                                                                                                id="series_<%= indexSessao %>_<%= indexExercicio %>"
-                                                                                                name="exercicios[<%= indexExercicio %>][series]"
-                                                                                                value="<%= exercicio.series %>">
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="repeticoes_<%= indexSessao %>_<%= indexExercicio %>">Repetições:</label>
-                                                                                            <input type="number"
-                                                                                                class="form-control"
-                                                                                                id="repeticoes_<%= indexSessao %>_<%= indexExercicio %>"
-                                                                                                name="exercicios[<%= indexExercicio %>][repeticoes]"
-                                                                                                value="<%= exercicio.repeticoes %>">
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="carga_<%= indexSessao %>_<%= indexExercicio %>">Carga
-                                                                                                (kg):</label>
-                                                                                            <input type="number"
-                                                                                                class="form-control"
-                                                                                                step="0.01"
-                                                                                                id="carga_<%= indexSessao %>_<%= indexExercicio %>"
-                                                                                                name="exercicios[<%= indexExercicio %>][carga]"
-                                                                                                value="<%= exercicio.carga %>">
-                                                                                        </div>
-                                                                                        <% }); %>
-                                                                                            <% } else { %>
-                                                                                                <p>Não há exercícios
-                                                                                                    cadastrados para
-                                                                                                    esta sessão.</p>
-                                                                                                <% } %>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                <button type="submit" class="btn btn-primary">Salvar mudanças</button>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-secondary"
-                                                                                data-dismiss="modal">Fechar</button>
-                                                                            <button type="submit"
-                                                                                class="btn btn-primary">Salvar
-                                                                                mudanças</button>
-                                                                        </div>
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -377,81 +392,103 @@
                         document.addEventListener('DOMContentLoaded', () => {
                             let sessaoCount = 0;
                             const exercicios = <%- JSON.stringify(exercicios) %>; // Recebe a lista de exercícios do backend
-
+                    
                             // Função para adicionar uma nova sessão
                             const addSessao = () => {
                                 sessaoCount++;
                                 const sessaoContainer = document.createElement('div');
                                 sessaoContainer.classList.add('sessao');
                                 sessaoContainer.innerHTML = `
-                    <h6>Sessão ${sessaoCount}</h6>
-                    <div class="form-group">
-                        <label for="nome_sessao_${sessaoCount}">Nome da Sessão:</label>
-                        <input class="form-control" type="text" name="sessoes[${sessaoCount}][nome_da_sessao]" id="nome_sessao_${sessaoCount}" placeholder="Adicionar sessão">
-                    </div>
-                    <div class="exercicios-container pt-2" id="exercicios_${sessaoCount}">
-                        <label><strong>Adicionar exercícios à sessão:</strong></label>
-                    </div>
-                    <button type="button" class="btn btn-dark add-exercicio" data-sessao="${sessaoCount}">
-                        <i class="icon-copy dw dw-add"></i> Adicionar Exercício
-                    </button>
-                    <hr>
-                `;
+                                    <h6>Sessão ${sessaoCount}</h6>
+                                    <div class="form-group">
+                                        <label for="nome_sessao_${sessaoCount}">Nome da Sessão:</label>
+                                        <input class="form-control" type="text" name="sessoes[${sessaoCount}][nome_da_sessao]" id="nome_sessao_${sessaoCount}" placeholder="Adicionar sessão">
+                                    </div>
+                                    <div class="exercicios-container pt-2" id="exercicios_${sessaoCount}">
+                                        <label><strong>Adicionar exercícios à sessão:</strong></label>
+                                    </div>
+                                    <button type="button" class="btn btn-dark add-exercicio" data-sessao="${sessaoCount}">
+                                        <i class="icon-copy dw dw-add"></i> Adicionar Exercício
+                                    </button>
+                                    <hr>
+                                `;
                                 document.getElementById('sessoes-container').appendChild(sessaoContainer);
                             };
-
+                    
                             // Função para adicionar exercícios a uma sessão
                             const addExercicio = (sessaoId) => {
                                 const exerciciosContainer = document.getElementById(`exercicios_${sessaoId}`);
                                 const exercicioCount = exerciciosContainer.querySelectorAll('.form-group').length + 1;
-
+                    
                                 const exercicioDiv = document.createElement('div');
                                 exercicioDiv.classList.add('form-group');
-
+                    
                                 const selectAndQuantityHTML = `
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="exercicio_${sessaoId}_${exercicioCount}">- Exercício:</label>
-                            <select class="form-control exercicio-select" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][id]" id="exercicio_${sessaoId}_${exercicioCount}">
-                                <option value="">Selecione um exercício</option>
-                                ${exercicios.map(exercicio => `<option value="${exercicio.id}">${exercicio.nome_do_exercicio}</option>`).join('')}
-                            </select>
-                        </div>
-                        <div class="col-12 pt-2">
-                            <label for="series_${sessaoId}_${exercicioCount}">- Séries:</label>
-                            <input class="form-control" type="number" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][series]" id="series_${sessaoId}_${exercicioCount}" placeholder="Digite o número de séries">
-                        </div>
-                        <div class="col-12 pt-2">
-                            <label for="repeticoes_${sessaoId}_${exercicioCount}">- Repetições:</label>
-                            <input class="form-control" type="number" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][repeticoes]" id="repeticoes_${sessaoId}_${exercicioCount}" placeholder="Digite o número de repetições">
-                        </div>
-                        <div class="col-12 pt-2">
-                            <label for="carga_${sessaoId}_${exercicioCount}">- Carga (kg):</label>
-                            <input class="form-control" type="number" step="0.01" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][carga]" id="carga_${sessaoId}_${exercicioCount}" placeholder="Digite a carga">
-                        </div>
-                    </div>
-                `;
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label for="exercicio_${sessaoId}_${exercicioCount}">- Exercício:</label>
+                                            <select class="form-control exercicio-select" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][id]" id="exercicio_${sessaoId}_${exercicioCount}">
+                                                <option value="">Selecione um exercício</option>
+                                                ${exercicios.map(exercicio => `<option value="${exercicio.id}">${exercicio.nome_do_exercicio}</option>`).join('')}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-12  pt-2">
+                                            <label for="series_${sessaoId}_${exercicioCount}">- Séries:</label>
+                                            <input class="form-control" type="number" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][series]" id="series_${sessaoId}_${exercicioCount}" placeholder="Digite o número de séries">
+                                        </div>
+                                        <div class="col-sm-12  pt-2">
+                                            <label for="repeticoes_${sessaoId}_${exercicioCount}">- Repetições:</label>
+                                            <input class="form-control" type="number" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][repeticoes]" id="repeticoes_${sessaoId}_${exercicioCount}" placeholder="Digite o número de repetições">
+                                        </div>
+                                        <div class="col-sm-12  pt-2">
+                                            <label for="carga_${sessaoId}_${exercicioCount}">- Carga total:</label>
+                                            <input class="form-control" type="number" step="0.01" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][carga]" id="carga_${sessaoId}_${exercicioCount}" placeholder="Digite a carga">
+                                        </div>
+                                        
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-12  pt-2">
+                                            <label for="unidade_de_medida_carga_${sessaoId}_${exercicioCount}">- unidade_de_medida_carga :</label>
+                                            <input class="form-control" type="text" step="0.01" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][unidade_de_medida_carga]" id="unidade_de_medida_carga_${sessaoId}_${exercicioCount}" placeholder="Digite a 	unidade_de_medida_carga">
+                                        </div>
+                                        <div class="col-sm-12 pt-2">
+                                            <label for="equipamento_necessario_${sessaoId}_${exercicioCount}">- equipamento_necessario:</label>
+                                            <input class="form-control" type="text" step="0.01" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][equipamento_necessario]" id="equipamento_necessario_${sessaoId}_${exercicioCount}" placeholder="Digite o equipamento_necessario">
+                                        </div>
+                                        <div class="col-sm-12  pt-2">
+                                            <label for="tempo_de_descanso_${sessaoId}_${exercicioCount}">- Tempo de descanso (min):</label>
+                                            <input class="form-control" type="text" step="0.01" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][tempo_de_descanso]" id="tempo_de_descanso_${sessaoId}_${exercicioCount}" placeholder="Digite o tempo_de_descanso">
+                                        </div>
+                                        <div class="col-sm-12 pt-2">
+                                            <label for="nivel_de_dificuldade_${sessaoId}_${exercicioCount}">- nivel_de_dificuldade:</label>
+                                            <input class="form-control" type="text" step="0.01" name="sessoes[${sessaoId}][exercicios][${exercicioCount}][nivel_de_dificuldade]" id="nivel_de_dificuldade_${sessaoId}_${exercicioCount}" placeholder="Digite o nivel de dificuldade">
+                                        </div>
+                                        <hr>
+                                    </div>
+                                `;
                                 exercicioDiv.innerHTML = selectAndQuantityHTML;
                                 exerciciosContainer.appendChild(exercicioDiv);
-
+                    
                                 // Ativar o plugin Select2 para o campo select com busca
                                 $(`#exercicio_${sessaoId}_${exercicioCount}`).select2({
                                     placeholder: 'Selecione ou busque um exercício',
                                     width: '100%'
                                 });
                             };
-
+                    
                             // Event Listener para adicionar nova sessão
                             document.getElementById('add-sessao').addEventListener('click', addSessao);
-
+                    
                             // Event Listener para adicionar exercícios à sessão
                             document.getElementById('sessoes-container').addEventListener('click', (event) => {
-                                if (event.target.classList.contains('add-exercicio')) {
-                                    const sessaoId = event.target.dataset.sessao;
+                                if (event.target.classList.contains('add-exercicio') || event.target.closest('.add-exercicio')) {
+                                    const button = event.target.classList.contains('add-exercicio') ? event.target : event.target.closest('.add-exercicio');
+                                    const sessaoId = button.dataset.sessao;
                                     addExercicio(sessaoId);
                                 }
                             });
-
+                    
                             // Log para verificar os dados enviados ao submeter o formulário
                             document.getElementById('treino-form').addEventListener('submit', (event) => {
                                 console.log("Dados enviados:");
@@ -462,6 +499,7 @@
                             });
                         });
                     </script>
+                    
 
 
 </body>

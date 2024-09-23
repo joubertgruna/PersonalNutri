@@ -68,26 +68,60 @@
                 </div>
                 
             </div>
-            <form id="createExercicioForm" method="post" action="/admin/edit-exercicio/<%=exercicios.id%>">
-                                 
+            <form id="createExercicioForm" method="post" action="/admin/edit-exercicio/<%= exercicios.id %>" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Nome</label>
-                    <input class="form-control" type="text" name="nome_do_exercicio" value="<%=exercicios.nome_do_exercicio%>">
+                    <input class="form-control" type="text" name="nome_do_exercicio" value="<%= exercicios.nome_do_exercicio %>">
                 </div>
+                
                 <div class="form-group">
                     <label>Descrição</label>
-                    <input class="form-control" type="text" name="descricao" value="<%=exercicios.descricao%>">
+                    <input class="form-control" type="text" name="descricao" value="<%= exercicios.descricao %>">
                 </div>
                 
                 <div class="form-group">
                     <label>Grupamento Muscular</label>
-                    <input class="form-control" type="text" name="grupamento_muscular" value="<%=exercicios.grupamento_muscular%>">
+                    <input class="form-control" type="text" name="grupamento_muscular" value="<%= exercicios.grupamento_muscular %>">
+                </div>
+                
+               <!-- Exibir a imagem atual -->
+<% if (exercicios.img_url) { %>
+    <div class="form-group">
+        <label>Visualizar exercicio:</label>
+        <div style="position: relative;">
+            <!-- <img src="/<%= exercicios.img_url %>" alt="Imagem do Exercicio" style="max-width: 200px; cursor: pointer;" data-toggle="modal" data-target="#imagemModal"> -->
+
+            <i style="font-size: large;" class="icon-copy dw dw-expand" data-toggle="modal" data-target="#imagemModal"></i>
+        </div>
+    </div>
+<% } %>
+                
+                <!-- Campo para alterar a imagem -->
+                <div class="form-group">
+                    <label>Alterar Imagem</label>
+                    <input type="file" class="form-control" name="imagem">
                 </div>
                 
                 <button class="btn btn-success" type="submit">Editar</button>
                 <a class="btn btn-secondary" href="/admin/list-exercicios">Voltar</a>
             </form>
             
+            
+            <div class="modal fade" id="imagemModal" tabindex="-1" role="dialog" aria-labelledby="imagemModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imagemModalLabel">Imagem do Exercício</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="/<%= exercicios.img_url %>" alt="Imagem do Exercício" style="width: auto; height: auto;" >
+                        </div>
+                    </div>
+                </div>
+            </div>
             
         </div>
         <!-- horizontal Basic Forms End -->

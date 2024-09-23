@@ -4,6 +4,9 @@ const qs = require('qs'); // Importando o pacote qs
 const knex = require('../db/conn');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
+const path = require('path')
+const fs = require('fs'); // Adicionando o módulo fs
 // const authenticateToken = require('./middleware/authenticateToken')
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -58,7 +61,6 @@ function authorizeClient(req, res, next) {
     }
     next();
 }
-
 
 // Rota para carregar a página inicial de acordo com o tipo de usuário
 router.get('/', authenticateToken, getUserDetails, authorizeProfessional, (req, res) => {
@@ -879,21 +881,33 @@ router.post('/create-treino', async (req, res) => {
     }
 });
 // Listar treino
-router.get('/list-treinos', authenticateToken, getUserDetails, authorizeProfessional, (req, res) => {
+// Listar treinos com informações dos clientes vinculados
+router.get('/list-treinos', authenticateToken, getUserDetails, authorizeProfessional, async (req, res) => {
     const user = req.userDetails;
-    // Função para listar todos os alimentos do banco de dados
+
     try {
-        const treinos = knex.select('*').from('treinos');
-        treinos.then((treinos) => {
-            console.log('exercicios:', treinos);
-            res.render('./boardMain/listTreinos', {user: user, title: 'Listar Exercicios', treino: treinos })
-        })
+        // Buscando os treinos e as informações do cliente vinculado
+        const treinos = await knex('treinos')
+            .select('treinos.*', 'clientes.nome as nome_cliente', 'clientes.email as email_cliente')
+            .leftJoin('clientes', 'treinos.clienteId', 'clientes.id'); // Fazendo o join entre treinos e clientes
+
+        // Verificando se os dados foram recuperados corretamente
+        console.log('Treinos com informações dos clientes:', treinos);
+
+        // Renderizando a view e passando os dados do treino e do cliente
+        res.render('./boardMain/listTreinos', {
+            user: user,
+            title: 'Listar Treinos',
+            treino: treinos // Passando as informações dos treinos com os clientes para a view
+        });
 
     } catch (error) {
-        console.error('Erro ao listar os gpmusculares', error);
+        console.error('Erro ao listar os treinos com os clientes:', error);
+        res.status(500).send('Erro ao listar os treinos.');
     }
+});
 
-})
+
 // Editar treino
 // Rota para editar um treino e exibir exercícios cadastrados
 router.get('/edit-treino/:id', authenticateToken, getUserDetails, authorizeProfessional, async (req, res) => {
@@ -985,21 +999,85 @@ router.post('/delete-treino', (req, res) => {
     console.log('DELETED::: ', id)
 })
 
-// Rota para criar sessões de treino
-router.post('/create-sessao', (req, res) => {
-    const { nome_da_sessao, treinoId } = req.body; // Alterado para treinoId, uma vez que estamos lidando com sessões e treinos
+router.post('/create-sessao', async (req, res) => {
+    const { treinoId, sessoes } = req.body;
+    console.log('DT: ', req.body);
 
-    knex('sessoes')
-        .insert({ nome_da_sessao: nome_da_sessao, treinoId : 1}) // Alterado para 'sessoes' e 'treinoId'
-        .then(() => {
-            res.redirect(`/admin/edit-treino/${treinoId}`); // Redireciona para a página de edição do treino
-        })
-        .catch(error => {
-            console.error('Erro ao criar sessão:', error);
-            res.status(500).send('Erro ao criar sessão');
-        });
+    // Validação inicial
+    if (!treinoId) {
+        return res.status(400).send('ID do treino não fornecido.');
+    }
+
+    if (!sessoes || Object.keys(sessoes).length === 0) {
+        return res.status(400).send('Nenhuma sessão foi fornecida.');
+    }
+
+    try {
+        // Iterar sobre cada sessão
+        for (const sessaoKey in sessoes) {
+            const sessao = sessoes[sessaoKey];
+            const { nome_da_sessao, exercicios } = sessao;
+
+            // Validar o nome da sessão
+            if (!nome_da_sessao) {
+                return res.status(400).send('Nome da sessão não fornecido.');
+            }
+
+            // Inserir a sessão no banco de dados e obter o ID gerado
+            const [sessaoId] = await knex('sessoes')
+                .insert({ nome_da_sessao, treinoId })
+                .returning('id');
+
+            console.log("ID da Sessão Criada:", sessaoId);
+
+            // Verificar se existem exercícios para essa sessão
+            if (exercicios && Object.keys(exercicios).length > 0) {
+                const exerciciosData = [];
+
+                for (const exercicioKey in exercicios) {
+                    const exercicio = exercicios[exercicioKey];
+                    const { id: exercicioId, series, repeticoes, carga,
+                        unidade_de_medida_carga,
+                        equipamento_necessario,
+                        tempo_de_descanso,
+                        nivel_de_dificuldade } = exercicio;
+
+                    // Validar os campos obrigatórios dos exercícios
+                    if (!exercicioId || !series || !repeticoes || !carga || !unidade_de_medida_carga 
+                        || !equipamento_necessario
+                        || !tempo_de_descanso || !nivel_de_dificuldade
+                    ) {
+                        return res.status(400).send('Dados incompletos para o exercício.');
+                    }
+
+                    exerciciosData.push({
+                        sessaoId, // Certifique-se de que este ID é válido
+                        exercicioId,
+                        series,
+                        repeticoes,
+                        carga,
+                        unidade_de_medida_carga,
+                        equipamento_necessario,
+                        tempo_de_descanso,
+                        nivel_de_dificuldade
+                        // Adicione o campo se necessário
+                    });
+                }
+
+                // Inserir todos os exercícios da sessão de uma vez
+                await knex('sessao_exercicio').insert(exerciciosData);
+            } else {
+                console.log(`Nenhum exercício encontrado para a sessão: ${nome_da_sessao}`);
+            }
+        }
+
+        // Redirecionar para a página de edição do treino após a criação
+        res.redirect(`/admin/edit-treino/${treinoId}`);
+    } catch (error) {
+        console.error('Erro ao criar sessão e adicionar exercícios:', error);
+        res.status(500).send('Erro ao criar sessão e adicionar exercícios.');
+    }
 });
-
 
 router.post('/add-exercicio-sessao', (req, res) => {
     const { sessaoId, exercicioId, series, repeticoes, carga, treinoId } = req.body;
@@ -1136,25 +1214,58 @@ router.get('/create-exercicio', authenticateToken, getUserDetails, authorizeProf
     const user = req.userDetails;
     res.render('./boardMain/createExercicio', { user: user, title: 'Criar Eexercicio' })
 })
-router.post('/create-exercicio',  (req, res) => {
-    const nome_do_exercicio = req.body.nome_do_exercicio;
-    const descricao = req.body.descricao;
-    const grupamento_muscular = req.body.grupamento_muscular;
-    // Insere os dados do personais no banco de dados
-
-    knex('exercicios').insert({
+// Certifique-se de que multer está antes de qualquer outro middleware que lide com o body
+  
+/* POST create exercicio page */
+router.post('/create-exercicio', async (req, res) => {
+    var nome_do_exercicio = req.body.nome_do_exercicio;
+    var descricao = req.body.descricao;
+    var grupamento_muscular = req.body.grupamento_muscular;
+  
+    // Validação de dados
+    if (!nome_do_exercicio || !descricao || !grupamento_muscular) {
+      console.log('Erro: Todos os campos são obrigatórios.');
+      return res.redirect('/admin/create-exercicio');
+    }
+  
+    try {
+      // Processamento do upload da imagem
+      let imagePath = null;
+      if (req.files && req.files.img_url) {
+        const imagem = req.files.img_url;
+        const uploadDir = path.join(__dirname, '../uploads/exercicios/');
+  
+        // Verifique se o diretório existe e, se não, crie-o
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+        }
+  
+        const uploadPath = path.join(uploadDir, imagem.name);
+  
+        // Mover o arquivo para a pasta de uploads
+        await imagem.mv(uploadPath);
+        
+        // Salvar o caminho da imagem
+        imagePath = `uploads/exercicios/${imagem.name}`;
+      }
+  
+      // Inserir os dados no banco de dados, incluindo o caminho da imagem
+      await knex('exercicios').insert({
         nome_do_exercicio: nome_do_exercicio,
         descricao: descricao,
         grupamento_muscular: grupamento_muscular,
-    })
-        .then((exercicio) => {
-            res.redirect('/admin/list-exercicios'); // Move a chamada para dentro deste callback
-        })
-        .catch((error) => {
-            console.error('Erro ao inserir o exercicio:', error);
-            res.status(500).send(`Erro ao inserir o exercicio: ${error.message}`);
-        });
-})
+        img_url: imagePath,  // Caminho da imagem
+        // created_at: dateTime
+      });
+  
+      console.log('Exercício cadastrado com sucesso!');
+      res.redirect('/admin/list-exercicios');
+    } catch (error) {
+      console.error('Erro ao cadastrar o exercício:', error);
+      res.redirect('/admin/create-exercicio');
+    }
+  });
+
 // Listar exercicio
 router.get('/list-exercicios', authenticateToken, getUserDetails, authorizeProfessional,(req, res) => {
     const user = req.userDetails;
@@ -1171,54 +1282,81 @@ router.get('/list-exercicios', authenticateToken, getUserDetails, authorizeProfe
     }
 
 })
-// Editar exercicio
-router.get('/edit-exercicio/:id', authenticateToken, getUserDetails, authorizeProfessional,(req, res) => {
+
+// Rota GET para exibir o formulário de edição com a imagem atual
+router.get('/edit-exercicio/:id', authenticateToken, getUserDetails, authorizeProfessional, (req, res) => {
     const user = req.userDetails;
-    var id = req.params.id;
-    try {
-        const exercicios = knex.select('*').from('exercicios').where({ id: id }).first();
-        exercicios.then((exercicios) => {
-            if (exercicios) {
-                // console.log('personais encontrado:', personais);
-            } else {
-                console.log('Nenhum exercicio encontrado com o ID fornecido.');
-            }
-            res.render('./boardMain/editExercicio', {user: user, title: 'Editar Exercicio', id: id, exercicios: exercicios })
-        })
-    } catch (error) {
-        console.error('Erro ao selecionar o exercicio:', error);
-    }
-})
-router.post('/edit-exercicio/:id', (req, res) => {
     const id = req.params.id;
-    const nome_do_exercicio = req.body.nome_do_exercicio;
-    const descricao = req.body.descricao;
-    const grupamento_muscular = req.body.grupamento_muscular;
-    const series = req.body.series;
-    const repeticoes_por_serie = req.body.repeticoes_por_serie;
-    const carga_por_lado = req.body.carga_por_lado
-    const unidade_de_medida_carga = req.body.unidade_de_medida_carga;
-    const equipamento_necessario = req.body.equipamento_necessario;
-    const tempo_de_descanso = req.body.tempo_de_descanso;
-    const nivel_de_dificuldade = req.body.nivel_de_dificuldade;
-    // Insere os dados do personais no banco de dadosc
-
-    const validate = {
-        nome_do_exercicio, descricao, grupamento_muscular, series,
-        repeticoes_por_serie, carga_por_lado, unidade_de_medida_carga,
-        equipamento_necessario, tempo_de_descanso, nivel_de_dificuldade
-    };
-
-    knex('exercicios').where({ id: id }).update(validate)
-        .then(() => {
-            console.log('Exercicio atualizado com sucesso!', [validate]);
-            res.redirect(`/admin/edit-exercicio/${id}`);
-        })
-        .catch((error) => {
-            console.error('Erro ao atualizar o ergogenico:', error);
-            res.status(500).send('Erro ao atualizar o ergogenico');
+    
+    try {
+        knex('exercicios').where({ id: id }).first()
+        .then((exercicio) => {
+            if (exercicio) {
+                res.render('./boardMain/editExercicio', { user: user, title: 'Editar Exercicio', exercicios: exercicio });
+            } else {
+                console.log('Nenhum exercício encontrado com o ID fornecido.');
+                res.redirect('/admin/list-exercicios');
+            }
         });
-})
+    } catch (error) {
+        console.error('Erro ao selecionar o exercício:', error);
+        res.status(500).send('Erro ao buscar o exercício.');
+    }
+});
+// Rota POST para processar a edição, incluindo o upload da nova imagem
+router.post('/edit-exercicio/:id', authenticateToken, authorizeProfessional, (req, res) => {
+    const { nome_do_exercicio, descricao, grupamento_muscular } = req.body;
+    const id = req.params.id;
+
+    try {
+        // Verifica se um novo arquivo de imagem foi enviado
+        if (req.files && req.files.imagem) {
+            const imagem = req.files.imagem;
+            const uploadPath = path.join(__dirname, '../uploads/exercicios/', imagem.name);
+
+            // Mover o arquivo para a pasta de uploads
+            imagem.mv(uploadPath, async (err) => {
+                if (err) {
+                    console.error('Erro ao mover o arquivo:', err);
+                    return res.status(500).send('Erro ao processar o upload da imagem.');
+                }
+
+                const img_url = `uploads/exercicios/${imagem.name}`;
+
+                // Atualizar os dados do exercício no banco de dados, incluindo o caminho da imagem
+                await knex('exercicios')
+                    .where({ id: id })
+                    .update({
+                        nome_do_exercicio,
+                        descricao,
+                        grupamento_muscular,
+                        img_url // Atualiza a imagem se foi enviada
+                    });
+
+                res.redirect('/admin/list-exercicios');
+            });
+        } else {
+            // Se não houver nova imagem, atualiza apenas os outros dados
+            knex('exercicios')
+                .where({ id: id })
+                .update({
+                    nome_do_exercicio,
+                    descricao,
+                    grupamento_muscular
+                })
+                .then(() => {
+                    res.redirect('/admin/list-exercicios');
+                })
+                .catch((error) => {
+                    console.error('Erro ao atualizar o exercício:', error);
+                    res.status(500).send('Erro ao atualizar o exercício.');
+                });
+        }
+    } catch (error) {
+        console.error('Erro ao processar a edição:', error);
+        res.status(500).send('Erro ao processar a edição.');
+    }
+});
 // Deletar exercicio
 router.post('/delete-exercicio', (req, res) => {
     var id = req.body.id
@@ -1236,53 +1374,6 @@ router.post('/delete-exercicio', (req, res) => {
     console.log('DELETED::: ', id)
 })
 
-
-// router.post('/criar-dieta', async (req, res) => {
-//     const {
-//         nome_da_dieta,
-//         descricao_da_dieta,
-//         objetivo_da_dieta,
-//         duracao_estimada,
-//         nivel_de_dificuldade,
-//         calorias_diarias,
-//         proteinas,
-//         carboidratos,
-//         gorduras,
-//         alimentos
-//     } = req.body;
-
-//     try {
-//         // Inserindo a dieta
-//         const [dieta_id] = await knex('dietas').insert({
-//             nome_da_dieta,
-//             descricao_da_dieta,
-//             objetivo_da_dieta,
-//             duracao_estimada,
-//             nivel_de_dificuldade,
-//             calorias_diarias,
-//             proteinas,
-//             carboidratos,
-//             gorduras,
-//             clienteId: 7,
-//             alimentoId: 11,
-//             // suplementoId: 3,
-//             // ergogenicoId: 1 // Assumindo que você tem autenticação e o ID do usuário logado está disponível
-//         });
-
-//         // Inserindo os alimentos na dieta
-//         // for (const alimento_id of alimentos) {
-//         //     await knex('dietas').insert({
-//         //         dieta_id,
-//         //         alimento_id
-//         //     });
-//         // }
-
-//         res.redirect(`/admin/list-dietas`); // Redirecionar para o perfil do cliente ou outro caminho desejado
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('Erro ao criar dieta');
-//     }
-// });
 router.get('/alimentos', authenticateToken, getUserDetails, authorizeProfessional, async (req, res) => {
     const user = req.userDetails;
     try {

@@ -28,13 +28,15 @@ app.use(logger('dev'));
 app.use(express.json());
 
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // Configuração do middleware para o upload de arquivos
 app.use(fileUpload());
 // Serve o diretório 'uploads' de forma estática
 app.use('/uploads', express.static(path.join(__dirname, 'routes', 'uploads')));
+// Serve o diretório 'uploads' de imagens de posts de blog (pasta dentro de 'myapp/uploads')
+app.use('/uploads/exercicios', express.static(path.join(__dirname, 'uploads', 'exercicios')));
 
 app.use('/admin', boardMain);
 app.use('/nutri', boardNutri);
